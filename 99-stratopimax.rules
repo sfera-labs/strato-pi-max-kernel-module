@@ -1,0 +1,1 @@
+SUBSYSTEM=="stratopimax", PROGRAM="/bin/sh -c 'find -L /sys/class/stratopimax/ -maxdepth 2 -exec chown root:stratopimax {} \; || true'"
