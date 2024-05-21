@@ -515,7 +515,6 @@ All properties' attributes are summarized here:
             <td rowspan=4>red</td>
             <td rowspan=4>Red LED control</td>
             <td rowspan=4>
-                <code>R</code>
                 <code>W</code>
                 <code>CS</code>
             </td>
@@ -539,7 +538,6 @@ All properties' attributes are summarized here:
             <td rowspan=4>green</td>
             <td rowspan=4>Green LED control</td>
             <td rowspan=4>
-                <code>R</code>
                 <code>W</code>
                 <code>CS</code>
             </td>
