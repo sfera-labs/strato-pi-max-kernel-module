@@ -275,7 +275,7 @@ All properties' attributes are summarized here:
         <!-- ------------- -->
         <tr>
             <td rowspan=2>pcie_switch</td>
-            <td rowspan=2>PCIE on/off switch configuration on power cycle</td>
+            <td rowspan=2>PCIE on/off toggle configuration on power cycle</td>
             <td rowspan=2>
                 <code>R</code>
                 <code>W</code>
@@ -375,7 +375,7 @@ All properties' attributes are summarized here:
         </tr>
         <tr>
             <td>1 ... 65535</td>
-            <td>Number of resets before on/off switching occours</td>
+            <td>Number of resets before on/off toggling occours</td>
         </tr>
         <!-- ------------- -->
         <tr>
