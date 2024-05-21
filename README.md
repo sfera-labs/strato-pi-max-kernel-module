@@ -463,7 +463,6 @@ All properties' attributes are summarized here:
             <td rowspan=4>beep</td>
             <td rowspan=4>Buzzer beep control</td>
             <td rowspan=4>
-                <code>R</code>
                 <code>W</code>
                 <code>CS</code>
             </td>
