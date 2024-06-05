@@ -69,7 +69,7 @@ The following paragraphs list all the devices (directories) and properties (file
 
 You can write and/or read these files to configure, monitor and control your Strato Pi Max. The kernel module will take care of performing the corresponding GPIO or I2C operations.
 
-Some properties corresponds to configuration parameters. Some are permanently saved each time they are changed, so that their value is retained across power cycles. Other are not persistent, i.e. their values are reset to default after a power cycle. To change the default values use the `/system/config` file (see below).
+Some properties corresponds to configuration parameters. Some are permanently saved each time they are changed, so that their value is retained across power cycles. Other are not persistent, i.e. their values are reset to default after a power cycle. To change the default values use the `system/config` file (see below).
 
 This allows us to have a different configuration during the power up phase, even after an abrupt shutdown. For instance, you may want a short watchdog timeout while your application is running, but it needs to be reset to a longer timeout when a power cycle occurs so that Strato Pi Max has the time to boot and restart your application handling the watchdog heartbeat.
 
@@ -83,7 +83,7 @@ All properties' attributes are summarized here:
 |`W`|Writable|
 |`RC`|Readable. Cleared when read|
 |`WF`|Writable only when expansion board is off|
-|`CS`|Configuration value, not persisted, unless configuration saved after modification via `/system/config`|
+|`CS`|Configuration value, not persisted, unless configuration saved after modification via `system/config`|
 |`CP`|Configuration value, persisted when written|
 
 #### System - `/sys/class/stratopimax/system/`
