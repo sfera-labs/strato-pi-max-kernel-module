@@ -1,5 +1,7 @@
 /DEV-*
 
+.vscode/
+
 .settings/
 .project
 .cproject

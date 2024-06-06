@@ -4,7 +4,7 @@
 #include <linux/device.h>
 
 ssize_t devAttrAteccSerial_show(struct device *dev,
-		struct device_attribute *attr, char *buf);
+                                struct device_attribute *attr, char *buf);
 
 void ateccAddDriver(void);
 
