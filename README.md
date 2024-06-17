@@ -69,9 +69,19 @@ The following paragraphs list all the devices (directories) and properties (file
 
 You can write and/or read these files to configure, monitor and control your Strato Pi Max. The kernel module will take care of performing the corresponding GPIO or I2C operations.
 
-Some properties corresponds to configuration parameters. Some are permanently saved each time they are changed, so that their value is retained across power cycles. Other are not persistent, i.e. their values are reset to default after a power cycle. To change the default values use the `system/config` file (see below).
+Properties with the `_config` name suffix correspond to configuration parameters whose values are persisted and retained across power cycles.    
+The configuration parameters with attribute `CR` (see the <a href="#attributes">attributes table</a> below) are effective immediately, while those marked with `C` only store the value which will be copied to their "runtime" counterpart (same property name without `_config` suffix) upon power-up.
 
-This allows us to have a different configuration during the power up phase, even after an abrupt shutdown. For instance, you may want a short watchdog timeout while your application is running, but it needs to be reset to a longer timeout when a power cycle occurs so that Strato Pi Max has the time to boot and restart your application handling the watchdog heartbeat.
+> [!NOTE]  
+> A *power-up* occurs when:
+>
+> - the unit is powered on (main power supply connected);
+> - a power cycle is explicitly initiated via `power/down_enabled`; or
+> - a power cycle is initiated by another process configured to do so (e.g. watchdog timeout expiration).
+>
+> A software reboot of the compute module does **not** correspond to a power-up. 
+
+This allows us to have a different configuration for the next power-up phase, whether after a planned or abrupt power-off. For example, it enables switching the boot SD card while the compute module is off or setting a short watchdog timeout only while your application (which manages the watchdog heartbeat) is running; the timeout is then reset to a longer duration when a power cycle occurs, ensuring the compute module has enough time to boot and restart your application.
 
 <a name="attributes"></a>
 
@@ -83,8 +93,8 @@ All properties' attributes are summarized here:
 |`W`|Writable|
 |`RC`|Readable. Cleared when read|
 |`WF`|Writable only when expansion board is off|
-|`CS`|Configuration value, not persisted, unless configuration saved after modification via `system/config`|
-|`CP`|Configuration value, persisted when written|
+|`C`|Configuration value, persisted and retained across power cycles, value copied to "runtime" counterpart on power cycle|
+|`CR`|Configuration value, persisted and retained across power cycles, effective immediately|
 
 #### System - `/sys/class/stratopimax/system/`
 
@@ -111,15 +121,11 @@ All properties' attributes are summarized here:
         </tr>
         <!-- ------------- -->
         <tr>
-            <td rowspan=2>config</td>
-            <td rowspan=2>Configuration commands</td>
-            <td rowspan=2>
+            <td>config</td>
+            <td>Configuration commands</td>
+            <td>
                 <code>W</code>
             </td>
-            <td>S</td>
-            <td>Save the current configuration as default to be retained across power cycles</td>
-        </tr>
-        <tr>
             <td>R</td>
             <td>Restore the factory configuration</td>
         </tr>
@@ -193,80 +199,83 @@ All properties' attributes are summarized here:
         <tr>
             <td rowspan=2>down_enabled</td>
             <td rowspan=2>Delayed power cycle enabling</td>
-            <td rowspan=2>
+            <td>
                 <code>R</code>
-                <code>W</code>
             </td>
             <td>0</td>
             <td>Disabled</td>
         </tr>
         <tr>
+            <td>
+                <code>R</code>
+                <code>W</code>
+            </td>
             <td>1</td>
-            <td>Enabled</td>
+            <td>Enabled. Once enabled cannot be interrupted</td>
         </tr>
         <!-- ------------- -->
         <tr>
-            <td>down_delay</td>
+            <td>down_delay_config</td>
             <td>Shutdown delay from enabling</td>
             <td>
                 <code>R</code>
                 <code>W</code>
-                <code>CS</code>
+                <code>CR</code>
             </td>
             <td>1 ... 65535</td>
             <td>Value in seconds. Default: 60</td>
         </tr>
         <!-- ------------- -->
         <tr>
-            <td>off_time</td>
-            <td>Power off duration</td>
+            <td>off_time_config</td>
+            <td>Power-off duration</td>
             <td>
                 <code>R</code>
                 <code>W</code>
-                <code>CS</code>
+                <code>CR</code>
             </td>
             <td>1 ... 65535</td>
             <td>Value in seconds. Default: 5</td>
         </tr>
         <!-- ------------- -->
         <tr>
-            <td>up_delay</td>
+            <td>up_delay_config</td>
             <td>Power-up delay configuration</td>
             <td>
                 <code>R</code>
                 <code>W</code>
-                <code>CS</code>
+                <code>CR</code>
             </td>
             <td>1 ... 65535</td>
             <td>Value in seconds. Default: 0</td>
         </tr>
         <!-- ------------- -->
         <tr>
-            <td rowspan=2>up_mode</td>
-            <td rowspan=2>Power-up mode configuration when power cycle occurring while main power not available (requires UPS expansion board)</td>
+            <td rowspan=2>up_backup_config</td>
+            <td rowspan=2>Configuration for enabling power-up when a power cycle occurs while main power is not available (requires UPS expansion board)</td>
             <td rowspan=2>
                 <code>R</code>
                 <code>W</code>
-                <code>CS</code>
+                <code>CR</code>
             </td>
-            <td>M</td>
-            <td>Power up only when main power is restored</td>
+            <td>0</td>
+            <td>Power-up only when main power is restored (default)</td>
         </tr>
         <tr>
-            <td>A</td>
-            <td>Always: power up even if running on battery, with no main power available</td>
+            <td>1</td>
+            <td>Power-up even if running on backup power source (UPS battery)</td>
         </tr>
         <!-- ------------- -->
         <tr>
-            <td rowspan=2>sd_switch</td>
+            <td rowspan=2>sd_switch_config</td>
             <td rowspan=2>SDA/SDB switch configuration on power cycle</td>
             <td rowspan=2>
                 <code>R</code>
                 <code>W</code>
-                <code>CS</code>
+                <code>CR</code>
             </td>
             <td>0</td>
-            <td>Disabled</td>
+            <td>Disabled (default)</td>
         </tr>
         <tr>
             <td>1</td>
@@ -274,15 +283,15 @@ All properties' attributes are summarized here:
         </tr>
         <!-- ------------- -->
         <tr>
-            <td rowspan=2>pcie_switch</td>
+            <td rowspan=2>pcie_switch_config</td>
             <td rowspan=2>PCIE on/off toggle configuration on power cycle</td>
             <td rowspan=2>
                 <code>R</code>
                 <code>W</code>
-                <code>CS</code>
+                <code>CR</code>
             </td>
             <td>0</td>
-            <td>Disabled</td>
+            <td>Disabled (default)</td>
         </tr>
         <tr>
             <td>1</td>
@@ -312,7 +321,6 @@ All properties' attributes are summarized here:
             <td rowspan=2>
                 <code>R</code>
                 <code>W</code>
-                <code>CS</code>
             </td>
             <td>0</td>
             <td>Disabled</td>
@@ -323,59 +331,94 @@ All properties' attributes are summarized here:
         </tr>
         <!-- ------------- -->
         <tr>
+            <td rowspan=2>enabled_config</td>
+            <td rowspan=2>Watchdog enabling configuration</td>
+            <td rowspan=2>
+                <code>R</code>
+                <code>W</code>
+                <code>C</code>
+            </td>
+            <td>0</td>
+            <td>Disabled (default)</td>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>Enabled</td>
+        </tr>
+        <!-- ------------- -->
+        <tr>
             <td>timeout</td>
+            <td>Watchdog timeout</td>
+            <td>
+                <code>R</code>
+                <code>W</code>
+            </td>
+            <td>1 ... 65535</td>
+            <td>Value in seconds. Default: 60</td>
+        </tr>
+        <!-- ------------- -->
+        <tr>
+            <td>timeout_config</td>
             <td>Watchdog timeout configuration</td>
             <td>
                 <code>R</code>
                 <code>W</code>
-                <code>CS</code>
+                <code>C</code>
             </td>
-            <td>1 ... 65535</td>
+            <td>60 ... 65535</td>
             <td>Value in seconds. Default: 60</td>
         </tr>
         <!-- ------------- -->
         <tr>
-            <td>down_delay</td>
+            <td>down_delay_config</td>
             <td>Automatic power cycle delay configuration when watchdog timeout expires</td>
             <td>
                 <code>R</code>
                 <code>W</code>
-                <code>CS</code>
+                <code>CR</code>
             </td>
-            <td>1 ... 65535</td>
+            <td>0 ... 65535</td>
             <td>Value in seconds. Default: 60</td>
         </tr>
         <!-- ------------- -->
         <tr>
-            <td rowspan=2>sd_switch</td>
-            <td rowspan=2>SDA/SDB switch configuration on watchdog reset, if no heartbeat is detected</td>
-            <td rowspan=2>
+            <td rowspan=3>sd_switch_config</td>
+            <td rowspan=3>SDA/SDB switch configuration on watchdog reset</td>
+            <td rowspan=3>
                 <code>R</code>
                 <code>W</code>
-                <code>CS</code>
+                <code>CR</code>
             </td>
             <td>0</td>
-            <td>Disabled</td>
+            <td>Disabled (default)</td>
         </tr>
         <tr>
-            <td>1 ... 65535</td>
-            <td>Number of resets before switching occours</td>
+            <td>1</td>
+            <td>Switching occours upon each watchdog reset</td>
+        </tr>
+        <tr>
+            <td>2 ... 65535</td>
+            <td>Number of consecutive resets (with no heartbeat received in between) before switching occours. Requires <code>watchdog/enabled_config</code> set to <code>1</code></td>
         </tr>
         <!-- ------------- -->
         <tr>
-            <td rowspan=2>pcie_switch</td>
-            <td rowspan=2>PCIE enable configuration on watchdog reset, if no heartbeat is detected</td>
-            <td rowspan=2>
+            <td rowspan=3>pcie_switch_config</td>
+            <td rowspan=3>PCIE on/off toggle configuration on watchdog reset</td>
+            <td rowspan=3>
                 <code>R</code>
                 <code>W</code>
-                <code>CS</code>
+                <code>CR</code>
             </td>
             <td>0</td>
-            <td>Disabled</td>
+            <td>Disabled (default)</td>
         </tr>
         <tr>
-            <td>1 ... 65535</td>
-            <td>Number of resets before on/off toggling occours</td>
+            <td>1</td>
+            <td>Toggling occours upon each watchdog reset</td>
+        </tr>
+        <tr>
+            <td>2 ... 65535</td>
+            <td>Number of consecutive resets (with no heartbeat received in between) before toggling occours. Requires <code>watchdog/enabled_config</code> set to <code>1</code></td>
         </tr>
         <!-- ------------- -->
         <tr>
@@ -464,7 +507,6 @@ All properties' attributes are summarized here:
             <td rowspan=4>Buzzer beep control</td>
             <td rowspan=4>
                 <code>W</code>
-                <code>CS</code>
             </td>
             <td>0</td>
             <td>Off</td>
@@ -488,7 +530,6 @@ All properties' attributes are summarized here:
             <td>
                 <code>R</code>
                 <code>W</code>
-                <code>CS</code>
             </td>
             <td>0 ... 65535</td>
             <td>Value in Hz</td>
@@ -516,7 +557,6 @@ All properties' attributes are summarized here:
             <td rowspan=4>Red LED control</td>
             <td rowspan=4>
                 <code>W</code>
-                <code>CS</code>
             </td>
             <td>0</td>
             <td>Off</td>
@@ -539,7 +579,6 @@ All properties' attributes are summarized here:
             <td rowspan=4>Green LED control</td>
             <td rowspan=4>
                 <code>W</code>
-                <code>CS</code>
             </td>
             <td>0</td>
             <td>Off</td>
@@ -580,7 +619,6 @@ All properties' attributes are summarized here:
             <td rowspan=2>
                 <code>R</code>
                 <code>W</code>
-                <code>CS</code>
             </td>
             <td>0</td>
             <td>Disabled</td>
@@ -588,6 +626,22 @@ All properties' attributes are summarized here:
         <tr>
             <td>1</td>
             <td>Enabled</td>
+        </tr>
+        <!-- ------------- -->
+        <tr>
+            <td rowspan=2>usb1_enabled_config</td>
+            <td rowspan=2>USB1 enabling configuration</td>
+            <td rowspan=2>
+                <code>R</code>
+                <code>W</code>
+                <code>C</code>
+            </td>
+            <td>0</td>
+            <td>Disabled</td>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>Enabled (default)</td>
         </tr>
         <!-- ------------- -->
         <tr>
@@ -610,7 +664,6 @@ All properties' attributes are summarized here:
             <td rowspan=2>
                 <code>R</code>
                 <code>W</code>
-                <code>CS</code>
             </td>
             <td>0</td>
             <td>Disabled</td>
@@ -618,6 +671,22 @@ All properties' attributes are summarized here:
         <tr>
             <td>1</td>
             <td>Enabled</td>
+        </tr>
+        <!-- ------------- -->
+        <tr>
+            <td rowspan=2>usb2_enabled_config</td>
+            <td rowspan=2>USB2 enabling configuration</td>
+            <td rowspan=2>
+                <code>R</code>
+                <code>W</code>
+                <code>C</code>
+            </td>
+            <td>0</td>
+            <td>Disabled</td>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>Enabled (default)</td>
         </tr>
         <!-- ------------- -->
         <tr>
@@ -652,64 +721,70 @@ All properties' attributes are summarized here:
     <!-- ================= -->
     <tbody>
         <tr>
-            <td rowspan=3>sd_main_enabled</td>
-            <td rowspan=3>Main SD interface enabling</td>
-            <td rowspan=3>
-                <code>R</code>
-                <code>W</code>
-                <code>CS</code>
-            </td>
-            <td>0</td>
-            <td>Disabled</td>
-        </tr>
-        <tr>
-            <td>1</td>
-            <td>Enabled</td>
-        </tr>
-        <tr>
-            <td>2</td>
-            <td>Disabled, reset to enabled upon power cycle</td>
-        </tr>
-        <!-- ------------- -->
-        <tr>
-            <td rowspan=3>sd_sec_enabled</td>
-            <td rowspan=3>Secondary SD interface enabling</td>
-            <td rowspan=3>
-                <code>R</code>
-                <code>W</code>
-                <code>CS</code>
-            </td>
-            <td>0</td>
-            <td>Disabled</td>
-        </tr>
-        <tr>
-            <td>1</td>
-            <td>Enabled</td>
-        </tr>
-        <tr>
-            <td>2</td>
-            <td>Enabled, reset to disabled upon power cycle</td>
-        </tr>
-        <!-- ------------- -->
-        <tr>
-            <td rowspan=2>sd_main_default</td>
-            <td rowspan=2>Main SD power-up routing</td>
+            <td rowspan=2>sd_main_enabled</td>
+            <td rowspan=2>Main SD interface enabling</td>
             <td rowspan=2>
                 <code>R</code>
                 <code>W</code>
-                <code>CS</code>
             </td>
-            <td>A</td>
-            <td>Main SD interface routed to SDA, secondary SD interface to SDB</td>
+            <td>0</td>
+            <td>Disabled</td>
         </tr>
         <tr>
-            <td>A</td>
-            <td>Main SD interface routed to SDB, secondary SD interface to SDA</td>
+            <td>1</td>
+            <td>Enabled</td>
+        </tr>
+        <!-- ------------- -->
+        <tr>
+            <td rowspan=2>sd_main_enabled_config</td>
+            <td rowspan=2>Main SD interface enabling configuration</td>
+            <td rowspan=2>
+                <code>R</code>
+                <code>W</code>
+                <code>C</code>
+            </td>
+            <td>0</td>
+            <td>Disabled</td>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>Enabled (default)</td>
+        </tr>
+        <!-- ------------- -->
+        <tr>
+            <td rowspan=2>sd_sec_enabled</td>
+            <td rowspan=2>Secondary SD interface enabling</td>
+            <td rowspan=2>
+                <code>R</code>
+                <code>W</code>
+            </td>
+            <td>0</td>
+            <td>Disabled</td>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>Enabled</td>
+        </tr>
+        <!-- ------------- -->
+        <tr>
+            <td rowspan=2>sd_sec_enabled_config</td>
+            <td rowspan=2>Secondary SD interface enabling configuration</td>
+            <td rowspan=2>
+                <code>R</code>
+                <code>W</code>
+                <code>C</code>
+            </td>
+            <td>0</td>
+            <td>Disabled (default)</td>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>Enabled</td>
         </tr>
         <!-- ------------- -->
         <tr>
             <td rowspan=2>sd_main_routing</td>
-            <td rowspan=2>Main SD routing state</td>
+            <td rowspan=2>Main SD routing control</td>
             <td rowspan=2>
                 <code>R</code>
                 <code>W</code>
@@ -718,7 +793,23 @@ All properties' attributes are summarized here:
             <td>Main SD interface routed to SDA, secondary SD interface to SDB</td>
         </tr>
         <tr>
+            <td>B</td>
+            <td>Main SD interface routed to SDB, secondary SD interface to SDA</td>
+        </tr>
+        <!-- ------------- -->
+        <tr>
+            <td rowspan=2>sd_main_routing_config</td>
+            <td rowspan=2>Main SD routing configuration</td>
+            <td rowspan=2>
+                <code>R</code>
+                <code>W</code>
+                <code>C</code>
+            </td>
             <td>A</td>
+            <td>Main SD interface routed to SDA, secondary SD interface to SDB (default)</td>
+        </tr>
+        <tr>
+            <td>B</td>
             <td>Main SD interface routed to SDB, secondary SD interface to SDA</td>
         </tr>
         <!-- ------------- -->
@@ -755,19 +846,19 @@ All properties' attributes are summarized here:
         </tr>
         <!-- ------------- -->
         <tr>
-            <td rowspan=2>enabled_default</td>
-            <td rowspan=2>PCIE power-up enabling</td>
+            <td rowspan=2>enabled_config</td>
+            <td rowspan=2>PCIE enabling configuration</td>
             <td rowspan=2>
                 <code>R</code>
                 <code>W</code>
-                <code>CP</code>
+                <code>C</code>
             </td>
             <td>0</td>
             <td>Disabled</td>
         </tr>
         <tr>
             <td>1</td>
-            <td>Enabled</td>
+            <td>Enabled (default)</td>
         </tr>
         <!-- ------------- -->
     </tbody>
@@ -957,7 +1048,22 @@ All properties' attributes are summarized here:
             <td rowspan=2>
                 <code>R</code>
                 <code>W</code>
-                <code>CS</code>
+            </td>
+            <td>0</td>
+            <td>Disabled</td>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>Enabled</td>
+        </tr>
+        <!-- ------------- -->
+        <tr>
+            <td rowspan=2>s<i>N</i>_enabled_config</td>
+            <td rowspan=2>Slot <i>N</i> enabling configuration</td>
+            <td rowspan=2>
+                <code>R</code>
+                <code>W</code>
+                <code>C</code>
             </td>
             <td>0</td>
             <td>Disabled</td>
@@ -1000,7 +1106,7 @@ For expansion boards that can be installed on multiple slots, devices names have
 
 ### Uninterruptible Power Supply (UPS) Expansion Board
 
-#### Digital inputs - `/sys/class/stratopimax/ups/`
+#### UPS - `/sys/class/stratopimax/ups/`
 
 <table>
     <thead>
@@ -1020,7 +1126,6 @@ For expansion boards that can be installed on multiple slots, devices names have
             <td rowspan=2>
                 <code>R</code>
                 <code>W</code>
-                <code>CS</code>
             </td>
             <td>0</td>
             <td>Disabled</td>
@@ -1031,15 +1136,31 @@ For expansion boards that can be installed on multiple slots, devices names have
         </tr>
         <!-- ------------- -->
         <tr>
-            <td rowspan=2>battery_v</td>
+            <td rowspan=2>enabled_config</td>
+            <td rowspan=2>UPS enabling configuration</td>
+            <td rowspan=2>
+                <code>R</code>
+                <code>W</code>
+                <code>C</code>
+            </td>
+            <td>0</td>
+            <td>Disabled (default)</td>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>Enabled</td>
+        </tr>
+        <!-- ------------- -->
+        <tr>
+            <td rowspan=2>battery_v_config</td>
             <td rowspan=2>UPS battery voltage configuration</td>
             <td rowspan=2>
                 <code>R</code>
                 <code>W</code>
-                <code>CS</code>
+                <code>CR</code>
             </td>
             <td>12000</td>
-            <td>12 V battery</td>
+            <td>12 V battery (default)</td>
         </tr>
         <tr>
             <td>24000</td>
@@ -1047,28 +1168,12 @@ For expansion boards that can be installed on multiple slots, devices names have
         </tr>
         <!-- ------------- -->
         <tr>
-            <td rowspan=2>vso</td>
-            <td rowspan=2>VSO power supply output control</td>
-            <td rowspan=2>
-                <code>R</code>
-                <code>W</code>
-                <code>CS</code>
-            </td>
-            <td>0</td>
-            <td>Disabled</td>
-        </tr>
-        <tr>
-            <td>1</td>
-            <td>Enabled</td>
-        </tr>
-        <!-- ------------- -->
-        <tr>
-            <td>battery_capacity</td>
+            <td>battery_capacity_config</td>
             <td>UPS battery capacity configuration</td>
             <td>
                 <code>R</code>
                 <code>W</code>
-                <code>CS</code>
+                <code>CR</code>
             </td>
             <td>100 ... 60000</td>
             <td>Value in mAh. Default: 800</td>
@@ -1076,11 +1181,10 @@ For expansion boards that can be installed on multiple slots, devices names have
         <!-- ------------- -->
         <tr>
             <td rowspan=2>battery_i_max</td>
-            <td rowspan=2>UPS battery maximum charging current while at maximum voltage configuration</td>
+            <td rowspan=2>UPS battery maximum charging current while at maximum voltage</td>
             <td rowspan=2>
                 <code>R</code>
                 <code>W</code>
-                <code>CS</code>
             </td>
             <td>0</td>
             <td>Value automatically derived from capacity (default)</td>
@@ -1091,15 +1195,31 @@ For expansion boards that can be installed on multiple slots, devices names have
         </tr>
         <!-- ------------- -->
         <tr>
-            <td rowspan=2>power_delay</td>
+            <td rowspan=2>battery_i_max_config</td>
+            <td rowspan=2>UPS battery maximum charging current while at maximum voltage configuration</td>
+            <td rowspan=2>
+                <code>R</code>
+                <code>W</code>
+                <code>C</code>
+            </td>
+            <td>0</td>
+            <td>Value automatically derived from capacity (default)</td>
+        </tr>
+        <tr>
+            <td>1 ... 65535</td>
+            <td>Value in mA. The automatically derived limit still applies if lower than this value</td>
+        </tr>
+        <!-- ------------- -->
+        <tr>
+            <td rowspan=2>power_delay_config</td>
             <td rowspan=2>Automatic power cycle timeout configuration when main power source not available</td>
             <td rowspan=2>
                 <code>R</code>
                 <code>W</code>
-                <code>CS</code>
+                <code>CR</code>
             </td>
             <td>0</td>
-            <td>Disabled</td>
+            <td>Disabled (default)</td>
         </tr>
         <tr>
             <td>1 ... 65535</td>
@@ -1189,6 +1309,54 @@ For expansion boards that can be installed on multiple slots, devices names have
     </tbody>
 </table>
 
+#### Power Supply Output - `/sys/class/stratopimax/power_out/`
+
+<table>
+    <thead>
+        <tr>
+            <th>File</th>
+            <th>Description</th>
+            <th><a href="#attributes">Attr</a></th>
+            <th>Value</th>
+            <th>Value description</th>
+        </tr>
+    </thead>
+    <!-- ================= -->
+    <tbody>
+        <tr>
+            <td rowspan=2>vso_enabled</td>
+            <td rowspan=2>VSO power supply output control</td>
+            <td rowspan=2>
+                <code>R</code>
+                <code>W</code>
+            </td>
+            <td>0</td>
+            <td>Disabled</td>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>Enabled</td>
+        </tr>
+        <!-- ------------- -->
+        <tr>
+            <td rowspan=2>vso_enabled_config</td>
+            <td rowspan=2>VSO power supply output configuration</td>
+            <td rowspan=2>
+                <code>R</code>
+                <code>W</code>
+                <code>C</code>
+            </td>
+            <td>0</td>
+            <td>Disabled</td>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>Enabled (default)</td>
+        </tr>
+        <!-- ------------- -->
+    </tbody>
+</table>
+
 ### Industrial Digital I/O Expansion Board
 
 #### Digital inputs - `/sys/class/stratopimax/digital_in_s<n>/`
@@ -1206,43 +1374,31 @@ For expansion boards that can be installed on multiple slots, devices names have
     <!-- ================= -->
     <tbody>
         <tr>
-            <td rowspan=2>in<i>N</i>_mode</td>
-            <td rowspan=2>Input <i>N</i> configuration</td>
+            <td rowspan=2>in<i>N</i>_wb_config</td>
+            <td rowspan=2>Input <i>N</i> Wire-break detection configuration</td>
             <td rowspan=2>
                 <code>R</code>
                 <code>WF</code>
-                <code>CS</code>
+                <code>CR</code>
             </td>
+            <td>0</td>
+            <td>Disabled (default)</td>
+        </tr>
+        <tr>
             <td>1</td>
-            <td>Wire-break detection disabled</td>
-        </tr>
-        <tr>
-            <td>2</td>
-            <td>Wire-break detection enabled</td>
+            <td>Enabled</td>
         </tr>
         <!-- ------------- -->
         <tr>
-            <td>inputs_mode</td>
-            <td>Inputs configuration combined</td>
-            <td>
-                <code>R</code>
-                <code>WF</code>
-                <code>CS</code>
-            </td>
-            <td><i>CCCCCCC</i></td>
-            <td>Concatenation of all 7 inputs configurations</td>
-        </tr>
-        <!-- ------------- -->
-        <tr>
-            <td rowspan=9>in<i>N</i>_filter</td>
+            <td rowspan=9>in<i>N</i>_filter_config</td>
             <td rowspan=9>Input <i>N</i> filter configuration</td>
             <td rowspan=9>
                 <code>R</code>
                 <code>WF</code>
-                <code>CS</code>
+                <code>CR</code>
             </td>
             <td>0</td>
-            <td>50 µs delay</i></td>
+            <td>50 µs delay (default)</i></td>
         </tr>
         <tr>
             <td>1</td>
@@ -1274,7 +1430,7 @@ For expansion boards that can be installed on multiple slots, devices names have
         </tr>
         <tr>
             <td>8</td>
-            <td>filter bypassed</i></td>
+            <td>Filter bypassed</i></td>
         </tr>
         <!-- ------------- -->
         <tr>
@@ -1284,11 +1440,11 @@ For expansion boards that can be installed on multiple slots, devices names have
                 <code>R</code>
             </td>
             <td>0</td>
-            <td>low</td>
+            <td>Low</td>
         </tr>
         <tr>
             <td>1</td>
-            <td>high</td>
+            <td>High</td>
         </tr>
         <!-- ------------- -->
         <tr>
@@ -1309,14 +1465,14 @@ For expansion boards that can be installed on multiple slots, devices names have
                 <code>W</code>
             </td>
             <td>0</td>
-            <td>not detected</td>
+            <td>Not detected (write to clear)</td>
         </tr>
         <tr>
             <td>
                 <code>R</code>
             </td>
             <td>1</td>
-            <td>detected (set until cleared)</td>
+            <td>Detected (set until cleared)</td>
         </tr>
         <!-- ------------- -->
         <tr>
@@ -1344,14 +1500,14 @@ For expansion boards that can be installed on multiple slots, devices names have
                 <code>W</code>
             </td>
             <td>0</td>
-            <td>not active</td>
+            <td>Not active (write to clear)</td>
         </tr>
         <tr>
             <td>
                 <code>R</code>
             </td>
             <td>1</td>
-            <td>active (set until cleared)</td>
+            <td>Active (set until cleared)</td>
         </tr>
         <!-- ------------- -->
         <tr>
@@ -1362,14 +1518,14 @@ For expansion boards that can be installed on multiple slots, devices names have
                 <code>W</code>
             </td>
             <td>0</td>
-            <td>not active</td>
+            <td>Not active (write to clear)</td>
         </tr>
         <tr>
             <td>
                 <code>R</code>
             </td>
             <td>1</td>
-            <td>active (set until cleared)</td>
+            <td>Active (set until cleared)</td>
         </tr>
         <!-- ------------- -->
         <tr>
@@ -1380,14 +1536,14 @@ For expansion boards that can be installed on multiple slots, devices names have
                 <code>W</code>
             </td>
             <td>0</td>
-            <td>not active</td>
+            <td>Not active (write to clear)</td>
         </tr>
         <tr>
             <td>
                 <code>R</code>
             </td>
             <td>1</td>
-            <td>active (set until cleared)</td>
+            <td>Active (set until cleared)</td>
         </tr>
         <!-- ------------- -->
         <tr>
@@ -1397,11 +1553,11 @@ For expansion boards that can be installed on multiple slots, devices names have
                 <code>R</code>
             </td>
             <td>0</td>
-            <td>not active</td>
+            <td>Not active</td>
         </tr>
         <tr>
             <td>1</td>
-            <td>active</td>
+            <td>Active</td>
         </tr>
         <!-- ------------- -->
     </tbody>
@@ -1423,79 +1579,31 @@ For expansion boards that can be installed on multiple slots, devices names have
     <!-- ================= -->
     <tbody>
         <tr>
-            <td rowspan=3>out<i>N</i>_mode</td>
-            <td rowspan=3>Output <i>N</i> configuration</td>
-            <td rowspan=3>
-                <code>R</code>
-                <code>WF</code>
-                <code>CS</code>
-            </td>
-            <td>1</td>
-            <td>High-side mode, open-load detection disabled</td>
-        </tr>
-        <tr>
-            <td>2</td>
-            <td>High-side mode, open-load detection enabled</td>
-        </tr>
-        <tr>
-            <td>3</td>
-            <td>Push-pull mode, open-load detection disabled</td>
-        </tr>
-        <!-- ------------- -->
-        <tr>
-            <td>outputs_mode</td>
-            <td>Outputs configuration combined</td>
-            <td>
-                <code>R</code>
-                <code>WF</code>
-                <code>CS</code>
-            </td>
-            <td><i>CCCCCCC</i></td>
-            <td>Concatenation of all 7 outputs configurations</td>
-        </tr>
-        <!-- ------------- -->
-        <tr>
-            <td rowspan=2>join_l</td>
-            <td rowspan=2>Outputs 1-2 (L side) join configuration. Can be joined only in high-side mode. `out2_mode` will be ignored</td>
+            <td rowspan=2>out<i>N</i>_pp_config</td>
+            <td rowspan=2>Output <i>N</i> high-side/push-pull mode configuration</td>
             <td rowspan=2>
                 <code>R</code>
                 <code>WF</code>
-                <code>CS</code>
+                <code>CR</code>
             </td>
             <td>0</td>
-            <td>Disabled</td>
+            <td>High-side mode (default)</td>
         </tr>
         <tr>
             <td>1</td>
-            <td>Outputs 1-2 joined</td>
+            <td>Push-pull mode</td>
         </tr>
         <!-- ------------- -->
         <tr>
-            <td rowspan=2>join_h</td>
-            <td rowspan=2>Outputs 4-5 and 6-7 (H side) join configuration. Can be joined only in high-side mode. `out5_mode` and `out7_mode` will be ignored</td>
+            <td rowspan=2>out<i>N</i>_ol_config</td>
+            <td rowspan=2>Output <i>N</i> open-load detection configuration (only for high-side mode)</td>
             <td rowspan=2>
                 <code>R</code>
                 <code>WF</code>
-                <code>CS</code>
+                <code>CR</code>
             </td>
             <td>0</td>
-            <td>Disabled</td>
-        </tr>
-        <tr>
-            <td>1</td>
-            <td>Outputs 4-5 and 6-7 joined</td>
-        </tr>
-        <!-- ------------- -->
-        <tr>
-            <td rowspan=2>watchdog</td>
-            <td rowspan=2>Outputs watchdog configuration</td>
-            <td rowspan=2>
-                <code>R</code>
-                <code>WF</code>
-                <code>CS</code>
-            </td>
-            <td>0</td>
-            <td>Disabled</td>
+            <td>Disabled (default)</td>
         </tr>
         <tr>
             <td>1</td>
@@ -1503,15 +1611,63 @@ For expansion boards that can be installed on multiple slots, devices names have
         </tr>
         <!-- ------------- -->
         <tr>
-            <td rowspan=3>watchdog_timeout</td>
+            <td rowspan=2>join_l_config</td>
+            <td rowspan=2>Outputs 1-2 (L side) join configuration. Can be joined only in high-side mode. `out2_mode` will be ignored</td>
+            <td rowspan=2>
+                <code>R</code>
+                <code>WF</code>
+                <code>CR</code>
+            </td>
+            <td>0</td>
+            <td>Disabled (default)</td>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>Outputs 1-2 joined</td>
+        </tr>
+        <!-- ------------- -->
+        <tr>
+            <td rowspan=2>join_h_config</td>
+            <td rowspan=2>Outputs 4-5 and 6-7 (H side) join configuration. Can be joined only in high-side mode. `out5_mode` and `out7_mode` will be ignored</td>
+            <td rowspan=2>
+                <code>R</code>
+                <code>WF</code>
+                <code>CR</code>
+            </td>
+            <td>0</td>
+            <td>Disabled (default)</td>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>Outputs 4-5 and 6-7 joined</td>
+        </tr>
+        <!-- ------------- -->
+        <tr>
+            <td rowspan=2>watchdog_config</td>
+            <td rowspan=2>Outputs watchdog configuration</td>
+            <td rowspan=2>
+                <code>R</code>
+                <code>WF</code>
+                <code>CR</code>
+            </td>
+            <td>0</td>
+            <td>Disabled</td>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>Enabled (default)</td>
+        </tr>
+        <!-- ------------- -->
+        <tr>
+            <td rowspan=3>watchdog_timeout_config</td>
             <td rowspan=3>Outputs watchdog timeout configuration</td>
             <td rowspan=3>
                 <code>R</code>
                 <code>WF</code>
-                <code>CS</code>
+                <code>CR</code>
             </td>
             <td>0</td>
-            <td>0.9 s</td>
+            <td>0.9 s (default)</td>
         </tr>
         <tr>
             <td>1</td>
@@ -1530,11 +1686,11 @@ For expansion boards that can be installed on multiple slots, devices names have
                 <code>W</code>
             </td>
             <td>0</td>
-            <td>low</td>
+            <td>Low</td>
         </tr>
         <tr>
             <td>1</td>
-            <td>high</td>
+            <td>High</td>
         </tr>
         <!-- ------------- -->
         <tr>
@@ -1556,14 +1712,14 @@ For expansion boards that can be installed on multiple slots, devices names have
                 <code>W</code>
             </td>
             <td>0</td>
-            <td>not detected</td>
+            <td>Not detected (write to clear)</td>
         </tr>
         <tr>
             <td>
                 <code>R</code>
             </td>
             <td>1</td>
-            <td>detected (set until cleared)</td>
+            <td>Detected (set until cleared)</td>
         </tr>
         <!-- ------------- -->
         <tr>
@@ -1591,14 +1747,14 @@ For expansion boards that can be installed on multiple slots, devices names have
                 <code>W</code>
             </td>
             <td>0</td>
-            <td>not detected</td>
+            <td>Not detected (write to clear)</td>
         </tr>
         <tr>
             <td>
                 <code>R</code>
             </td>
             <td>1</td>
-            <td>detected (set until cleared)</td>
+            <td>Detected (set until cleared)</td>
         </tr>
         <!-- ------------- -->
         <tr>
@@ -1626,14 +1782,14 @@ For expansion boards that can be installed on multiple slots, devices names have
                 <code>W</code>
             </td>
             <td>0</td>
-            <td>not detected</td>
+            <td>Not detected (write to clear)</td>
         </tr>
         <tr>
             <td>
                 <code>R</code>
             </td>
             <td>1</td>
-            <td>detected (set until cleared)</td>
+            <td>Detected (set until cleared)</td>
         </tr>
         <!-- ------------- -->
         <tr>
@@ -1660,11 +1816,11 @@ For expansion boards that can be installed on multiple slots, devices names have
                 <code>R</code>
             </td>
             <td>0</td>
-            <td>not active</td>
+            <td>Not active</td>
         </tr>
         <tr>
             <td>1</td>
-            <td>active</td>
+            <td>Active</td>
         </tr>
         <!-- ------------- -->
         <tr>
@@ -1684,11 +1840,11 @@ For expansion boards that can be installed on multiple slots, devices names have
                 <code>R</code>
             </td>
             <td>0</td>
-            <td>not active</td>
+            <td>Not active</td>
         </tr>
         <tr>
             <td>1</td>
-            <td>active</td>
+            <td>Active</td>
         </tr>
         <!-- ------------- -->
         <tr>
@@ -1723,15 +1879,15 @@ For expansion boards that can be installed on multiple slots, devices names have
     <!-- ================= -->
     <tbody>
         <tr>
-            <td rowspan=2>echo</td>
+            <td rowspan=2>echo_config</td>
             <td rowspan=2>RS-485 local echo configuration</td>
             <td rowspan=2>
                 <code>R</code>
                 <code>W</code>
-                <code>CS</code>
+                <code>CR</code>
             </td>
             <td>0</td>
-            <td>Disabled</td>
+            <td>Disabled (default)</td>
         </tr>
         <tr>
             <td>1</td>

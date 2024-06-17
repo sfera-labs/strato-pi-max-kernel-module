@@ -117,8 +117,6 @@ static ssize_t devAttrBlink_store(struct device *dev,
                                   const char *buf, size_t count);
 
 static const char VALS_SD_SDX_ROUTING[] = {2, 'A', 'B'};
-static const char VALS_SD_SD1_ENABLED[] = {4, '0', '1', '_', '2'};
-static const char VALS_POWER_UP_MODE[] = {2, 'M', 'A'};
 
 static struct GpioBean gpioSdRoute = {
     .name = "stratopimax_sd_route",
@@ -235,11 +233,31 @@ static struct DeviceAttrBean devAttrBeansSd[] = {
             {
                 .reg = I2C_REG_SD,
                 .len = 2,
-                .mask = 0b11,
+                .mask = 0b1,
                 .shift = 0,
                 .sign = false,
             },
-        .vals = NULL,
+    },
+
+    {
+        .devAttr =
+            {
+                .attr =
+                    {
+                        .name = "sd_main_enabled_config",
+                        .mode = 0660,
+                    },
+                .show = devAttrI2c_show,
+                .store = devAttrI2c_store,
+            },
+        .regSpecs =
+            {
+                .reg = I2C_REG_SD,
+                .len = 2,
+                .mask = 0b1,
+                .shift = 1,
+                .sign = false,
+            },
     },
 
     {
@@ -257,11 +275,10 @@ static struct DeviceAttrBean devAttrBeansSd[] = {
             {
                 .reg = I2C_REG_SD,
                 .len = 2,
-                .mask = 0b11,
+                .mask = 0b1,
                 .shift = 2,
                 .sign = false,
             },
-        .vals = VALS_SD_SD1_ENABLED,
     },
 
     {
@@ -269,7 +286,7 @@ static struct DeviceAttrBean devAttrBeansSd[] = {
             {
                 .attr =
                     {
-                        .name = "sd_main_default",
+                        .name = "sd_sec_enabled_config",
                         .mode = 0660,
                     },
                 .show = devAttrI2c_show,
@@ -280,10 +297,9 @@ static struct DeviceAttrBean devAttrBeansSd[] = {
                 .reg = I2C_REG_SD,
                 .len = 2,
                 .mask = 0b1,
-                .shift = 4,
+                .shift = 3,
                 .sign = false,
             },
-        .vals = VALS_SD_SDX_ROUTING,
     },
 
     {
@@ -302,10 +318,32 @@ static struct DeviceAttrBean devAttrBeansSd[] = {
                 .reg = I2C_REG_SD,
                 .len = 2,
                 .mask = 0b1,
-                .shift = 5,
+                .shift = 4,
                 .sign = false,
             },
         .gpio = &gpioSdRoute,
+        .vals = VALS_SD_SDX_ROUTING,
+    },
+
+    {
+        .devAttr =
+            {
+                .attr =
+                    {
+                        .name = "sd_main_routing_config",
+                        .mode = 0660,
+                    },
+                .show = devAttrI2c_show,
+                .store = devAttrI2c_store,
+            },
+        .regSpecs =
+            {
+                .reg = I2C_REG_SD,
+                .len = 2,
+                .mask = 0b1,
+                .shift = 5,
+                .sign = false,
+            },
         .vals = VALS_SD_SDX_ROUTING,
     },
 
@@ -332,7 +370,27 @@ static struct DeviceAttrBean devAttrBeansExpb[] = {
                 .shift = 0,
                 .sign = false,
             },
-        .vals = NULL,
+    },
+
+    {
+        .devAttr =
+            {
+                .attr =
+                    {
+                        .name = "s1_enabled_config",
+                        .mode = 0660,
+                    },
+                .show = devAttrI2c_show,
+                .store = devAttrI2c_store,
+            },
+        .regSpecs =
+            {
+                .reg = I2C_REG_EXPB_EN,
+                .len = 2,
+                .mask = 0b1,
+                .shift = 1,
+                .sign = false,
+            },
     },
 
     {
@@ -354,7 +412,6 @@ static struct DeviceAttrBean devAttrBeansExpb[] = {
                 .shift = 0,
                 .sign = false,
             },
-        .vals = NULL,
     },
 
     {
@@ -373,10 +430,30 @@ static struct DeviceAttrBean devAttrBeansExpb[] = {
                 .reg = I2C_REG_EXPB_EN,
                 .len = 2,
                 .mask = 0b1,
-                .shift = 1,
+                .shift = 2,
                 .sign = false,
             },
-        .vals = NULL,
+    },
+
+    {
+        .devAttr =
+            {
+                .attr =
+                    {
+                        .name = "s2_enabled_config",
+                        .mode = 0660,
+                    },
+                .show = devAttrI2c_show,
+                .store = devAttrI2c_store,
+            },
+        .regSpecs =
+            {
+                .reg = I2C_REG_EXPB_EN,
+                .len = 2,
+                .mask = 0b1,
+                .shift = 3,
+                .sign = false,
+            },
     },
 
     {
@@ -398,7 +475,6 @@ static struct DeviceAttrBean devAttrBeansExpb[] = {
                 .shift = 0,
                 .sign = false,
             },
-        .vals = NULL,
     },
 
     {
@@ -417,10 +493,30 @@ static struct DeviceAttrBean devAttrBeansExpb[] = {
                 .reg = I2C_REG_EXPB_EN,
                 .len = 2,
                 .mask = 0b1,
-                .shift = 2,
+                .shift = 4,
                 .sign = false,
             },
-        .vals = NULL,
+    },
+
+    {
+        .devAttr =
+            {
+                .attr =
+                    {
+                        .name = "s3_enabled_config",
+                        .mode = 0660,
+                    },
+                .show = devAttrI2c_show,
+                .store = devAttrI2c_store,
+            },
+        .regSpecs =
+            {
+                .reg = I2C_REG_EXPB_EN,
+                .len = 2,
+                .mask = 0b1,
+                .shift = 5,
+                .sign = false,
+            },
     },
 
     {
@@ -442,7 +538,6 @@ static struct DeviceAttrBean devAttrBeansExpb[] = {
                 .shift = 0,
                 .sign = false,
             },
-        .vals = NULL,
     },
 
     {
@@ -461,10 +556,30 @@ static struct DeviceAttrBean devAttrBeansExpb[] = {
                 .reg = I2C_REG_EXPB_EN,
                 .len = 2,
                 .mask = 0b1,
-                .shift = 3,
+                .shift = 6,
                 .sign = false,
             },
-        .vals = NULL,
+    },
+
+    {
+        .devAttr =
+            {
+                .attr =
+                    {
+                        .name = "s4_enabled_config",
+                        .mode = 0660,
+                    },
+                .show = devAttrI2c_show,
+                .store = devAttrI2c_store,
+            },
+        .regSpecs =
+            {
+                .reg = I2C_REG_EXPB_EN,
+                .len = 2,
+                .mask = 0b1,
+                .shift = 7,
+                .sign = false,
+            },
     },
 
     {
@@ -486,7 +601,6 @@ static struct DeviceAttrBean devAttrBeansExpb[] = {
                 .shift = 0,
                 .sign = false,
             },
-        .vals = NULL,
     },
 
     {},
@@ -512,7 +626,6 @@ static struct DeviceAttrBean devAttrBeansPower[] = {
                 .shift = 0,
                 .sign = false,
             },
-        .vals = NULL,
     },
 
     {
@@ -520,7 +633,7 @@ static struct DeviceAttrBean devAttrBeansPower[] = {
             {
                 .attr =
                     {
-                        .name = "up_mode",
+                        .name = "up_backup_config",
                         .mode = 0660,
                     },
                 .show = devAttrI2c_show,
@@ -534,7 +647,6 @@ static struct DeviceAttrBean devAttrBeansPower[] = {
                 .shift = 1,
                 .sign = false,
             },
-        .vals = VALS_POWER_UP_MODE,
     },
 
     {
@@ -542,7 +654,7 @@ static struct DeviceAttrBean devAttrBeansPower[] = {
             {
                 .attr =
                     {
-                        .name = "sd_switch",
+                        .name = "sd_switch_config",
                         .mode = 0660,
                     },
                 .show = devAttrI2c_show,
@@ -556,7 +668,6 @@ static struct DeviceAttrBean devAttrBeansPower[] = {
                 .shift = 2,
                 .sign = false,
             },
-        .vals = NULL,
     },
 
     {
@@ -564,7 +675,7 @@ static struct DeviceAttrBean devAttrBeansPower[] = {
             {
                 .attr =
                     {
-                        .name = "pcie_switch",
+                        .name = "pcie_switch_config",
                         .mode = 0660,
                     },
                 .show = devAttrI2c_show,
@@ -578,7 +689,6 @@ static struct DeviceAttrBean devAttrBeansPower[] = {
                 .shift = 3,
                 .sign = false,
             },
-        .vals = NULL,
     },
 
     {
@@ -586,7 +696,7 @@ static struct DeviceAttrBean devAttrBeansPower[] = {
             {
                 .attr =
                     {
-                        .name = "down_delay",
+                        .name = "down_delay_config",
                         .mode = 0660,
                     },
                 .show = devAttrI2c_show,
@@ -600,7 +710,6 @@ static struct DeviceAttrBean devAttrBeansPower[] = {
                 .shift = 0,
                 .sign = false,
             },
-        .vals = NULL,
     },
 
     {
@@ -608,7 +717,7 @@ static struct DeviceAttrBean devAttrBeansPower[] = {
             {
                 .attr =
                     {
-                        .name = "off_time",
+                        .name = "off_time_config",
                         .mode = 0660,
                     },
                 .show = devAttrI2c_show,
@@ -622,7 +731,6 @@ static struct DeviceAttrBean devAttrBeansPower[] = {
                 .shift = 0,
                 .sign = false,
             },
-        .vals = NULL,
     },
 
     {
@@ -630,7 +738,7 @@ static struct DeviceAttrBean devAttrBeansPower[] = {
             {
                 .attr =
                     {
-                        .name = "up_delay",
+                        .name = "up_delay_config",
                         .mode = 0660,
                     },
                 .show = devAttrI2c_show,
@@ -644,7 +752,6 @@ static struct DeviceAttrBean devAttrBeansPower[] = {
                 .shift = 0,
                 .sign = false,
             },
-        .vals = NULL,
     },
 
     {},
@@ -670,7 +777,27 @@ static struct DeviceAttrBean devAttrBeansWatchdog[] = {
                 .shift = 0,
                 .sign = false,
             },
-        .vals = NULL,
+    },
+
+    {
+        .devAttr =
+            {
+                .attr =
+                    {
+                        .name = "enabled_config",
+                        .mode = 0660,
+                    },
+                .show = devAttrI2c_show,
+                .store = devAttrI2c_store,
+            },
+        .regSpecs =
+            {
+                .reg = I2C_REG_WDT_MAIN,
+                .len = 2,
+                .mask = 0b1,
+                .shift = 1,
+                .sign = false,
+            },
     },
 
     {
@@ -692,7 +819,6 @@ static struct DeviceAttrBean devAttrBeansWatchdog[] = {
                 .shift = 2,
                 .sign = false,
             },
-        .vals = NULL,
     },
 
     {
@@ -714,7 +840,6 @@ static struct DeviceAttrBean devAttrBeansWatchdog[] = {
                 .shift = 2,
                 .sign = false,
             },
-        .vals = NULL,
     },
 
     {
@@ -736,7 +861,6 @@ static struct DeviceAttrBean devAttrBeansWatchdog[] = {
                 .shift = 0,
                 .sign = false,
             },
-        .vals = NULL,
     },
 
     {
@@ -744,7 +868,28 @@ static struct DeviceAttrBean devAttrBeansWatchdog[] = {
             {
                 .attr =
                     {
-                        .name = "down_delay",
+                        .name = "timeout_config",
+                        .mode = 0660,
+                    },
+                .show = devAttrI2c_show,
+                .store = devAttrI2c_store,
+            },
+        .regSpecs =
+            {
+                .reg = I2C_REG_WDT_TIMEOUT_CFG,
+                .len = 2,
+                .mask = 0,
+                .shift = 0,
+                .sign = false,
+            },
+    },
+
+    {
+        .devAttr =
+            {
+                .attr =
+                    {
+                        .name = "down_delay_config",
                         .mode = 0660,
                     },
                 .show = devAttrI2c_show,
@@ -758,7 +903,6 @@ static struct DeviceAttrBean devAttrBeansWatchdog[] = {
                 .shift = 0,
                 .sign = false,
             },
-        .vals = NULL,
     },
 
     {
@@ -766,7 +910,7 @@ static struct DeviceAttrBean devAttrBeansWatchdog[] = {
             {
                 .attr =
                     {
-                        .name = "sd_switch",
+                        .name = "sd_switch_config",
                         .mode = 0660,
                     },
                 .show = devAttrI2c_show,
@@ -780,7 +924,6 @@ static struct DeviceAttrBean devAttrBeansWatchdog[] = {
                 .shift = 0,
                 .sign = false,
             },
-        .vals = NULL,
     },
 
     {
@@ -788,7 +931,7 @@ static struct DeviceAttrBean devAttrBeansWatchdog[] = {
             {
                 .attr =
                     {
-                        .name = "pcie_switch",
+                        .name = "pcie_switch_config",
                         .mode = 0660,
                     },
                 .show = devAttrI2c_show,
@@ -802,7 +945,6 @@ static struct DeviceAttrBean devAttrBeansWatchdog[] = {
                 .shift = 0,
                 .sign = false,
             },
-        .vals = NULL,
     },
 
     {},
@@ -828,7 +970,27 @@ static struct DeviceAttrBean devAttrBeansUsb[] = {
                 .shift = 0,
                 .sign = false,
             },
-        .vals = NULL,
+    },
+
+    {
+        .devAttr =
+            {
+                .attr =
+                    {
+                        .name = "usb1_enabled_config",
+                        .mode = 0660,
+                    },
+                .show = devAttrI2c_show,
+                .store = devAttrI2c_store,
+            },
+        .regSpecs =
+            {
+                .reg = I2C_REG_USB,
+                .len = 2,
+                .mask = 1,
+                .shift = 1,
+                .sign = false,
+            },
     },
 
     {
@@ -846,10 +1008,9 @@ static struct DeviceAttrBean devAttrBeansUsb[] = {
                 .reg = I2C_REG_USB,
                 .len = 2,
                 .mask = 1,
-                .shift = 1,
+                .shift = 2,
                 .sign = false,
             },
-        .vals = NULL,
     },
 
     {
@@ -871,7 +1032,27 @@ static struct DeviceAttrBean devAttrBeansUsb[] = {
                 .shift = 8,
                 .sign = false,
             },
-        .vals = NULL,
+    },
+
+    {
+        .devAttr =
+            {
+                .attr =
+                    {
+                        .name = "usb2_enabled_config",
+                        .mode = 0660,
+                    },
+                .show = devAttrI2c_show,
+                .store = devAttrI2c_store,
+            },
+        .regSpecs =
+            {
+                .reg = I2C_REG_USB,
+                .len = 2,
+                .mask = 1,
+                .shift = 9,
+                .sign = false,
+            },
     },
 
     {
@@ -889,10 +1070,9 @@ static struct DeviceAttrBean devAttrBeansUsb[] = {
                 .reg = I2C_REG_USB,
                 .len = 2,
                 .mask = 1,
-                .shift = 9,
+                .shift = 10,
                 .sign = false,
             },
-        .vals = NULL,
     },
 
     {},
@@ -918,7 +1098,6 @@ static struct DeviceAttrBean devAttrBeansPowerIn[] = {
                 .shift = 0,
                 .sign = false,
             },
-        .vals = NULL,
     },
 
     {
@@ -940,7 +1119,6 @@ static struct DeviceAttrBean devAttrBeansPowerIn[] = {
                 .shift = 0,
                 .sign = false,
             },
-        .vals = NULL,
     },
 
     {},
@@ -966,7 +1144,6 @@ static struct DeviceAttrBean devAttrBeansPcie[] = {
                 .shift = 0,
                 .sign = false,
             },
-        .vals = NULL,
     },
 
     {
@@ -974,7 +1151,7 @@ static struct DeviceAttrBean devAttrBeansPcie[] = {
             {
                 .attr =
                     {
-                        .name = "enabled_default",
+                        .name = "enabled_config",
                         .mode = 0660,
                     },
                 .show = devAttrI2c_show,
@@ -985,10 +1162,9 @@ static struct DeviceAttrBean devAttrBeansPcie[] = {
                 .reg = I2C_REG_PCIE,
                 .len = 2,
                 .mask = 1,
-                .shift = 2,
+                .shift = 1,
                 .sign = false,
             },
-        .vals = NULL,
     },
 
     {},
@@ -1014,7 +1190,6 @@ static struct DeviceAttrBean devAttrBeansUps[] = {
                 .shift = 0,
                 .sign = false,
             },
-        .vals = NULL,
     },
 
     {
@@ -1022,29 +1197,7 @@ static struct DeviceAttrBean devAttrBeansUps[] = {
             {
                 .attr =
                     {
-                        .name = "battery_v",
-                        .mode = 0660,
-                    },
-                .show = devAttrUpsBatteryV_show,
-                .store = devAttrUpsBatteryV_store,
-            },
-        .regSpecs =
-            {
-                .reg = I2C_REG_UPS_MAIN,
-                .len = 2,
-                .mask = 0b1,
-                .shift = 1,
-                .sign = false,
-            },
-        .vals = NULL,
-    },
-
-    {
-        .devAttr =
-            {
-                .attr =
-                    {
-                        .name = "vso",
+                        .name = "enabled_config",
                         .mode = 0660,
                     },
                 .show = devAttrI2c_show,
@@ -1055,10 +1208,9 @@ static struct DeviceAttrBean devAttrBeansUps[] = {
                 .reg = I2C_REG_UPS_MAIN,
                 .len = 2,
                 .mask = 0b1,
-                .shift = 8,
+                .shift = 1,
                 .sign = false,
             },
-        .vals = NULL,
     },
 
     {
@@ -1066,7 +1218,28 @@ static struct DeviceAttrBean devAttrBeansUps[] = {
             {
                 .attr =
                     {
-                        .name = "battery_capacity",
+                        .name = "battery_v_config",
+                        .mode = 0660,
+                    },
+                .show = devAttrUpsBatteryV_show,
+                .store = devAttrUpsBatteryV_store,
+            },
+        .regSpecs =
+            {
+                .reg = I2C_REG_UPS_MAIN,
+                .len = 2,
+                .mask = 0b1,
+                .shift = 2,
+                .sign = false,
+            },
+    },
+
+    {
+        .devAttr =
+            {
+                .attr =
+                    {
+                        .name = "battery_capacity_config",
                         .mode = 0660,
                     },
                 .show = devAttrI2c_show,
@@ -1080,7 +1253,6 @@ static struct DeviceAttrBean devAttrBeansUps[] = {
                 .shift = 0,
                 .sign = false,
             },
-        .vals = NULL,
     },
 
     {
@@ -1102,7 +1274,6 @@ static struct DeviceAttrBean devAttrBeansUps[] = {
                 .shift = 0,
                 .sign = false,
             },
-        .vals = NULL,
     },
 
     {
@@ -1110,7 +1281,28 @@ static struct DeviceAttrBean devAttrBeansUps[] = {
             {
                 .attr =
                     {
-                        .name = "power_delay",
+                        .name = "battery_i_max_config",
+                        .mode = 0660,
+                    },
+                .show = devAttrI2c_show,
+                .store = devAttrI2c_store,
+            },
+        .regSpecs =
+            {
+                .reg = I2C_REG_UPS_MAX_CHARGE_I_CFG,
+                .len = 2,
+                .mask = 0,
+                .shift = 0,
+                .sign = false,
+            },
+    },
+
+    {
+        .devAttr =
+            {
+                .attr =
+                    {
+                        .name = "power_delay_config",
                         .mode = 0660,
                     },
                 .show = devAttrI2c_show,
@@ -1124,7 +1316,6 @@ static struct DeviceAttrBean devAttrBeansUps[] = {
                 .shift = 0,
                 .sign = false,
             },
-        .vals = NULL,
     },
 
     {
@@ -1146,7 +1337,6 @@ static struct DeviceAttrBean devAttrBeansUps[] = {
                 .shift = 7,
                 .sign = false,
             },
-        .vals = NULL,
     },
 
     {
@@ -1168,7 +1358,6 @@ static struct DeviceAttrBean devAttrBeansUps[] = {
                 .shift = 0,
                 .sign = false,
             },
-        .vals = NULL,
     },
 
     {
@@ -1190,7 +1379,6 @@ static struct DeviceAttrBean devAttrBeansUps[] = {
                 .shift = 0,
                 .sign = false,
             },
-        .vals = NULL,
     },
 
     {
@@ -1212,7 +1400,52 @@ static struct DeviceAttrBean devAttrBeansUps[] = {
                 .shift = 0,
                 .sign = false,
             },
-        .vals = NULL,
+    },
+
+    {},
+};
+
+static struct DeviceAttrBean devAttrBeansPowerOut[] = {
+    {
+        .devAttr =
+            {
+                .attr =
+                    {
+                        .name = "vso_enabled",
+                        .mode = 0660,
+                    },
+                .show = devAttrI2c_show,
+                .store = devAttrI2c_store,
+            },
+        .regSpecs =
+            {
+                .reg = I2C_REG_UPS_MAIN,
+                .len = 2,
+                .mask = 0b1,
+                .shift = 8,
+                .sign = false,
+            },
+    },
+
+    {
+        .devAttr =
+            {
+                .attr =
+                    {
+                        .name = "vso_enabled_config",
+                        .mode = 0660,
+                    },
+                .show = devAttrI2c_show,
+                .store = devAttrI2c_store,
+            },
+        .regSpecs =
+            {
+                .reg = I2C_REG_UPS_MAIN,
+                .len = 2,
+                .mask = 0b1,
+                .shift = 9,
+                .sign = false,
+            },
     },
 
     {},
@@ -1238,7 +1471,6 @@ static struct DeviceAttrBean devAttrBeansButton[] = {
                 .shift = 0,
                 .sign = false,
             },
-        .vals = NULL,
     },
 
     {
@@ -1260,7 +1492,6 @@ static struct DeviceAttrBean devAttrBeansButton[] = {
                 .shift = 8,
                 .sign = false,
             },
-        .vals = NULL,
     },
 
     {},
@@ -1286,7 +1517,6 @@ static struct DeviceAttrBean devAttrBeansBuzzer[] = {
                 .shift = 0,
                 .sign = false,
             },
-        .vals = NULL,
     },
 
     {
@@ -1308,7 +1538,6 @@ static struct DeviceAttrBean devAttrBeansBuzzer[] = {
                 .shift = 0,
                 .sign = false,
             },
-        .vals = NULL,
     },
 
     {},
@@ -1334,7 +1563,6 @@ static struct DeviceAttrBean devAttrBeansLed[] = {
                 .shift = 0,
                 .sign = false,
             },
-        .vals = NULL,
     },
 
     {
@@ -1356,7 +1584,6 @@ static struct DeviceAttrBean devAttrBeansLed[] = {
                 .shift = 0,
                 .sign = false,
             },
-        .vals = NULL,
     },
 
     {},
@@ -1510,7 +1737,7 @@ static struct DeviceAttrBean devAttrBeansDIn[] = {
             {
                 .attr =
                     {
-                        .name = "in%d_mode",
+                        .name = "in%d_wb_config",
                         .mode = 0660,
                     },
                 .show = devAttrI2c_show,
@@ -1520,8 +1747,8 @@ static struct DeviceAttrBean devAttrBeansDIn[] = {
             {
                 .reg = 0,
                 .len = 2,
-                .mask = 0b11,
-                .shift = 2,
+                .mask = 0b1,
+                .shift = 1,
                 .sign = false,
             },
         .bitMapLen = 7,
@@ -1532,7 +1759,7 @@ static struct DeviceAttrBean devAttrBeansDIn[] = {
             {
                 .attr =
                     {
-                        .name = "inputs_mode",
+                        .name = "in%d_filter_config",
                         .mode = 0660,
                     },
                 .show = devAttrI2c_show,
@@ -1540,29 +1767,7 @@ static struct DeviceAttrBean devAttrBeansDIn[] = {
             },
         .regSpecs =
             {
-                .reg = 0,
-                .len = 2,
-                .mask = 0x3fff,
-                .shift = 0,
-                .sign = false,
-                .base = 4,
-            },
-    },
-
-    {
-        .devAttr =
-            {
-                .attr =
-                    {
-                        .name = "in%d_filter",
-                        .mode = 0660,
-                    },
-                .show = devAttrI2c_show,
-                .store = devAttrI2c_store,
-            },
-        .regSpecs =
-            {
-                .reg = 2,
+                .reg = 1,
                 .len = 4,
                 .mask = 0xf,
                 .shift = 4,
@@ -1753,7 +1958,7 @@ static struct DeviceAttrBean devAttrBeansDOut[] = {
             {
                 .attr =
                     {
-                        .name = "out%d_mode",
+                        .name = "out%d_pp_config",
                         .mode = 0660,
                     },
                 .show = devAttrI2c_show,
@@ -1761,10 +1966,10 @@ static struct DeviceAttrBean devAttrBeansDOut[] = {
             },
         .regSpecs =
             {
-                .reg = 1,
-                .len = 2,
-                .mask = 0b11,
-                .shift = 2,
+                .reg = 2,
+                .len = 4,
+                .mask = 0b1,
+                .shift = 1,
                 .sign = false,
             },
         .bitMapLen = 7,
@@ -1775,7 +1980,7 @@ static struct DeviceAttrBean devAttrBeansDOut[] = {
             {
                 .attr =
                     {
-                        .name = "outputs_mode",
+                        .name = "out%d_ol_config",
                         .mode = 0660,
                     },
                 .show = devAttrI2c_show,
@@ -1783,55 +1988,14 @@ static struct DeviceAttrBean devAttrBeansDOut[] = {
             },
         .regSpecs =
             {
-                .reg = 1,
-                .len = 2,
-                .mask = 0x3fff,
-                .shift = 0,
-                .sign = false,
-                .base = 4,
-            },
-    },
-
-    {
-        .devAttr =
-            {
-                .attr =
-                    {
-                        .name = "join_l",
-                        .mode = 0660,
-                    },
-                .show = devAttrI2c_show,
-                .store = devAttrI2c_store,
-            },
-        .regSpecs =
-            {
-                .reg = 3,
-                .len = 2,
-                .mask = 0x1,
-                .shift = 0,
-                .sign = false,
-            },
-    },
-
-    {
-        .devAttr =
-            {
-                .attr =
-                    {
-                        .name = "join_h",
-                        .mode = 0660,
-                    },
-                .show = devAttrI2c_show,
-                .store = devAttrI2c_store,
-            },
-        .regSpecs =
-            {
-                .reg = 3,
-                .len = 2,
-                .mask = 0x1,
+                .reg = 2,
+                .len = 4,
+                .mask = 0b1,
                 .shift = 1,
                 .sign = false,
             },
+        .bitMapLen = 7,
+        .bitMapStart = 8,
     },
 
     {
@@ -1839,7 +2003,7 @@ static struct DeviceAttrBean devAttrBeansDOut[] = {
             {
                 .attr =
                     {
-                        .name = "watchdog",
+                        .name = "join_l_config",
                         .mode = 0660,
                     },
                 .show = devAttrI2c_show,
@@ -1847,10 +2011,10 @@ static struct DeviceAttrBean devAttrBeansDOut[] = {
             },
         .regSpecs =
             {
-                .reg = 3,
-                .len = 2,
-                .mask = 0x1,
-                .shift = 2,
+                .reg = 2,
+                .len = 4,
+                .mask = 0b1,
+                .shift = 16,
                 .sign = false,
             },
     },
@@ -1860,7 +2024,7 @@ static struct DeviceAttrBean devAttrBeansDOut[] = {
             {
                 .attr =
                     {
-                        .name = "watchdog_timeout",
+                        .name = "join_h_config",
                         .mode = 0660,
                     },
                 .show = devAttrI2c_show,
@@ -1868,10 +2032,52 @@ static struct DeviceAttrBean devAttrBeansDOut[] = {
             },
         .regSpecs =
             {
-                .reg = 3,
-                .len = 2,
+                .reg = 2,
+                .len = 4,
+                .mask = 0b1,
+                .shift = 17,
+                .sign = false,
+            },
+    },
+
+    {
+        .devAttr =
+            {
+                .attr =
+                    {
+                        .name = "watchdog_config",
+                        .mode = 0660,
+                    },
+                .show = devAttrI2c_show,
+                .store = devAttrI2c_store,
+            },
+        .regSpecs =
+            {
+                .reg = 2,
+                .len = 4,
+                .mask = 0b1,
+                .shift = 18,
+                .sign = false,
+            },
+    },
+
+    {
+        .devAttr =
+            {
+                .attr =
+                    {
+                        .name = "watchdog_timeout_config",
+                        .mode = 0660,
+                    },
+                .show = devAttrI2c_show,
+                .store = devAttrI2c_store,
+            },
+        .regSpecs =
+            {
+                .reg = 2,
+                .len = 4,
                 .mask = 0b11,
-                .shift = 3,
+                .shift = 19,
                 .sign = false,
             },
     },
@@ -2154,7 +2360,7 @@ static struct DeviceAttrBean devAttrBeansRs485[] = {
             {
                 .attr =
                     {
-                        .name = "echo",
+                        .name = "echo_config",
                         .mode = 0660,
                     },
                 .show = devAttrI2c_show,
@@ -2255,6 +2461,12 @@ static struct DeviceBean devices[] = {
     {
         .name = "ups",
         .devAttrBeans = devAttrBeansUps,
+        .expbTypes = devUpsExpbTypes,
+    },
+
+    {
+        .name = "power_out",
+        .devAttrBeans = devAttrBeansPowerOut,
         .expbTypes = devUpsExpbTypes,
     },
 
@@ -2450,7 +2662,7 @@ static int64_t _i2c_read_segment(uint8_t reg, uint8_t len, uint32_t mask,
 static int64_t _i2c_write_segment(uint8_t reg, uint8_t len, uint32_t mask,
                                   uint8_t shift, uint32_t val, bool readBack) {
   int64_t res = 0;
-  uint8_t i;
+  uint8_t i, j;
 
   if (!_i2c_lock()) {
     return -EBUSY;
@@ -2463,20 +2675,29 @@ static int64_t _i2c_write_segment(uint8_t reg, uint8_t len, uint32_t mask,
     val &= mask;
   }
 
-  res = _i2c_write_no_lock(reg, len, val, mask);
-  if (res >= 0 && readBack) {
-    for (i = 0; i < 10; i++) {
-      res = _i2c_read_no_lock(reg, len);
-      if (res >= 0) {
-        if (mask != 0) {
-          res &= mask;
+  for (i = 0; i < 5; i++) {
+    res = _i2c_write_no_lock(reg, len, val, mask);
+    if (res >= 0) {
+      if (readBack) {
+        for (j = 0; j < 2; j++) {
+          res = _i2c_read_no_lock(reg, len);
+          if (res >= 0) {
+            if (mask != 0) {
+              res &= mask;
+            }
+            if (res == val) {
+              res = len;
+              break;
+            }
+            res = -EPERM;
+            msleep(1);
+          }
         }
-        if (res == val) {
-          res = len;
+        if (res >= 0) {
           break;
         }
-        res = -EPERM;
-        msleep(1);
+      } else {
+        break;
       }
     }
   }
@@ -2605,8 +2826,6 @@ static ssize_t devAttrConfig_store(struct device *dev,
   cmd = toUpper(buf[0]);
   if (cmd == 'R') {
     val = 0x02;
-  } else if (cmd == 'S') {
-    val = 0x03;
   } else {
     return -EINVAL;
   }
@@ -3159,6 +3378,6 @@ static struct platform_driver stratopimax_driver = {
 MODULE_LICENSE("GPL");
 MODULE_AUTHOR("Sfera Labs - http://sferalabs.cc");
 MODULE_DESCRIPTION("Strato Pi Max driver module");
-MODULE_VERSION("1.1");
+MODULE_VERSION("1.2");
 
 module_platform_driver(stratopimax_driver);
