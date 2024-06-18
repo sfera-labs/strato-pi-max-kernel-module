@@ -1098,7 +1098,7 @@ All properties' attributes are summarized here:
     </tbody>
 </table>
 
-Below are the devices corresponding to each expansion board typologies.
+Below are the devices corresponding to each expansion board typology.
 
 For expansion boards that can be installed on multiple slots, devices names have a `_s<n>` suffix denoting their slot number (1 to 4).
 
@@ -1357,6 +1357,8 @@ For expansion boards that can be installed on multiple slots, devices names have
     </tbody>
 </table>
 
+---
+
 ### Industrial Digital I/O Expansion Board
 
 #### Digital inputs - `/sys/class/stratopimax/digital_in_s<n>/`
@@ -1562,7 +1564,6 @@ For expansion boards that can be installed on multiple slots, devices names have
         <!-- ------------- -->
     </tbody>
 </table>
-
 
 #### Digital outputs - `/sys/class/stratopimax/digital_out_s<n>/`
 
