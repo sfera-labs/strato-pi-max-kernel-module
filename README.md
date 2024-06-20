@@ -1613,7 +1613,7 @@ For expansion boards that can be installed on multiple slots, devices names have
         <!-- ------------- -->
         <tr>
             <td rowspan=2>join_l_config</td>
-            <td rowspan=2>Outputs 1-2 (L side) join configuration. Can be joined only in high-side mode. `out2_mode` will be ignored</td>
+            <td rowspan=2>Outputs 1-2 (L side terminal block) join configuration (only for high-side mode)</td>
             <td rowspan=2>
                 <code>R</code>
                 <code>WF</code>
@@ -1624,12 +1624,12 @@ For expansion boards that can be installed on multiple slots, devices names have
         </tr>
         <tr>
             <td>1</td>
-            <td>Outputs 1-2 joined</td>
+            <td>Outputs 1-2 joined. Configurations and status for output 1 apply to pair</td>
         </tr>
         <!-- ------------- -->
         <tr>
             <td rowspan=2>join_h_config</td>
-            <td rowspan=2>Outputs 4-5 and 6-7 (H side) join configuration. Can be joined only in high-side mode. `out5_mode` and `out7_mode` will be ignored</td>
+            <td rowspan=2>Outputs 4-5 and 6-7 (H side terminal block) join configuration (only for high-side mode)</td>
             <td rowspan=2>
                 <code>R</code>
                 <code>WF</code>
@@ -1640,7 +1640,7 @@ For expansion boards that can be installed on multiple slots, devices names have
         </tr>
         <tr>
             <td>1</td>
-            <td>Outputs 4-5 and 6-7 joined</td>
+            <td>Outputs 4-5 and 6-7 joined. Configurations and status for outputs 4 and 6 apply to respective pairs</td>
         </tr>
         <!-- ------------- -->
         <tr>
