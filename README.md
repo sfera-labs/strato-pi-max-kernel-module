@@ -986,7 +986,7 @@ All properties' attributes are summarized here:
         <!-- ------------- -->
         <tr>
             <td>accel_z</td>
-            <td>X-axis acceleration</td>
+            <td>Z-axis acceleration</td>
             <td>
                 <code>R</code>
             </td>
