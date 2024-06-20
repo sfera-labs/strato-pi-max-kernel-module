@@ -394,11 +394,11 @@ All properties' attributes are summarized here:
         </tr>
         <tr>
             <td>1</td>
-            <td>Switching occours upon each watchdog reset</td>
+            <td>Switching occurs upon each watchdog reset</td>
         </tr>
         <tr>
             <td>2 ... 65535</td>
-            <td>Number of consecutive resets (with no heartbeat received in between) before switching occours. Requires <code>watchdog/enabled_config</code> set to <code>1</code></td>
+            <td>Number of consecutive resets (with no heartbeat received in between) before switching occurs. Requires <code>watchdog/enabled_config</code> set to <code>1</code></td>
         </tr>
         <!-- ------------- -->
         <tr>
@@ -414,11 +414,11 @@ All properties' attributes are summarized here:
         </tr>
         <tr>
             <td>1</td>
-            <td>Toggling occours upon each watchdog reset</td>
+            <td>Toggling occurs upon each watchdog reset</td>
         </tr>
         <tr>
             <td>2 ... 65535</td>
-            <td>Number of consecutive resets (with no heartbeat received in between) before toggling occours. Requires <code>watchdog/enabled_config</code> set to <code>1</code></td>
+            <td>Number of consecutive resets (with no heartbeat received in between) before toggling occurs. Requires <code>watchdog/enabled_config</code> set to <code>1</code></td>
         </tr>
         <!-- ------------- -->
         <tr>
