@@ -142,7 +142,7 @@ All properties' attributes are summarized here:
                 <i>A</i>: system setup failure<br/>
                 <i>B</i>: RP2040 failure<br/>
                 <i>C</i>: RP2040 reset occurred<br/>
-                <i>D</i>: configuration loading error<br/>
+                <i>D</i>: configuration loading/saving error<br/>
                 <i>F</i>: RP2040 I2C master failure<br/>
                 <i>G</i>: RP2040 I2C slave failure<br/>
                 <i>H</i>: RP2040 SPI failure<br/>
