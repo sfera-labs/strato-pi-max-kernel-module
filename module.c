@@ -1302,7 +1302,7 @@ static struct DeviceAttrBean devAttrBeansUps[] = {
             {
                 .attr =
                     {
-                        .name = "power_delay_config",
+                        .name = "down_delay_config",
                         .mode = 0660,
                     },
                 .show = devAttrI2c_show,

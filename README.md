@@ -1211,7 +1211,7 @@ For expansion boards that can be installed on multiple slots, devices names have
         </tr>
         <!-- ------------- -->
         <tr>
-            <td rowspan=2>power_delay_config</td>
+            <td rowspan=2>down_delay_config</td>
             <td rowspan=2>Automatic power cycle timeout configuration when main power source not available</td>
             <td rowspan=2>
                 <code>R</code>
