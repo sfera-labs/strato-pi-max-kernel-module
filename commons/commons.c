@@ -3,12 +3,13 @@
 #include <linux/kernel.h>
 #include <linux/math64.h>
 
-static void _itoa(int64_t value, char *buf, int base) {
+static void _itoa(int64_t value, char *buf, int base, uint32_t mask) {
   char tmp[64 + 1];
   char *tp = tmp;
   uint32_t i;
   uint64_t v;
   bool sign;
+  bool pad0;
   char *sp;
 
   if (buf == NULL) {
@@ -18,8 +19,13 @@ static void _itoa(int64_t value, char *buf, int base) {
   sign = value < 0;
   if (sign) {
     v = -value;
+    pad0 = false;
   } else {
     v = (uint64_t)value;
+    pad0 = base != 10 && mask != 0;
+    if (pad0) {
+      v |= mask + 1;
+    }
   }
 
   while (v || tp == tmp) {
@@ -29,6 +35,7 @@ static void _itoa(int64_t value, char *buf, int base) {
     else
       *tp++ = 'a' + i - 10;
   }
+  if (pad0) tp--;
 
   sp = buf;
 
@@ -55,7 +62,7 @@ char toUpper(char c) {
 }
 
 int valToStr(char *buf, int64_t val, const char *vals, bool sign, uint8_t len,
-             uint8_t base) {
+             uint8_t base, uint32_t mask) {
   if (vals == NULL) {
     if (base == 0) {
       base = 10;
@@ -68,7 +75,7 @@ int valToStr(char *buf, int64_t val, const char *vals, bool sign, uint8_t len,
             val |= 0xff00;
           }
         }
-        _itoa((int16_t)val, buf, base);
+        _itoa((int16_t)val, buf, base, mask);
       } else {
         if (len == 3) {
           if ((val & 0x800000) == 0x800000) {
@@ -76,10 +83,10 @@ int valToStr(char *buf, int64_t val, const char *vals, bool sign, uint8_t len,
             val |= 0xff000000;
           }
         }
-        _itoa((int32_t)val, buf, base);
+        _itoa((int32_t)val, buf, base, mask);
       }
     } else {
-      _itoa(val, buf, base);
+      _itoa(val, buf, base, mask);
     }
     return sprintf(buf, "%s\n", buf);
   } else {

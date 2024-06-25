@@ -165,6 +165,7 @@ static struct DeviceAttrBean devAttrBeansSystem[] = {
             {
                 .reg = I2C_REG_SYSMON_SYS_ERRS,
                 .len = 2,
+                .mask = 0x1fff,
                 .base = 2,
             },
     },
@@ -184,6 +185,7 @@ static struct DeviceAttrBean devAttrBeansSystem[] = {
             {
                 .reg = I2C_REG_SYSMON_IOEXP_ERRS,
                 .len = 2,
+                .mask = 0x7f,
                 .base = 2,
             },
     },
@@ -408,7 +410,7 @@ static struct DeviceAttrBean devAttrBeansExpb[] = {
             {
                 .reg = I2C_REG_EXPB_TYPE_S1,
                 .len = 2,
-                .mask = 0,
+                .mask = 0xff,
                 .shift = 0,
                 .sign = false,
             },
@@ -471,7 +473,7 @@ static struct DeviceAttrBean devAttrBeansExpb[] = {
             {
                 .reg = I2C_REG_EXPB_TYPE_S2,
                 .len = 2,
-                .mask = 0,
+                .mask = 0xff,
                 .shift = 0,
                 .sign = false,
             },
@@ -534,7 +536,7 @@ static struct DeviceAttrBean devAttrBeansExpb[] = {
             {
                 .reg = I2C_REG_EXPB_TYPE_S3,
                 .len = 2,
-                .mask = 0,
+                .mask = 0xff,
                 .shift = 0,
                 .sign = false,
             },
@@ -597,7 +599,7 @@ static struct DeviceAttrBean devAttrBeansExpb[] = {
             {
                 .reg = I2C_REG_EXPB_TYPE_S4,
                 .len = 2,
-                .mask = 0,
+                .mask = 0xff,
                 .shift = 0,
                 .sign = false,
             },
@@ -2736,7 +2738,8 @@ static ssize_t devAttrI2c_show(struct device *dev,
     return res;
   }
 
-  return valToStr(buf, res, dab->vals, specs->sign, specs->len, specs->base);
+  return valToStr(buf, res, dab->vals, specs->sign, specs->len, specs->base,
+                  specs->mask);
 }
 
 static ssize_t devAttrI2c_show_clear(struct device *dev,
@@ -3378,6 +3381,6 @@ static struct platform_driver stratopimax_driver = {
 MODULE_LICENSE("GPL");
 MODULE_AUTHOR("Sfera Labs - http://sferalabs.cc");
 MODULE_DESCRIPTION("Strato Pi Max driver module");
-MODULE_VERSION("1.2");
+MODULE_VERSION("1.3");
 
 module_platform_driver(stratopimax_driver);

@@ -241,7 +241,7 @@ ssize_t devAttrGpio_show(struct device *dev, struct device_attribute *attr,
       g->flags != GPIOD_OUT_HIGH) {
     return -EPERM;
   }
-  return valToStr(buf, gpioGetVal(g), vals, false, 0, 10);
+  return valToStr(buf, gpioGetVal(g), vals, false, 0, 10, 0);
 }
 
 ssize_t devAttrGpio_store(struct device *dev, struct device_attribute *attr,
