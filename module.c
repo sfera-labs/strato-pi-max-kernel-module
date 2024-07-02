@@ -1186,7 +1186,7 @@ static struct DeviceAttrBean devAttrBeansUps[] = {
             },
         .regSpecs =
             {
-                .reg = I2C_REG_UPS_MAIN,
+                .reg = I2C_REG_OFST_UPS_MAIN,
                 .len = 2,
                 .mask = 0b1,
                 .shift = 0,
@@ -1207,7 +1207,7 @@ static struct DeviceAttrBean devAttrBeansUps[] = {
             },
         .regSpecs =
             {
-                .reg = I2C_REG_UPS_MAIN,
+                .reg = I2C_REG_OFST_UPS_MAIN,
                 .len = 2,
                 .mask = 0b1,
                 .shift = 1,
@@ -1228,7 +1228,7 @@ static struct DeviceAttrBean devAttrBeansUps[] = {
             },
         .regSpecs =
             {
-                .reg = I2C_REG_UPS_MAIN,
+                .reg = I2C_REG_OFST_UPS_MAIN,
                 .len = 2,
                 .mask = 0b1,
                 .shift = 2,
@@ -1249,7 +1249,7 @@ static struct DeviceAttrBean devAttrBeansUps[] = {
             },
         .regSpecs =
             {
-                .reg = I2C_REG_UPS_CAPACITY,
+                .reg = I2C_REG_OFST_UPS_CAPACITY,
                 .len = 2,
                 .mask = 0,
                 .shift = 0,
@@ -1270,7 +1270,7 @@ static struct DeviceAttrBean devAttrBeansUps[] = {
             },
         .regSpecs =
             {
-                .reg = I2C_REG_UPS_MAX_CHARGE_I,
+                .reg = I2C_REG_OFST_UPS_MAX_CHARGE_I,
                 .len = 2,
                 .mask = 0,
                 .shift = 0,
@@ -1291,7 +1291,7 @@ static struct DeviceAttrBean devAttrBeansUps[] = {
             },
         .regSpecs =
             {
-                .reg = I2C_REG_UPS_MAX_CHARGE_I_CFG,
+                .reg = I2C_REG_OFST_UPS_MAX_CHARGE_I_CFG,
                 .len = 2,
                 .mask = 0,
                 .shift = 0,
@@ -1312,7 +1312,7 @@ static struct DeviceAttrBean devAttrBeansUps[] = {
             },
         .regSpecs =
             {
-                .reg = I2C_REG_UPS_POWER_DOWN_DELAY,
+                .reg = I2C_REG_OFST_UPS_POWER_DOWN_DELAY,
                 .len = 2,
                 .mask = 0,
                 .shift = 0,
@@ -1333,7 +1333,7 @@ static struct DeviceAttrBean devAttrBeansUps[] = {
             },
         .regSpecs =
             {
-                .reg = I2C_REG_UPS_STATE,
+                .reg = I2C_REG_OFST_UPS_STATE,
                 .len = 2,
                 .mask = 0b1,
                 .shift = 7,
@@ -1354,7 +1354,7 @@ static struct DeviceAttrBean devAttrBeansUps[] = {
             },
         .regSpecs =
             {
-                .reg = I2C_REG_UPS_STATE,
+                .reg = I2C_REG_OFST_UPS_STATE,
                 .len = 2,
                 .mask = 0b1111,
                 .shift = 0,
@@ -1375,7 +1375,7 @@ static struct DeviceAttrBean devAttrBeansUps[] = {
             },
         .regSpecs =
             {
-                .reg = I2C_REG_UPS_VBAT_V,
+                .reg = I2C_REG_OFST_UPS_VBAT_V,
                 .len = 2,
                 .mask = 0,
                 .shift = 0,
@@ -1396,7 +1396,7 @@ static struct DeviceAttrBean devAttrBeansUps[] = {
             },
         .regSpecs =
             {
-                .reg = I2C_REG_UPS_VBAT_I,
+                .reg = I2C_REG_OFST_UPS_VBAT_I,
                 .len = 2,
                 .mask = 0,
                 .shift = 0,
@@ -1421,7 +1421,7 @@ static struct DeviceAttrBean devAttrBeansPowerOut[] = {
             },
         .regSpecs =
             {
-                .reg = I2C_REG_UPS_MAIN,
+                .reg = I2C_REG_OFST_UPS_MAIN,
                 .len = 2,
                 .mask = 0b1,
                 .shift = 8,
@@ -1442,7 +1442,7 @@ static struct DeviceAttrBean devAttrBeansPowerOut[] = {
             },
         .regSpecs =
             {
-                .reg = I2C_REG_UPS_MAIN,
+                .reg = I2C_REG_OFST_UPS_MAIN,
                 .len = 2,
                 .mask = 0b1,
                 .shift = 9,
