@@ -1815,7 +1815,7 @@ static struct DeviceAttrBean devAttrBeansDIn[] = {
             {
                 .reg = 4,
                 .len = 2,
-                .mask = 0x3f,
+                .mask = 0x7f,
                 .shift = 0,
                 .sign = false,
                 .base = 2,
@@ -1860,7 +1860,7 @@ static struct DeviceAttrBean devAttrBeansDIn[] = {
             {
                 .reg = 4,
                 .len = 2,
-                .mask = 0x3f,
+                .mask = 0x7f,
                 .shift = 8,
                 .sign = false,
                 .base = 2,
@@ -2121,7 +2121,7 @@ static struct DeviceAttrBean devAttrBeansDOut[] = {
             {
                 .reg = 5,
                 .len = 2,
-                .mask = 0x3f,
+                .mask = 0x7f,
                 .shift = 0,
                 .sign = false,
                 .base = 2,
@@ -2166,7 +2166,7 @@ static struct DeviceAttrBean devAttrBeansDOut[] = {
             {
                 .reg = 5,
                 .len = 2,
-                .mask = 0x3f,
+                .mask = 0x7f,
                 .shift = 8,
                 .sign = false,
                 .base = 2,
@@ -2211,7 +2211,7 @@ static struct DeviceAttrBean devAttrBeansDOut[] = {
             {
                 .reg = 7,
                 .len = 4,
-                .mask = 0x3f,
+                .mask = 0x7f,
                 .shift = 0,
                 .sign = false,
                 .base = 2,
@@ -2256,7 +2256,7 @@ static struct DeviceAttrBean devAttrBeansDOut[] = {
             {
                 .reg = 7,
                 .len = 4,
-                .mask = 0x3f,
+                .mask = 0x7f,
                 .shift = 8,
                 .sign = false,
                 .base = 2,
@@ -2301,7 +2301,7 @@ static struct DeviceAttrBean devAttrBeansDOut[] = {
             {
                 .reg = 7,
                 .len = 4,
-                .mask = 0x3f,
+                .mask = 0x7f,
                 .shift = 16,
                 .sign = false,
                 .base = 2,
@@ -2346,7 +2346,7 @@ static struct DeviceAttrBean devAttrBeansDOut[] = {
             {
                 .reg = 7,
                 .len = 4,
-                .mask = 0x3f,
+                .mask = 0x7f,
                 .shift = 24,
                 .sign = false,
                 .base = 2,
@@ -3381,6 +3381,6 @@ static struct platform_driver stratopimax_driver = {
 MODULE_LICENSE("GPL");
 MODULE_AUTHOR("Sfera Labs - http://sferalabs.cc");
 MODULE_DESCRIPTION("Strato Pi Max driver module");
-MODULE_VERSION("1.3");
+MODULE_VERSION("1.4");
 
 module_platform_driver(stratopimax_driver);
