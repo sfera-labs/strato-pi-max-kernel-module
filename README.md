@@ -150,6 +150,7 @@ All properties' attributes are summarized here:
                 <i>K</i>: I/O expanders fault (see ioexp_errs)<br/>
                 <i>L</i>: accelerometer fault<br/>
                 <i>M</i>: UPS fault<br/>
+                <i>x</i>: reserved, set to 0<br/>
             </td>
         </tr>
         <!-- ------------- -->
