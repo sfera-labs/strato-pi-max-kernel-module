@@ -195,7 +195,7 @@ static struct DeviceAttrBean devAttrBeansSystem[] = {
             {
                 .attr =
                     {
-                        .name = "i2c_read",
+                        .name = "_i2c_read",
                         .mode = 0660,
                     },
                 .show = devAttrI2cRead_show,
@@ -208,7 +208,7 @@ static struct DeviceAttrBean devAttrBeansSystem[] = {
             {
                 .attr =
                     {
-                        .name = "i2c_write",
+                        .name = "_i2c_write",
                         .mode = 0220,
                     },
                 .show = NULL,
@@ -2503,6 +2503,9 @@ static struct i2c_client *rp2_i2c_client = NULL;
 static struct i2c_client *lm75a_i2c_client = NULL;
 static bool _rp2_probed = false;
 
+static int64_t _i2cReadVal;
+static uint16_t _i2cReadSize;
+
 struct GpioBean *gpioGetBean(struct device *dev, struct device_attribute *attr,
                              const char **vals) {
   struct DeviceAttrBean *dab;
@@ -2866,24 +2869,37 @@ static ssize_t devAttrConfig_store(struct device *dev,
   return res;
 }
 
-static int32_t _i2cReadVal;
-
 static ssize_t devAttrI2cRead_show(struct device *dev,
                                    struct device_attribute *attr, char *buf) {
-  return sprintf(buf, "0x%04x\n", _i2cReadVal);
+  if (_i2cReadSize == 1) {
+    return sprintf(buf, "0x%02x\n", (uint32_t)_i2cReadVal);
+  } else if (_i2cReadSize == 2) {
+    return sprintf(buf, "0x%04x\n", (uint32_t)_i2cReadVal);
+  } else if (_i2cReadSize == 3) {
+    return sprintf(buf, "0x%06x\n", (uint32_t)_i2cReadVal);
+  } else {
+    return sprintf(buf, "0x%08x\n", (uint32_t)_i2cReadVal);
+  }
 }
 
 static ssize_t devAttrI2cRead_store(struct device *dev,
                                     struct device_attribute *attr,
                                     const char *buf, size_t count) {
-  int ret;
-  long reg;
-  ret = kstrtol(buf, 10, &reg);
-  if (ret < 0) {
-    return ret;
+  unsigned long reg;
+  char *end = NULL;
+
+  reg = simple_strtoul(buf, &end, 10);
+  if (++end < buf + count) {
+    _i2cReadSize = simple_strtoul(end, NULL, 10);
+  } else {
+    _i2cReadSize = 2;
   }
 
-  _i2cReadVal = _i2c_read((uint8_t)reg, 2);
+  if (reg > 255 || _i2cReadSize > 4) {
+    return -EINVAL;
+  }
+
+  _i2cReadVal = _i2c_read(reg, _i2cReadSize);
 
   if (_i2cReadVal < 0) {
     return _i2cReadVal;
@@ -2895,14 +2911,28 @@ static ssize_t devAttrI2cRead_store(struct device *dev,
 static ssize_t devAttrI2cWrite_store(struct device *dev,
                                      struct device_attribute *attr,
                                      const char *buf, size_t count) {
-  long reg = 0;
-  long val = 0;
+  unsigned long reg;
+  unsigned long val = 0;
+  size_t size;
+  char *start = NULL;
   char *end = NULL;
 
-  reg = simple_strtol(buf, &end, 10);
-  val = simple_strtol(end + 1, NULL, 16);
+  reg = simple_strtoul(buf, &end, 10);
 
-  if (_i2c_write((uint8_t)reg, 2, (uint32_t)val, 0) < 0) {
+  if (++end >= buf + count) {
+    return -EINVAL;
+  }
+
+  start = end;
+  val = simple_strtoul(start, &end, 16);
+
+  size = (end - start) - 2;
+
+  if (reg > 255 || size > 8 || (size % 2) != 0) {
+    return -EINVAL;
+  }
+
+  if (_i2c_write(reg, size / 2, val, 0) < 0) {
     return -EIO;
   }
 
@@ -3381,6 +3411,6 @@ static struct platform_driver stratopimax_driver = {
 MODULE_LICENSE("GPL");
 MODULE_AUTHOR("Sfera Labs - http://sferalabs.cc");
 MODULE_DESCRIPTION("Strato Pi Max driver module");
-MODULE_VERSION("1.4");
+MODULE_VERSION("1.5");
 
 module_platform_driver(stratopimax_driver);
