@@ -2437,6 +2437,42 @@ static struct DeviceAttrBean devAttrBeansTest[] = {
             },
     },
 
+    {
+        .devAttr =
+            {
+                .attr =
+                    {
+                        .name = "_ate_adc_ch2",
+                        .mode = 0440,
+                    },
+                .show = devAttrI2c_show,
+                .store = NULL,
+            },
+        .regSpecs =
+            {
+                .reg = I2C_REG_ATE_ADC_CH2,
+                .len = 2,
+            },
+    },
+
+    {
+        .devAttr =
+            {
+                .attr =
+                    {
+                        .name = "_ate_adc_ch3",
+                        .mode = 0440,
+                    },
+                .show = devAttrI2c_show,
+                .store = NULL,
+            },
+        .regSpecs =
+            {
+                .reg = I2C_REG_ATE_ADC_CH3,
+                .len = 2,
+            },
+    },
+
     {},
 };
 
@@ -3711,6 +3747,6 @@ static struct platform_driver stratopimax_driver = {
 MODULE_LICENSE("GPL");
 MODULE_AUTHOR("Sfera Labs - http://sferalabs.cc");
 MODULE_DESCRIPTION("Strato Pi Max driver module");
-MODULE_VERSION("1.6");
+MODULE_VERSION("1.7");
 
 module_platform_driver(stratopimax_driver);
