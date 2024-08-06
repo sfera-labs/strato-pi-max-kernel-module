@@ -1145,11 +1145,11 @@ For expansion boards that can be installed on multiple slots, devices names have
                 <code>C</code>
             </td>
             <td>0</td>
-            <td>Disabled (default)</td>
+            <td>Disabled</td>
         </tr>
         <tr>
             <td>1</td>
-            <td>Enabled</td>
+            <td>Enabled (default)</td>
         </tr>
         <!-- ------------- -->
         <tr>
