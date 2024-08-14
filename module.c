@@ -26,6 +26,8 @@
 #include "gpio/gpio.h"
 #include "rp2_i2c.h"
 
+#define DEBUG_I2C 0
+
 #define X2_UPS 2
 #define X2_CAN_485 3
 #define X2_232_485 4
@@ -2666,8 +2668,11 @@ static void _i2c_add_crc(int reg, char *data, uint8_t len) {
 static int64_t _i2c_read_no_lock(uint8_t reg, uint8_t len) {
   int64_t res;
   char buf[5];  // max 4 bytes data + 1 byte crc
-  uint8_t i;
+  uint8_t j;
   uint8_t crc;
+#ifdef DEBUG_I2C
+  uint8_t j;
+#endif
 
   if (rp2_i2c_client == NULL) {
     return -ENODEV;
@@ -2681,16 +2686,22 @@ static int64_t _i2c_read_no_lock(uint8_t reg, uint8_t len) {
       if (crc == buf[len]) {
         break;
       } else {
-        pr_notice(LOG_TAG "i2c read error: crc=0x%x crc_rcv=0x%x\n", buf[len],
-                  crc);
+#ifdef DEBUG_I2C
+        pr_notice(LOG_TAG "i2c read error: reg=%d\n", reg);
+        for (j = 0; j < len; j++) {
+          pr_notice(LOG_TAG "data[%d]=0x%x\n", j, buf[j]);
+        }
+        pr_notice(LOG_TAG "crc=0x%x crc_rcv=0x%x\n", buf[len], crc);
+#endif
         res = -1;
       }
     }
-    msleep(1);
   }
 
   if (res != len + 1) {
-    pr_err(LOG_TAG "i2c read error: %lld\n", res);
+#ifdef DEBUG_I2C
+    pr_notice(LOG_TAG "i2c read error: %lld\n", res);
+#endif
     return -EIO;
   }
 
@@ -2727,7 +2738,6 @@ static int64_t _i2c_write_no_lock(uint8_t reg, uint8_t len, uint32_t val,
     if (!i2c_smbus_write_i2c_block_data(rp2_i2c_client, reg, len, buf)) {
       return len;
     }
-    msleep(1);
   }
   return -EIO;
 }
@@ -2810,7 +2820,6 @@ static int64_t _i2c_write_segment(uint8_t reg, uint8_t len, uint32_t mask,
               break;
             }
             res = -EPERM;
-            msleep(1);
           }
         }
         if (res >= 0) {
@@ -3747,6 +3756,6 @@ static struct platform_driver stratopimax_driver = {
 MODULE_LICENSE("GPL");
 MODULE_AUTHOR("Sfera Labs - http://sferalabs.cc");
 MODULE_DESCRIPTION("Strato Pi Max driver module");
-MODULE_VERSION("1.7");
+MODULE_VERSION("1.8");
 
 module_platform_driver(stratopimax_driver);
