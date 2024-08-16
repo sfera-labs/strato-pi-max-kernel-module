@@ -32,6 +32,7 @@
 #define X2_CAN_485 3
 #define X2_232_485 4
 #define X2_D7 5
+#define X2_PCAP 8
 
 #define LOG_TAG "stratopimax: "
 
@@ -1238,6 +1239,73 @@ static struct DeviceAttrBean devAttrBeansUps[] = {
             {
                 .attr =
                     {
+                        .name = "down_delay_config",
+                        .mode = 0660,
+                    },
+                .show = devAttrI2c_show,
+                .store = devAttrI2c_store,
+            },
+        .regSpecs =
+            {
+                .reg = I2C_REG_OFST_UPS_POWER_DOWN_DELAY,
+                .len = 2,
+                .mask = 0,
+                .shift = 0,
+                .sign = false,
+            },
+    },
+
+    {
+        .devAttr =
+            {
+                .attr =
+                    {
+                        .name = "backup",
+                        .mode = 0440,
+                    },
+                .show = devAttrI2c_show,
+                .store = NULL,
+            },
+        .regSpecs =
+            {
+                .reg = I2C_REG_OFST_UPS_STATE,
+                .len = 2,
+                .mask = 0b1,
+                .shift = 7,
+                .sign = false,
+            },
+    },
+
+    {
+        .devAttr =
+            {
+                .attr =
+                    {
+                        .name = "status",
+                        .mode = 0440,
+                    },
+                .show = devAttrI2c_show,
+                .store = NULL,
+            },
+        .regSpecs =
+            {
+                .reg = I2C_REG_OFST_UPS_STATE,
+                .len = 2,
+                .mask = 0b1111,
+                .shift = 0,
+                .sign = false,
+            },
+    },
+
+    {},
+};
+
+static struct DeviceAttrBean devAttrBeansUpsBattery[] = {
+    {
+        .devAttr =
+            {
+                .attr =
+                    {
                         .name = "battery_v_config",
                         .mode = 0660,
                     },
@@ -1322,27 +1390,6 @@ static struct DeviceAttrBean devAttrBeansUps[] = {
             {
                 .attr =
                     {
-                        .name = "down_delay_config",
-                        .mode = 0660,
-                    },
-                .show = devAttrI2c_show,
-                .store = devAttrI2c_store,
-            },
-        .regSpecs =
-            {
-                .reg = I2C_REG_OFST_UPS_POWER_DOWN_DELAY,
-                .len = 2,
-                .mask = 0,
-                .shift = 0,
-                .sign = false,
-            },
-    },
-
-    {
-        .devAttr =
-            {
-                .attr =
-                    {
                         .name = "battery",
                         .mode = 0440,
                     },
@@ -1355,27 +1402,6 @@ static struct DeviceAttrBean devAttrBeansUps[] = {
                 .len = 2,
                 .mask = 0b1,
                 .shift = 7,
-                .sign = false,
-            },
-    },
-
-    {
-        .devAttr =
-            {
-                .attr =
-                    {
-                        .name = "status",
-                        .mode = 0440,
-                    },
-                .show = devAttrI2c_show,
-                .store = NULL,
-            },
-        .regSpecs =
-            {
-                .reg = I2C_REG_OFST_UPS_STATE,
-                .len = 2,
-                .mask = 0b1111,
-                .shift = 0,
                 .sign = false,
             },
     },
@@ -2478,7 +2504,9 @@ static struct DeviceAttrBean devAttrBeansTest[] = {
     {},
 };
 
-static uint8_t devUpsExpbTypes[] = {X2_UPS, 0};
+static uint8_t devUpsExpbTypes[] = {X2_UPS, X2_PCAP, 0};
+
+static uint8_t devUpsBatteryExpbTypes[] = {X2_UPS, 0};
 
 static uint8_t devDInExpbTypes[] = {X2_D7, 0};
 
@@ -2566,6 +2594,12 @@ static struct DeviceBean devices[] = {
         .name = "ups",
         .devAttrBeans = devAttrBeansUps,
         .expbTypes = devUpsExpbTypes,
+    },
+
+    {
+        .name = "ups",
+        .devAttrBeans = devAttrBeansUpsBattery,
+        .expbTypes = devUpsBatteryExpbTypes,
     },
 
     {
@@ -2668,7 +2702,7 @@ static void _i2c_add_crc(int reg, char *data, uint8_t len) {
 static int64_t _i2c_read_no_lock(uint8_t reg, uint8_t len) {
   int64_t res;
   char buf[5];  // max 4 bytes data + 1 byte crc
-  uint8_t j;
+  uint8_t i;
   uint8_t crc;
 #ifdef DEBUG_I2C
   uint8_t j;
@@ -3543,11 +3577,14 @@ static int _device_add(struct platform_device *pdev, struct DeviceBean *db,
       return -ENOMEM;
     }
   }
-  dev = device_create(_pDeviceClass, NULL, 0, data, db->name, (expbIdx + 1));
-  if (IS_ERR(dev)) {
-    pr_err(LOG_TAG "failed to create device '%s' s=%d\n", db->name,
-           (expbIdx + 1));
-    return -1;
+  dev = class_find_device_by_name(_pDeviceClass, db->name);
+  if (!dev) {
+    dev = device_create(_pDeviceClass, NULL, 0, data, db->name, (expbIdx + 1));
+    if (IS_ERR(dev)) {
+      pr_err(LOG_TAG "failed to create device '%s' s=%d\n", db->name,
+             (expbIdx + 1));
+      return -1;
+    }
   }
   db->device = dev;
   if (data != NULL) {
