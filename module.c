@@ -2991,7 +2991,7 @@ static ssize_t devAttrConfig_store(struct device *dev,
   if (cmd == 'R') {
     val = 0x02;
   } else {
-    return -EINVAL;
+    val = cmd;
   }
 
   if (!_i2c_lock()) {
@@ -3011,6 +3011,8 @@ static ssize_t devAttrConfig_store(struct device *dev,
         if (((res >> 10) & 1) == 0) {
           if (((res >> 8) & 1) == 1) {
             res = count;
+          } else if (((res >> 11) & 1) == 1) {
+            return -EINVAL;
           } else {
             res = -EFAULT;
           }
@@ -3793,6 +3795,6 @@ static struct platform_driver stratopimax_driver = {
 MODULE_LICENSE("GPL");
 MODULE_AUTHOR("Sfera Labs - http://sferalabs.cc");
 MODULE_DESCRIPTION("Strato Pi Max driver module");
-MODULE_VERSION("1.8");
+MODULE_VERSION("1.9");
 
 module_platform_driver(stratopimax_driver);
