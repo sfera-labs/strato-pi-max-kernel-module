@@ -14,6 +14,14 @@
                 status = "okay";
                 
                 stratopimax_sd_route-gpios = <&gpio 6 0>;
+                stratopimax_exp1_xx-gpios = <&gpio 7 0>;
+                stratopimax_exp1_yy-gpios = <&gpio 8 0>;
+                stratopimax_exp2_xx-gpios = <&gpio 12 0>;
+                stratopimax_exp2_yy-gpios = <&gpio 13 0>;
+                stratopimax_exp3_xx-gpios = <&gpio 18 0>;
+                stratopimax_exp3_yy-gpios = <&gpio 19 0>;
+                stratopimax_exp4_xx-gpios = <&gpio 16 0>;
+                stratopimax_exp4_yy-gpios = <&gpio 17 0>;
             };
         };
     };
@@ -22,7 +30,7 @@
         target = <&gpio>;
         __overlay__ {
             dios_pins: dios_pins {
-                brcm,pins = <6>;
+                brcm,pins = <6 7 8 12 13 18 19 16 17>;
                 brcm,function = <0>; /* in */
                 brcm,pull = <0>; /* no pull */
             };
