@@ -32,6 +32,9 @@
 #define X2_232_485 4
 #define X2_D7 5
 #define X2_PCAP 8
+#define X2_AIN 9
+#define X2_GSM 10
+#define X2_AOUT 11
 
 #define LOG_TAG "stratopimax: "
 
@@ -2409,6 +2412,308 @@ static struct DeviceAttrBean devAttrBeansRs485[] = {
     {},
 };
 
+static struct DeviceAttrBean devAttrBeansAIn[] = {
+    {
+        .devAttr =
+            {
+                .attr =
+                    {
+                        .name = "av1",
+                        .mode = 0440,
+                    },
+                .show = devAttrI2c_show,
+                .store = NULL,
+            },
+        .regSpecs =
+            {
+                .reg = 4,
+                .len = 4,
+                .mask = 0,
+                .shift = 0,
+                .sign = true,
+            },
+    },
+
+    {
+        .devAttr =
+            {
+                .attr =
+                    {
+                        .name = "av2",
+                        .mode = 0440,
+                    },
+                .show = devAttrI2c_show,
+                .store = NULL,
+            },
+        .regSpecs =
+            {
+                .reg = 5,
+                .len = 4,
+                .mask = 0,
+                .shift = 0,
+                .sign = true,
+            },
+    },
+
+    {
+        .devAttr =
+            {
+                .attr =
+                    {
+                        .name = "av3",
+                        .mode = 0440,
+                    },
+                .show = devAttrI2c_show,
+                .store = NULL,
+            },
+        .regSpecs =
+            {
+                .reg = 6,
+                .len = 4,
+                .mask = 0,
+                .shift = 0,
+                .sign = true,
+            },
+    },
+
+    {
+        .devAttr =
+            {
+                .attr =
+                    {
+                        .name = "av4",
+                        .mode = 0440,
+                    },
+                .show = devAttrI2c_show,
+                .store = NULL,
+            },
+        .regSpecs =
+            {
+                .reg = 7,
+                .len = 4,
+                .mask = 0,
+                .shift = 0,
+                .sign = true,
+            },
+    },
+
+    {
+        .devAttr =
+            {
+                .attr =
+                    {
+                        .name = "ai1",
+                        .mode = 0440,
+                    },
+                .show = devAttrI2c_show,
+                .store = NULL,
+            },
+        .regSpecs =
+            {
+                .reg = 8,
+                .len = 4,
+                .mask = 0,
+                .shift = 0,
+                .sign = true,
+            },
+    },
+
+    {
+        .devAttr =
+            {
+                .attr =
+                    {
+                        .name = "ai2",
+                        .mode = 0440,
+                    },
+                .show = devAttrI2c_show,
+                .store = NULL,
+            },
+        .regSpecs =
+            {
+                .reg = 9,
+                .len = 4,
+                .mask = 0,
+                .shift = 0,
+                .sign = true,
+            },
+    },
+
+    {
+        .devAttr =
+            {
+                .attr =
+                    {
+                        .name = "ai3",
+                        .mode = 0440,
+                    },
+                .show = devAttrI2c_show,
+                .store = NULL,
+            },
+        .regSpecs =
+            {
+                .reg = 10,
+                .len = 4,
+                .mask = 0,
+                .shift = 0,
+                .sign = true,
+            },
+    },
+
+    {
+        .devAttr =
+            {
+                .attr =
+                    {
+                        .name = "ai4",
+                        .mode = 0440,
+                    },
+                .show = devAttrI2c_show,
+                .store = NULL,
+            },
+        .regSpecs =
+            {
+                .reg = 11,
+                .len = 4,
+                .mask = 0,
+                .shift = 0,
+                .sign = true,
+            },
+    },
+
+    {
+        .devAttr =
+            {
+                .attr =
+                    {
+                        .name = "at1",
+                        .mode = 0440,
+                    },
+                .show = devAttrI2c_show,
+                .store = NULL,
+            },
+        .regSpecs =
+            {
+                .reg = 12,
+                .len = 4,
+                .mask = 0,
+                .shift = 0,
+                .sign = true,
+            },
+    },
+
+    {
+        .devAttr =
+            {
+                .attr =
+                    {
+                        .name = "at2",
+                        .mode = 0440,
+                    },
+                .show = devAttrI2c_show,
+                .store = NULL,
+            },
+        .regSpecs =
+            {
+                .reg = 13,
+                .len = 4,
+                .mask = 0,
+                .shift = 0,
+                .sign = true,
+            },
+    },
+
+    {},
+};
+
+static struct DeviceAttrBean devAttrBeansAOut[] = {
+    {
+        .devAttr =
+            {
+                .attr =
+                    {
+                        .name = "ao1",
+                        .mode = 0660,
+                    },
+                .show = devAttrI2c_show,
+                .store = devAttrI2c_store,
+            },
+        .regSpecs =
+            {
+                .reg = 4,
+                .len = 2,
+                .mask = 0,
+                .shift = 0,
+                .sign = false,
+            },
+    },
+
+    {
+        .devAttr =
+            {
+                .attr =
+                    {
+                        .name = "ao2",
+                        .mode = 0660,
+                    },
+                .show = devAttrI2c_show,
+                .store = devAttrI2c_store,
+            },
+        .regSpecs =
+            {
+                .reg = 5,
+                .len = 2,
+                .mask = 0,
+                .shift = 0,
+                .sign = false,
+            },
+    },
+
+    {
+        .devAttr =
+            {
+                .attr =
+                    {
+                        .name = "ao3",
+                        .mode = 0660,
+                    },
+                .show = devAttrI2c_show,
+                .store = devAttrI2c_store,
+            },
+        .regSpecs =
+            {
+                .reg = 6,
+                .len = 2,
+                .mask = 0,
+                .shift = 0,
+                .sign = false,
+            },
+    },
+
+    {
+        .devAttr =
+            {
+                .attr =
+                    {
+                        .name = "ao4",
+                        .mode = 0660,
+                    },
+                .show = devAttrI2c_show,
+                .store = devAttrI2c_store,
+            },
+        .regSpecs =
+            {
+                .reg = 7,
+                .len = 2,
+                .mask = 0,
+                .shift = 0,
+                .sign = false,
+            },
+    },
+
+    {},
+};
+
 static uint8_t devUpsExpbTypes[] = {X2_UPS, X2_PCAP, 0};
 
 static uint8_t devUpsBatteryExpbTypes[] = {X2_UPS, 0};
@@ -2418,6 +2723,10 @@ static uint8_t devDInExpbTypes[] = {X2_D7, 0};
 static uint8_t devDOutExpbTypes[] = {X2_D7, 0};
 
 static uint8_t devRs485ExpbTypes[] = {X2_232_485, X2_CAN_485, 0};
+
+static uint8_t devAInExpbTypes[] = {X2_AIN, 0};
+
+static uint8_t devAOutExpbTypes[] = {X2_AOUT, 0};
 
 static struct DeviceBean devices[] = {
     {
@@ -2524,6 +2833,18 @@ static struct DeviceBean devices[] = {
         .name = "rs485_s%d",
         .devAttrBeans = devAttrBeansRs485,
         .expbTypes = devRs485ExpbTypes,
+    },
+
+    {
+        .name = "analog_in_s%d",
+        .devAttrBeans = devAttrBeansAIn,
+        .expbTypes = devAInExpbTypes,
+    },
+
+    {
+        .name = "analog_out_s%d",
+        .devAttrBeans = devAttrBeansAOut,
+        .expbTypes = devAOutExpbTypes,
     },
 
     {},
