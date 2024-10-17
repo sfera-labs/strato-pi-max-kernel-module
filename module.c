@@ -18,7 +18,6 @@
 #include <linux/kernel.h>
 #include <linux/module.h>
 #include <linux/of.h>
-#include <linux/spi/spi.h>
 #include <linux/version.h>
 
 #include "atecc/atecc.h"
@@ -35,9 +34,6 @@
 #define X2_PCAP 8
 
 #define LOG_TAG "stratopimax: "
-
-#define MCP3204_FACTOR 15ul
-#define MCP3204_VREF 3000ul
 
 struct DeviceAttrRegSpecs {
   uint8_t reg;
@@ -122,18 +118,6 @@ static ssize_t devAttrLm75a_store(struct device *dev,
 static ssize_t devAttrBlink_store(struct device *dev,
                                   struct device_attribute *attr,
                                   const char *buf, size_t count);
-
-static ssize_t devAttrMcp3204Ch0Mv_show(struct device *dev,
-                                        struct device_attribute *attr,
-                                        char *buf);
-
-static ssize_t devAttrMcp3204Ch1Mv_show(struct device *dev,
-                                        struct device_attribute *attr,
-                                        char *buf);
-
-static ssize_t devAttrMax4896Switch_store(struct device *dev,
-                                          struct device_attribute *attr,
-                                          const char *buf, size_t count);
 
 static const char VALS_SD_SDX_ROUTING[] = {2, 'A', 'B'};
 
@@ -2425,85 +2409,6 @@ static struct DeviceAttrBean devAttrBeansRs485[] = {
     {},
 };
 
-static struct DeviceAttrBean devAttrBeansTest[] = {
-    {
-        .devAttr =
-            {
-                .attr =
-                    {
-                        .name = "_ups_vso",
-                        .mode = 0440,
-                    },
-                .show = devAttrMcp3204Ch0Mv_show,
-                .store = NULL,
-            },
-    },
-
-    {
-        .devAttr =
-            {
-                .attr =
-                    {
-                        .name = "_ups_vbat",
-                        .mode = 0440,
-                    },
-                .show = devAttrMcp3204Ch1Mv_show,
-                .store = NULL,
-            },
-    },
-
-    {
-        .devAttr =
-            {
-                .attr =
-                    {
-                        .name = "_ups_pwr_switch",
-                        .mode = 0220,
-                    },
-                .show = NULL,
-                .store = devAttrMax4896Switch_store,
-            },
-    },
-
-    {
-        .devAttr =
-            {
-                .attr =
-                    {
-                        .name = "_ate_adc_ch2",
-                        .mode = 0440,
-                    },
-                .show = devAttrI2c_show,
-                .store = NULL,
-            },
-        .regSpecs =
-            {
-                .reg = I2C_REG_ATE_ADC_CH2,
-                .len = 2,
-            },
-    },
-
-    {
-        .devAttr =
-            {
-                .attr =
-                    {
-                        .name = "_ate_adc_ch3",
-                        .mode = 0440,
-                    },
-                .show = devAttrI2c_show,
-                .store = NULL,
-            },
-        .regSpecs =
-            {
-                .reg = I2C_REG_ATE_ADC_CH3,
-                .len = 2,
-            },
-    },
-
-    {},
-};
-
 static uint8_t devUpsExpbTypes[] = {X2_UPS, X2_PCAP, 0};
 
 static uint8_t devUpsBatteryExpbTypes[] = {X2_UPS, 0};
@@ -2586,11 +2491,6 @@ static struct DeviceBean devices[] = {
     },
 
     {
-        .name = "_tst",
-        .devAttrBeans = devAttrBeansTest,
-    },
-
-    {
         .name = "ups",
         .devAttrBeans = devAttrBeansUps,
         .expbTypes = devUpsExpbTypes,
@@ -2641,21 +2541,6 @@ static bool _rp2_probed = false;
 
 static int64_t _i2cReadVal;
 static uint16_t _i2cReadSize;
-
-struct spi_data {
-  struct spi_device *spi;
-  struct spi_message msg;
-  struct spi_transfer transfer[2];
-
-  struct regulator *reg;
-  struct mutex lock;
-
-  u8 tx_buf ____cacheline_aligned;
-  u8 rx_buf[2];
-};
-
-static struct spi_data *_mcp3204_data;
-static struct spi_data *_max4896_data;
 
 struct GpioBean *gpioGetBean(struct device *dev, struct device_attribute *attr,
                              const char **vals) {
@@ -3346,223 +3231,6 @@ static struct i2c_driver _i2c_driver = {
     .id_table = _i2c_id,
 };
 
-static int _spi_transfer(struct spi_data *data, u8 val) {
-  memset(&data->rx_buf, 0, sizeof(data->rx_buf));
-  data->tx_buf = val;
-  return spi_sync(data->spi, &data->msg);
-}
-
-static ssize_t devAttrMcp3204_show(char *buf, unsigned int channel, int mult) {
-  int i, ret;
-
-  if (_mcp3204_data == NULL) {
-    return -ENODEV;
-  }
-
-  ret = -EBUSY;
-  for (i = 0; i < 40; i++) {
-    if (mutex_trylock(&_mcp3204_data->lock)) {
-      ret = 1;
-      break;
-    }
-    msleep(1);
-  }
-
-  if (ret < 0) {
-    return ret;
-  }
-
-  _spi_transfer(_mcp3204_data, 0b1100000 | (channel << 2));
-
-  mutex_unlock(&_mcp3204_data->lock);
-
-  if (ret < 0) {
-    return ret;
-  }
-
-  ret = ((_mcp3204_data->rx_buf[0] & 0xff) << 4) |
-        ((_mcp3204_data->rx_buf[1] & 0xf) >> 4);
-
-  return sprintf(buf, "%lu\n", (ret * MCP3204_VREF * mult / 4096ul));
-}
-
-static ssize_t devAttrMcp3204Ch0Mv_show(struct device *dev,
-                                        struct device_attribute *attr,
-                                        char *buf) {
-  return devAttrMcp3204_show(buf, 0, MCP3204_FACTOR);
-}
-
-static ssize_t devAttrMcp3204Ch1Mv_show(struct device *dev,
-                                        struct device_attribute *attr,
-                                        char *buf) {
-  return devAttrMcp3204_show(buf, 1, MCP3204_FACTOR);
-}
-
-static ssize_t devAttrMax4896Switch_store(struct device *dev,
-                                          struct device_attribute *attr,
-                                          const char *buf, size_t count) {
-  int i, ret;
-
-  if (_max4896_data == NULL) {
-    return -ENODEV;
-  }
-
-  ret = -EBUSY;
-  for (i = 0; i < 40; i++) {
-    if (mutex_trylock(&_max4896_data->lock)) {
-      ret = 1;
-      break;
-    }
-    msleep(1);
-  }
-
-  if (ret < 0) {
-    return ret;
-  }
-
-  ret = _spi_transfer(_max4896_data, ((u8)(buf[0] - '0')) << 2);
-
-  mutex_unlock(&_max4896_data->lock);
-
-  pr_info(LOG_TAG "devAttrMax4896Switch_store X | %d - %d %d\n",
-          _max4896_data->tx_buf, _max4896_data->rx_buf[0],
-          _max4896_data->rx_buf[1]);  // TODO remove
-
-  if (ret < 0) {
-    return ret;
-  }
-
-  return count;
-}
-
-static int _spi_probe(const char *name, struct spi_data **data,
-                      struct spi_device *spi) {
-  int ret;
-
-  *data = devm_kzalloc(&spi->dev, sizeof(struct spi_data), GFP_KERNEL);
-  if (!*data) {
-    return -ENOMEM;
-  }
-
-  (*data)->spi = spi;
-  spi_set_drvdata(spi, *data);
-
-  (*data)->reg = devm_regulator_get(&spi->dev, "vref");
-  if (IS_ERR((*data)->reg)) {
-    return PTR_ERR((*data)->reg);
-  }
-
-  ret = regulator_enable((*data)->reg);
-  if (ret < 0) {
-    return ret;
-  }
-
-  mutex_init(&(*data)->lock);
-
-  return 0;
-}
-
-static int _mcp3204_spi_probe(struct spi_device *spi) {
-  int ret = _spi_probe("mcp3204", &_mcp3204_data, spi);
-  if (ret < 0) {
-    pr_warn(LOG_TAG "'mcp3204' probe error\n");
-    return ret;
-  }
-  _mcp3204_data->transfer[0].tx_buf = &_mcp3204_data->tx_buf;
-  _mcp3204_data->transfer[0].len = 1;
-  _mcp3204_data->transfer[1].rx_buf = _mcp3204_data->rx_buf;
-  _mcp3204_data->transfer[1].len = 2;
-  spi_message_init_with_transfers(&_mcp3204_data->msg, _mcp3204_data->transfer,
-                                  2);
-  return ret;
-}
-
-static int _max4896_spi_probe(struct spi_device *spi) {
-  int ret = _spi_probe("max4896", &_max4896_data, spi);
-  if (ret < 0) {
-    pr_warn(LOG_TAG "'max4896' probe error\n");
-    return ret;
-  }
-  _max4896_data->transfer[0].tx_buf = &_max4896_data->tx_buf;
-  _max4896_data->transfer[0].rx_buf = _max4896_data->rx_buf;
-  _max4896_data->transfer[0].len = 1;
-  spi_message_init_with_transfers(&_max4896_data->msg, _max4896_data->transfer,
-                                  1);
-  return ret;
-}
-
-#if LINUX_VERSION_CODE < KERNEL_VERSION(6, 0, 0)
-static int _spi_remove(struct spi_device *spi) {
-#else
-static void _spi_remove(struct spi_device *spi) {
-#endif
-  struct spi_data *data = spi_get_drvdata(spi);
-  if (data != NULL) {
-    if (data->reg != NULL && !IS_ERR(data->reg)) {
-      regulator_disable(data->reg);
-    }
-    mutex_destroy(&data->lock);
-  }
-
-  pr_info(LOG_TAG "spi %d removed\n", spi->chip_select);
-
-#if LINUX_VERSION_CODE < KERNEL_VERSION(6, 0, 0)
-  return 0;
-#endif
-}
-
-const struct of_device_id _mcp3204_of_match[] = {
-    {
-        .compatible = "sferalabs,stratopimax-mcp3204",
-    },
-    {},
-};
-MODULE_DEVICE_TABLE(of, _mcp3204_of_match);
-
-const struct of_device_id _max4896_of_match[] = {
-    {
-        .compatible = "sferalabs,stratopimax-max4896",
-    },
-    {},
-};
-MODULE_DEVICE_TABLE(of, _max4896_of_match);
-
-static const struct spi_device_id _mcp3204_ids[] = {
-    {"stratopimax-mcp3204", 0},
-    {},
-};
-MODULE_DEVICE_TABLE(spi, _mcp3204_ids);
-
-static const struct spi_device_id _max4896_ids[] = {
-    {"stratopimax-max4896", 0},
-    {},
-};
-MODULE_DEVICE_TABLE(spi, _max4896_ids);
-
-static struct spi_driver _mcp3204_driver = {
-    .driver =
-        {
-            .name = "stratopimax-mcp3204",
-            .owner = THIS_MODULE,
-            .of_match_table = of_match_ptr(_mcp3204_of_match),
-        },
-    .probe = _mcp3204_spi_probe,
-    .remove = _spi_remove,
-    .id_table = _mcp3204_ids,
-};
-
-static struct spi_driver _max4896_driver = {
-    .driver =
-        {
-            .name = "stratopimax-max4896",
-            .owner = THIS_MODULE,
-            .of_match_table = of_match_ptr(_max4896_of_match),
-        },
-    .probe = _max4896_spi_probe,
-    .remove = _spi_remove,
-    .id_table = _max4896_ids,
-};
-
 static int _device_add(struct platform_device *pdev, struct DeviceBean *db,
                        int8_t expbIdx) {
   struct device *dev;
@@ -3685,8 +3353,6 @@ static void cleanup(void) {
     gpioFree(&gpioSdRoute);
 
     i2c_del_driver(&_i2c_driver);
-    spi_unregister_driver(&_mcp3204_driver);
-    spi_unregister_driver(&_max4896_driver);
 
     mutex_destroy(&_i2c_mtx);
 
@@ -3712,8 +3378,6 @@ static int stratopimax_init(struct platform_device *pdev) {
 
   mutex_init(&_i2c_mtx);
   i2c_add_driver(&_i2c_driver);
-  spi_register_driver(&_mcp3204_driver);
-  spi_register_driver(&_max4896_driver);
   ateccAddDriver();
   gpioSetPlatformDev(pdev);
 
@@ -3795,6 +3459,6 @@ static struct platform_driver stratopimax_driver = {
 MODULE_LICENSE("GPL");
 MODULE_AUTHOR("Sfera Labs - http://sferalabs.cc");
 MODULE_DESCRIPTION("Strato Pi Max driver module");
-MODULE_VERSION("1.10");
+MODULE_VERSION("1.11");
 
 module_platform_driver(stratopimax_driver);

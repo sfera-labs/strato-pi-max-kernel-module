@@ -100,27 +100,4 @@
             status = "disabled";
         };
     };
-
-    fragment@7 {
-        target = <&spi0>;
-        __overlay__ {
-            #address-cells = <1>;
-            #size-cells = <0>;
-            cs-gpios = <&gpio 17 0>, <&gpio 16 0>;
-            num-chipselects = <2>;
-            status = "okay";
-            
-            mcp3204: mcp3204@0 {
-                compatible = "sferalabs,stratopimax-mcp3204";
-                reg = <0>;
-                spi-max-frequency = <50000>;
-            };
-
-            max4896: max4896@1 {
-                compatible = "sferalabs,stratopimax-max4896";
-                reg = <1>;
-                spi-max-frequency = <50000>;
-            };
-        };
-    };
 };
