@@ -2505,7 +2505,7 @@ static struct DeviceBean devices[] = {
     {
         .name = "power_out",
         .devAttrBeans = devAttrBeansPowerOut,
-        .expbTypes = devUpsExpbTypes,
+        .expbTypes = devUpsBatteryExpbTypes,
     },
 
     {
