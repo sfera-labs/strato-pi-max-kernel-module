@@ -2626,7 +2626,7 @@ static int64_t _i2c_read_no_lock(uint8_t reg, uint8_t len) {
 
   res = 0;
   for (i = 0; i < len; i++) {
-    res |= (buf[i] & 0xff) << (i * 8);
+    res |= (buf[i] & ((int64_t)0xff)) << (i * 8);
   }
 
   return res;
