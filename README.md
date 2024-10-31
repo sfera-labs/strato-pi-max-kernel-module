@@ -176,13 +176,6 @@ All properties' attributes are summarized here:
     </tbody>
 </table>
 
-
-
-
-
-
-
-
 #### Power cycle - `/sys/class/stratopimax/power/`
 
 <table>
@@ -1894,6 +1887,251 @@ For expansion boards that can be installed on multiple slots, devices names have
         <tr>
             <td>1</td>
             <td>Enabled</td>
+        </tr>
+        <!-- ------------- -->
+    </tbody>
+</table>
+
+---
+
+### Analog Inputs Expansion Board
+
+#### Analog inputs - `/sys/class/stratopimax/analog_in_s<n>/`
+
+<table>
+    <thead>
+        <tr>
+            <th>File</th>
+            <th>Description</th>
+            <th><a href="#attributes">Attr</a></th>
+            <th>Value</th>
+            <th>Value description</th>
+        </tr>
+    </thead>
+    <!-- ================= -->
+    <tbody>
+        <tr>
+            <td rowspan=2>av<i>N</i>_enabled_config</td>
+            <td rowspan=2>Analog voltage input <i>N</i> enabled configuration</td>
+            <td rowspan=2>
+                <code>R</code>
+                <code>WF</code>
+                <code>CR</code>
+            </td>
+            <td>0</td>
+            <td>Disabled</td>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>Enabled (default)</td>
+        </tr>
+        <!-- ------------- -->
+        <tr>
+            <td rowspan=2>av<i>N</i>_bipolar_config</td>
+            <td rowspan=2>Analog voltage input <i>N</i> bipolar configuration</td>
+            <td rowspan=2>
+                <code>R</code>
+                <code>WF</code>
+                <code>CR</code>
+            </td>
+            <td>0</td>
+            <td>Unipolar: range 0 ... 20 V (default)</td>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>Bipolar: range -10 ... 10 V</td>
+        </tr>
+        <!-- ------------- -->
+        <tr>
+            <td rowspan=2>av<i>N</i>_differential_config</td>
+            <td rowspan=2>Analog voltage input <i>N</i> (1 or 3) differential configuration</td>
+            <td rowspan=2>
+                <code>R</code>
+                <code>WF</code>
+                <code>CR</code>
+            </td>
+            <td>0</td>
+            <td>Single-ended: AGND is the voltage reference (default)</td>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>Differential: voltage difference between input <i>N</i> and <i>N</i>+1 </td>
+        </tr>
+        <!-- ------------- -->
+        <tr>
+            <td rowspan=2>ai<i>N</i>_enabled_config</td>
+            <td rowspan=2>Analog current input <i>N</i> enabled configuration</td>
+            <td rowspan=2>
+                <code>R</code>
+                <code>WF</code>
+                <code>CR</code>
+            </td>
+            <td>0</td>
+            <td>Disabled</td>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>Enabled (default)</td>
+        </tr>
+        <!-- ------------- -->
+        <tr>
+            <td rowspan=2>ai<i>N</i>_bipolar_config</td>
+            <td rowspan=2>Analog current input <i>N</i> bipolar configuration</td>
+            <td rowspan=2>
+                <code>R</code>
+                <code>WF</code>
+                <code>CR</code>
+            </td>
+            <td>0</td>
+            <td>Unipolar: range 0 ... 20 mA (default)</td>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>Bipolar: range -10 ... 10 mA</td>
+        </tr>
+        <!-- ------------- -->
+        <tr>
+            <td>av_filter</td>
+            <td>Analog voltage inputs filter configuration</td>
+            <td>
+                <code>R</code>
+                <code>WF</code>
+                <code>CR</code>
+            </td>
+            <td>0</td>
+            <td>
+                Filter configuration register value.<br/>
+                Refer to the AD4112 datasheet for details.<br/>
+                Default: 1294 (sinc5 + sinc1 filter, 100.2 SPS data rate)
+            </td>
+        </tr>
+        <!-- ------------- -->
+        <tr>
+            <td>ai_filter</td>
+            <td>Analog current inputs filter configuration</td>
+            <td>
+                <code>R</code>
+                <code>WF</code>
+                <code>CR</code>
+            </td>
+            <td>0</td>
+            <td>
+                Filter configuration register value.<br/>
+                Refer to the AD4112 datasheet for details.<br/>
+                Default: 1294 (sinc5 + sinc1 filter, 100.2 SPS data rate)
+            </td>
+        </tr>
+        <!-- ------------- -->
+        <tr>
+            <td rowspan=2>at<i>N</i>_enabled_config</td>
+            <td rowspan=2>Temperature probe input <i>N</i> enabled configuration</td>
+            <td rowspan=2>
+                <code>R</code>
+                <code>WF</code>
+                <code>CR</code>
+            </td>
+            <td>0</td>
+            <td>Disabled</td>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>Enabled (default)</td>
+        </tr>
+        <!-- ------------- -->
+        <tr>
+            <td rowspan=2>at<i>N</i>_pt1000_config</td>
+            <td rowspan=2>Temperature probe <i>N</i> type configuration</td>
+            <td rowspan=2>
+                <code>R</code>
+                <code>WF</code>
+                <code>CR</code>
+            </td>
+            <td>0</td>
+            <td>Pt100 (default)</td>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>Pt1000</td>
+        </tr>
+        <!-- ------------- -->
+        <tr>
+            <td rowspan=4>av<i>N</i></td>
+            <td rowspan=4>Analog voltage input <i>N</i> value</td>
+            <td rowspan=4>
+                <code>R</code>
+            </td>
+            <td><i>V</i></td>
+            <td>value in mV/100</td>
+        </tr>
+        <tr>
+            <td>8388607</td>
+            <td>Overrange value</td>
+        </tr>
+        <tr>
+            <td>-8388607</td>
+            <td>Underrange value</td>
+        </tr>
+        <tr>
+            <td>-8388608</td>
+            <td>Error</td>
+        </tr>
+        <!-- ------------- -->
+        <tr>
+            <td rowspan=4>ai<i>N</i></td>
+            <td rowspan=4>Analog current input <i>N</i> value</td>
+            <td rowspan=4>
+                <code>R</code>
+            </td>
+            <td><i>V</i></td>
+            <td>value in µA</td>
+        </tr>
+        <tr>
+            <td>8388607</td>
+            <td>Overrange value</td>
+        </tr>
+        <tr>
+            <td>-8388607</td>
+            <td>Underrange value</td>
+        </tr>
+        <tr>
+            <td>-8388608</td>
+            <td>Error</td>
+        </tr>
+        <!-- ------------- -->
+        <tr>
+            <td rowspan=4>at<i>N</i></td>
+            <td rowspan=4>Temperature probe <i>N</i> value</td>
+            <td rowspan=4>
+                <code>R</code>
+            </td>
+            <td><i>V</i></td>
+            <td>value in °C/100</td>
+        </tr>
+        <tr>
+            <td>8388607</td>
+            <td>Overrange value</td>
+        </tr>
+        <tr>
+            <td>-8388607</td>
+            <td>Underrange value</td>
+        </tr>
+        <tr>
+            <td>-8388608</td>
+            <td>Error</td>
+        </tr>
+        <!-- ------------- -->
+        <tr>
+            <td rowspan=2>v5_fault</td>
+            <td rowspan=2>5V output fault</td>
+            <td rowspan=2>
+                <code>R</code>
+            </td>
+            <td>0</td>
+            <td>OK</td>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>Fault</td>
         </tr>
         <!-- ------------- -->
     </tbody>

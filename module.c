@@ -2418,6 +2418,228 @@ static struct DeviceAttrBean devAttrBeansAIn[] = {
             {
                 .attr =
                     {
+                        .name = "av%d_enabled_config",
+                        .mode = 0660,
+                    },
+                .show = devAttrI2c_show,
+                .store = devAttrI2c_store,
+            },
+        .regSpecs =
+            {
+                .reg = 0,
+                .len = 4,
+                .mask = 0x1,
+                .shift = 8,
+                .sign = false,
+            },
+        .bitMapLen = 4,
+        .bitMapStart = 0,
+    },
+
+    {
+        .devAttr =
+            {
+                .attr =
+                    {
+                        .name = "av%d_bipolar_config",
+                        .mode = 0660,
+                    },
+                .show = devAttrI2c_show,
+                .store = devAttrI2c_store,
+            },
+        .regSpecs =
+            {
+                .reg = 0,
+                .len = 4,
+                .mask = 0x1,
+                .shift = 8,
+                .sign = false,
+            },
+        .bitMapLen = 4,
+        .bitMapStart = 1,
+    },
+
+    {
+        .devAttr =
+            {
+                .attr =
+                    {
+                        .name = "av1_differential_config",
+                        .mode = 0660,
+                    },
+                .show = devAttrI2c_show,
+                .store = devAttrI2c_store,
+            },
+        .regSpecs =
+            {
+                .reg = 0,
+                .len = 4,
+                .mask = 0x1,
+                .shift = 2,
+                .sign = false,
+            },
+    },
+
+    {
+        .devAttr =
+            {
+                .attr =
+                    {
+                        .name = "av3_differential_config",
+                        .mode = 0660,
+                    },
+                .show = devAttrI2c_show,
+                .store = devAttrI2c_store,
+            },
+        .regSpecs =
+            {
+                .reg = 0,
+                .len = 4,
+                .mask = 0x1,
+                .shift = 18,
+                .sign = false,
+            },
+    },
+
+    {
+        .devAttr =
+            {
+                .attr =
+                    {
+                        .name = "ai%d_enabled_config",
+                        .mode = 0660,
+                    },
+                .show = devAttrI2c_show,
+                .store = devAttrI2c_store,
+            },
+        .regSpecs =
+            {
+                .reg = 1,
+                .len = 4,
+                .mask = 0x1,
+                .shift = 8,
+                .sign = false,
+            },
+        .bitMapLen = 4,
+        .bitMapStart = 0,
+    },
+
+    {
+        .devAttr =
+            {
+                .attr =
+                    {
+                        .name = "ai%d_bipolar_config",
+                        .mode = 0660,
+                    },
+                .show = devAttrI2c_show,
+                .store = devAttrI2c_store,
+            },
+        .regSpecs =
+            {
+                .reg = 1,
+                .len = 4,
+                .mask = 0x1,
+                .shift = 8,
+                .sign = false,
+            },
+        .bitMapLen = 4,
+        .bitMapStart = 1,
+    },
+
+    {
+        .devAttr =
+            {
+                .attr =
+                    {
+                        .name = "at%d_enabled_config",
+                        .mode = 0660,
+                    },
+                .show = devAttrI2c_show,
+                .store = devAttrI2c_store,
+            },
+        .regSpecs =
+            {
+                .reg = 2,
+                .len = 2,
+                .mask = 0x1,
+                .shift = 8,
+                .sign = false,
+            },
+        .bitMapLen = 2,
+        .bitMapStart = 0,
+    },
+
+    {
+        .devAttr =
+            {
+                .attr =
+                    {
+                        .name = "at%d_pt1000_config",
+                        .mode = 0660,
+                    },
+                .show = devAttrI2c_show,
+                .store = devAttrI2c_store,
+            },
+        .regSpecs =
+            {
+                .reg = 2,
+                .len = 2,
+                .mask = 0x1,
+                .shift = 8,
+                .sign = false,
+            },
+        .bitMapLen = 2,
+        .bitMapStart = 1,
+    },
+
+    {
+        .devAttr =
+            {
+                .attr =
+                    {
+                        .name = "av_filter",
+                        .mode = 0660,
+                    },
+                .show = devAttrI2c_show,
+                .store = devAttrI2c_store,
+            },
+        .regSpecs =
+            {
+                .reg = 3,
+                .len = 2,
+                .mask = 0,
+                .shift = 0,
+                .sign = false,
+            },
+    },
+
+    {
+        .devAttr =
+            {
+                .attr =
+                    {
+                        .name = "ai_filter",
+                        .mode = 0660,
+                    },
+                .show = devAttrI2c_show,
+                .store = devAttrI2c_store,
+            },
+        .regSpecs =
+            {
+                .reg = 4,
+                .len = 2,
+                .mask = 0,
+                .shift = 0,
+                .sign = false,
+            },
+    },
+
+    {
+        .devAttr =
+            {
+                .attr =
+                    {
                         .name = "av1",
                         .mode = 0440,
                     },
@@ -2426,8 +2648,8 @@ static struct DeviceAttrBean devAttrBeansAIn[] = {
             },
         .regSpecs =
             {
-                .reg = 4,
-                .len = 4,
+                .reg = 10,
+                .len = 3,
                 .mask = 0,
                 .shift = 0,
                 .sign = true,
@@ -2447,8 +2669,8 @@ static struct DeviceAttrBean devAttrBeansAIn[] = {
             },
         .regSpecs =
             {
-                .reg = 5,
-                .len = 4,
+                .reg = 11,
+                .len = 3,
                 .mask = 0,
                 .shift = 0,
                 .sign = true,
@@ -2468,8 +2690,8 @@ static struct DeviceAttrBean devAttrBeansAIn[] = {
             },
         .regSpecs =
             {
-                .reg = 6,
-                .len = 4,
+                .reg = 12,
+                .len = 3,
                 .mask = 0,
                 .shift = 0,
                 .sign = true,
@@ -2489,8 +2711,8 @@ static struct DeviceAttrBean devAttrBeansAIn[] = {
             },
         .regSpecs =
             {
-                .reg = 7,
-                .len = 4,
+                .reg = 13,
+                .len = 3,
                 .mask = 0,
                 .shift = 0,
                 .sign = true,
@@ -2510,8 +2732,8 @@ static struct DeviceAttrBean devAttrBeansAIn[] = {
             },
         .regSpecs =
             {
-                .reg = 8,
-                .len = 4,
+                .reg = 14,
+                .len = 3,
                 .mask = 0,
                 .shift = 0,
                 .sign = true,
@@ -2531,8 +2753,8 @@ static struct DeviceAttrBean devAttrBeansAIn[] = {
             },
         .regSpecs =
             {
-                .reg = 9,
-                .len = 4,
+                .reg = 15,
+                .len = 3,
                 .mask = 0,
                 .shift = 0,
                 .sign = true,
@@ -2552,8 +2774,8 @@ static struct DeviceAttrBean devAttrBeansAIn[] = {
             },
         .regSpecs =
             {
-                .reg = 10,
-                .len = 4,
+                .reg = 16,
+                .len = 3,
                 .mask = 0,
                 .shift = 0,
                 .sign = true,
@@ -2573,8 +2795,8 @@ static struct DeviceAttrBean devAttrBeansAIn[] = {
             },
         .regSpecs =
             {
-                .reg = 11,
-                .len = 4,
+                .reg = 17,
+                .len = 3,
                 .mask = 0,
                 .shift = 0,
                 .sign = true,
@@ -2594,8 +2816,8 @@ static struct DeviceAttrBean devAttrBeansAIn[] = {
             },
         .regSpecs =
             {
-                .reg = 12,
-                .len = 4,
+                .reg = 18,
+                .len = 3,
                 .mask = 0,
                 .shift = 0,
                 .sign = true,
@@ -2615,11 +2837,32 @@ static struct DeviceAttrBean devAttrBeansAIn[] = {
             },
         .regSpecs =
             {
-                .reg = 13,
-                .len = 4,
+                .reg = 19,
+                .len = 3,
                 .mask = 0,
                 .shift = 0,
                 .sign = true,
+            },
+    },
+
+    {
+        .devAttr =
+            {
+                .attr =
+                    {
+                        .name = "v5_fault",
+                        .mode = 0440,
+                    },
+                .show = devAttrI2c_show,
+                .store = NULL,
+            },
+        .regSpecs =
+            {
+                .reg = 20,
+                .len = 2,
+                .mask = 1,
+                .shift = 0,
+                .sign = false,
             },
     },
 
