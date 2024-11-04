@@ -1991,7 +1991,7 @@ For expansion boards that can be installed on multiple slots, devices names have
         </tr>
         <!-- ------------- -->
         <tr>
-            <td>av_filter</td>
+            <td>av_filter_config</td>
             <td>Analog voltage inputs filter configuration</td>
             <td>
                 <code>R</code>
@@ -2007,7 +2007,7 @@ For expansion boards that can be installed on multiple slots, devices names have
         </tr>
         <!-- ------------- -->
         <tr>
-            <td>ai_filter</td>
+            <td>ai_filter_config</td>
             <td>Analog current inputs filter configuration</td>
             <td>
                 <code>R</code>

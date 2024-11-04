@@ -2598,7 +2598,7 @@ static struct DeviceAttrBean devAttrBeansAIn[] = {
             {
                 .attr =
                     {
-                        .name = "av_filter",
+                        .name = "av_filter_config",
                         .mode = 0660,
                     },
                 .show = devAttrI2c_show,
@@ -2619,7 +2619,7 @@ static struct DeviceAttrBean devAttrBeansAIn[] = {
             {
                 .attr =
                     {
-                        .name = "ai_filter",
+                        .name = "ai_filter_config",
                         .mode = 0660,
                     },
                 .show = devAttrI2c_show,
