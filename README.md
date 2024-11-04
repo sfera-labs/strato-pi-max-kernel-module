@@ -2061,7 +2061,7 @@ For expansion boards that can be installed on multiple slots, devices names have
                 <code>R</code>
             </td>
             <td><i>V</i></td>
-            <td>value in mV/100</td>
+            <td>Value in mV/100</td>
         </tr>
         <tr>
             <td>8388607</td>
@@ -2083,7 +2083,7 @@ For expansion boards that can be installed on multiple slots, devices names have
                 <code>R</code>
             </td>
             <td><i>V</i></td>
-            <td>value in µA</td>
+            <td>Value in µA</td>
         </tr>
         <tr>
             <td>8388607</td>
@@ -2105,7 +2105,7 @@ For expansion boards that can be installed on multiple slots, devices names have
                 <code>R</code>
             </td>
             <td><i>V</i></td>
-            <td>value in °C/100</td>
+            <td>Value in °C/100</td>
         </tr>
         <tr>
             <td>8388607</td>
@@ -2118,6 +2118,89 @@ For expansion boards that can be installed on multiple slots, devices names have
         <tr>
             <td>-8388608</td>
             <td>Error</td>
+        </tr>
+        <!-- ------------- -->
+        <tr>
+            <td rowspan=2>v5_fault</td>
+            <td rowspan=2>5V output fault</td>
+            <td rowspan=2>
+                <code>R</code>
+            </td>
+            <td>0</td>
+            <td>OK</td>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>Fault</td>
+        </tr>
+        <!-- ------------- -->
+    </tbody>
+</table>
+
+
+---
+
+### Analog Oututs Expansion Board
+
+#### Analog outputs - `/sys/class/stratopimax/analog_out_s<n>/`
+
+<table>
+    <thead>
+        <tr>
+            <th>File</th>
+            <th>Description</th>
+            <th><a href="#attributes">Attr</a></th>
+            <th>Value</th>
+            <th>Value description</th>
+        </tr>
+    </thead>
+    <!-- ================= -->
+    <tbody>
+        <tr>
+            <td rowspan=2>ao<i>N</i>_mode_config</td>
+            <td rowspan=2>Analog ouput <i>N</i> mode configuration</td>
+            <td rowspan=2>
+                <code>R</code>
+                <code>WF</code>
+                <code>CR</code>
+            </td>
+            <td>V</td>
+            <td>Voltage (default)</td>
+        </tr>
+        <tr>
+            <td>I</td>
+            <td>Current</td>
+        </tr>
+        <!-- ------------- -->
+        <tr>
+            <td rowspan=2>ao<i>N</i></td>
+            <td rowspan=2>Analog output <i>N</i> value</td>
+            <td>
+                <code>R</code>
+                <code>W</code>
+            </td>
+            <td><i>V</i></td>
+            <td>Value, in mV (voltage mode - range 0...10400) or µA (current mode - range 0...20800)</td>
+        </tr>
+        <tr>
+            <td>
+                <code>R</code>    
+            </td>
+            <td>65535</td>
+            <td>Error</td>
+        </tr>
+        <!-- ------------- -->
+        <tr>
+            <td>ao<i>N_errs</td>
+            <td>Analog output <i>N</i> error flags</td>
+            <td>
+                <code>R</code>
+            </td>
+            <td><i>CLT</i></td>
+            <td>Bitmap (0/1) sequence.<br/>
+                <i>T</i>: over-temperature error<br/>
+                <i>L</i>: load error<br/>
+                <i>C</i>: common mode error</td>
         </tr>
         <!-- ------------- -->
         <tr>

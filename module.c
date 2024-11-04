@@ -123,6 +123,7 @@ static ssize_t devAttrBlink_store(struct device *dev,
                                   const char *buf, size_t count);
 
 static const char VALS_SD_SDX_ROUTING[] = {2, 'A', 'B'};
+static const char VALS_AOUT_MODE[] = {2, 'V', 'I'};
 
 static struct GpioBean gpioSdRoute = {
     .name = "stratopimax_sd_route",
@@ -2875,49 +2876,31 @@ static struct DeviceAttrBean devAttrBeansAOut[] = {
             {
                 .attr =
                     {
+                        .name = "ao%d_mode_config",
+                        .mode = 0660,
+                    },
+                .show = devAttrI2c_show,
+                .store = devAttrI2c_store,
+            },
+        .regSpecs =
+            {
+                .reg = 0,
+                .len = 2,
+                .mask = 0x1,
+                .shift = 1,
+                .sign = false,
+            },
+        .bitMapLen = 4,
+        .bitMapStart = 0,
+        .vals = VALS_AOUT_MODE,
+    },
+
+    {
+        .devAttr =
+            {
+                .attr =
+                    {
                         .name = "ao1",
-                        .mode = 0660,
-                    },
-                .show = devAttrI2c_show,
-                .store = devAttrI2c_store,
-            },
-        .regSpecs =
-            {
-                .reg = 4,
-                .len = 2,
-                .mask = 0,
-                .shift = 0,
-                .sign = false,
-            },
-    },
-
-    {
-        .devAttr =
-            {
-                .attr =
-                    {
-                        .name = "ao2",
-                        .mode = 0660,
-                    },
-                .show = devAttrI2c_show,
-                .store = devAttrI2c_store,
-            },
-        .regSpecs =
-            {
-                .reg = 5,
-                .len = 2,
-                .mask = 0,
-                .shift = 0,
-                .sign = false,
-            },
-    },
-
-    {
-        .devAttr =
-            {
-                .attr =
-                    {
-                        .name = "ao3",
                         .mode = 0660,
                     },
                 .show = devAttrI2c_show,
@@ -2938,7 +2921,7 @@ static struct DeviceAttrBean devAttrBeansAOut[] = {
             {
                 .attr =
                     {
-                        .name = "ao4",
+                        .name = "ao2",
                         .mode = 0660,
                     },
                 .show = devAttrI2c_show,
@@ -2950,6 +2933,93 @@ static struct DeviceAttrBean devAttrBeansAOut[] = {
                 .len = 2,
                 .mask = 0,
                 .shift = 0,
+                .sign = false,
+            },
+    },
+
+    {
+        .devAttr =
+            {
+                .attr =
+                    {
+                        .name = "ao3",
+                        .mode = 0660,
+                    },
+                .show = devAttrI2c_show,
+                .store = devAttrI2c_store,
+            },
+        .regSpecs =
+            {
+                .reg = 8,
+                .len = 2,
+                .mask = 0,
+                .shift = 0,
+                .sign = false,
+            },
+    },
+
+    {
+        .devAttr =
+            {
+                .attr =
+                    {
+                        .name = "ao4",
+                        .mode = 0660,
+                    },
+                .show = devAttrI2c_show,
+                .store = devAttrI2c_store,
+            },
+        .regSpecs =
+            {
+                .reg = 9,
+                .len = 2,
+                .mask = 0,
+                .shift = 0,
+                .sign = false,
+            },
+    },
+
+    {
+        .devAttr =
+            {
+                .attr =
+                    {
+                        .name = "ao%d_errs",
+                        .mode = 0440,
+                    },
+                .show = devAttrI2c_show,
+                .store = NULL,
+            },
+        .regSpecs =
+            {
+                .reg = 10,
+                .len = 2,
+                .mask = 0b111,
+                .shift = 4,
+                .sign = false,
+                .base = 2,
+            },
+        .bitMapLen = 4,
+        .bitMapStart = 0,
+    },
+
+    {
+        .devAttr =
+            {
+                .attr =
+                    {
+                        .name = "v5_fault",
+                        .mode = 0440,
+                    },
+                .show = devAttrI2c_show,
+                .store = NULL,
+            },
+        .regSpecs =
+            {
+                .reg = 10,
+                .len = 2,
+                .mask = 1,
+                .shift = 15,
                 .sign = false,
             },
     },
