@@ -2180,7 +2180,7 @@ For expansion boards that can be installed on multiple slots, devices names have
                 <code>W</code>
             </td>
             <td><i>V</i></td>
-            <td>Value, in mV (voltage mode - range 0...10400) or µA (current mode - range 0...20800)</td>
+            <td>Value, in mV (voltage mode - range 0...10417) or µA (current mode - range 0...20833)</td>
         </tr>
         <tr>
             <td>
