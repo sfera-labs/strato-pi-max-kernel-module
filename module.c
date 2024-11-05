@@ -2428,9 +2428,9 @@ static struct DeviceAttrBean devAttrBeansAIn[] = {
         .regSpecs =
             {
                 .reg = 0,
-                .len = 4,
+                .len = 2,
                 .mask = 0x1,
-                .shift = 8,
+                .shift = 4,
                 .sign = false,
             },
         .bitMapLen = 4,
@@ -2451,9 +2451,9 @@ static struct DeviceAttrBean devAttrBeansAIn[] = {
         .regSpecs =
             {
                 .reg = 0,
-                .len = 4,
+                .len = 2,
                 .mask = 0x1,
-                .shift = 8,
+                .shift = 4,
                 .sign = false,
             },
         .bitMapLen = 4,
@@ -2474,7 +2474,7 @@ static struct DeviceAttrBean devAttrBeansAIn[] = {
         .regSpecs =
             {
                 .reg = 0,
-                .len = 4,
+                .len = 2,
                 .mask = 0x1,
                 .shift = 2,
                 .sign = false,
@@ -2495,9 +2495,9 @@ static struct DeviceAttrBean devAttrBeansAIn[] = {
         .regSpecs =
             {
                 .reg = 0,
-                .len = 4,
+                .len = 2,
                 .mask = 0x1,
-                .shift = 18,
+                .shift = 10,
                 .sign = false,
             },
     },
@@ -2516,9 +2516,9 @@ static struct DeviceAttrBean devAttrBeansAIn[] = {
         .regSpecs =
             {
                 .reg = 1,
-                .len = 4,
+                .len = 2,
                 .mask = 0x1,
-                .shift = 8,
+                .shift = 4,
                 .sign = false,
             },
         .bitMapLen = 4,
@@ -2539,9 +2539,9 @@ static struct DeviceAttrBean devAttrBeansAIn[] = {
         .regSpecs =
             {
                 .reg = 1,
-                .len = 4,
+                .len = 2,
                 .mask = 0x1,
-                .shift = 8,
+                .shift = 4,
                 .sign = false,
             },
         .bitMapLen = 4,
@@ -2564,7 +2564,7 @@ static struct DeviceAttrBean devAttrBeansAIn[] = {
                 .reg = 2,
                 .len = 2,
                 .mask = 0x1,
-                .shift = 8,
+                .shift = 4,
                 .sign = false,
             },
         .bitMapLen = 2,
@@ -2587,7 +2587,7 @@ static struct DeviceAttrBean devAttrBeansAIn[] = {
                 .reg = 2,
                 .len = 2,
                 .mask = 0x1,
-                .shift = 8,
+                .shift = 4,
                 .sign = false,
             },
         .bitMapLen = 2,
