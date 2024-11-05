@@ -1353,6 +1353,118 @@ For expansion boards that can be installed on multiple slots, devices names have
 
 ---
 
+### SuperCaps UPS Expansion Board
+
+#### UPS - `/sys/class/stratopimax/ups/`
+
+<table>
+    <thead>
+        <tr>
+            <th>File</th>
+            <th>Description</th>
+            <th><a href="#attributes">Attr</a></th>
+            <th>Value</th>
+            <th>Value description</th>
+        </tr>
+    </thead>
+    <!-- ================= -->
+    <tbody>
+        <tr>
+            <td rowspan=2>enabled</td>
+            <td rowspan=2>UPS enabling</td>
+            <td rowspan=2>
+                <code>R</code>
+                <code>W</code>
+            </td>
+            <td>0</td>
+            <td>Disabled</td>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>Enabled</td>
+        </tr>
+        <!-- ------------- -->
+        <tr>
+            <td rowspan=2>enabled_config</td>
+            <td rowspan=2>UPS enabling configuration</td>
+            <td rowspan=2>
+                <code>R</code>
+                <code>W</code>
+                <code>C</code>
+            </td>
+            <td>0</td>
+            <td>Disabled</td>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>Enabled (default)</td>
+        </tr>
+        <!-- ------------- -->
+        <tr>
+            <td rowspan=2>down_delay_config</td>
+            <td rowspan=2>Automatic power cycle timeout configuration when main power source not available</td>
+            <td rowspan=2>
+                <code>R</code>
+                <code>W</code>
+                <code>CR</code>
+            </td>
+            <td>0</td>
+            <td>Disabled (default)</td>
+        </tr>
+        <tr>
+            <td>1 ... 65535</td>
+            <td>Value in seconds</td>
+        </tr>
+        <!-- ------------- -->
+        <tr>
+            <td rowspan=2>backup</td>
+            <td rowspan=2>Power source state</td>
+            <td rowspan=2>
+                <code>R</code>
+            </td>
+            <td>0</td>
+            <td>Running on main power</td>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>Running on backup power</td>
+        </tr>
+        <!-- ------------- -->
+        <tr>
+            <td rowspan=6>status</td>
+            <td rowspan=6>UPS status</td>
+            <td rowspan=6>
+                <code>R</code>
+            </td>
+            <td>0</td>
+            <td>Idle</td>
+        </tr>
+        <tr>
+            <td>4</td>
+            <td>Charging</td>
+        </tr>
+        <tr>
+            <td>5</td>
+            <td>Charged</td>
+        </tr>
+        <tr>
+            <td>6</td>
+            <td>Running on backup power</td>
+        </tr>
+        <tr>
+            <td>10</td>
+            <td>Fault</td>
+        </tr>
+        <tr>
+            <td>11</td>
+            <td>Unstable</td>
+        </tr>
+        <!-- ------------- -->
+    </tbody>
+</table>
+
+---
+
 ### Industrial Digital I/O Expansion Board
 
 #### Digital inputs - `/sys/class/stratopimax/digital_in_s<n>/`
