@@ -4093,6 +4093,6 @@ static struct platform_driver stratopimax_driver = {
 MODULE_LICENSE("GPL");
 MODULE_AUTHOR("Sfera Labs - http://sferalabs.cc");
 MODULE_DESCRIPTION("Strato Pi Max driver module");
-MODULE_VERSION("1.12");
+MODULE_VERSION("1.13");
 
 module_platform_driver(stratopimax_driver);
