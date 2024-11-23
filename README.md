@@ -2253,7 +2253,7 @@ For expansion boards that can be installed on multiple slots, devices names have
 
 ---
 
-### Analog Oututs Expansion Board
+### Analog Outputs Expansion Board
 
 #### Analog outputs - `/sys/class/stratopimax/analog_out_s<n>/`
 
