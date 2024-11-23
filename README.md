@@ -69,8 +69,8 @@ The following paragraphs list all the devices (directories) and properties (file
 
 You can write and/or read these files to configure, monitor and control your Strato Pi Max. The kernel module will take care of performing the corresponding GPIO or I2C operations.
 
-Properties with the `_config` name suffix correspond to configuration parameters whose values are persisted and retained across power cycles.    
-The configuration parameters with attribute `CR` (see the <a href="#attributes">attributes table</a> below) are effective immediately, while those marked with `C` only store the value which will be copied to their "runtime" counterpart (same property name without `_config` suffix) upon power-up.
+Properties with the `_config` suffix represent configuration parameters that are saved and retained across power cycles.    
+Configuration parameters marked with the `CR` attribute (see the <a href="#attributes">attributes table</a> below) take effect immediately when set. Conversely, parameters with the `C` attribute store the value to be applied during the next *power-up* by copying it to the corresponding "runtime" property (same name without the `_config` suffix).
 
 > [!NOTE]  
 > A *power-up* occurs when:
@@ -81,7 +81,7 @@ The configuration parameters with attribute `CR` (see the <a href="#attributes">
 >
 > A software reboot of the compute module does **not** correspond to a power-up. 
 
-This allows us to have a different configuration for the next power-up phase, whether after a planned or abrupt power-off. For example, it enables switching the boot SD card while the compute module is off or setting a short watchdog timeout only while your application (which manages the watchdog heartbeat) is running; the timeout is then reset to a longer duration when a power cycle occurs, ensuring the compute module has enough time to boot and restart your application.
+This enables configuring settings for the next power cycles, whether after a planned or abrupt shutdown. For example, it allows switching the boot SD card while the compute module is off or having a short watchdog timeout during application runtime, which resets to a longer duration after a power cycle to ensure reliable boot and restart.
 
 <a name="attributes"></a>
 
@@ -93,8 +93,9 @@ All properties' attributes are summarized here:
 |`W`|Writable|
 |`RC`|Readable. Cleared when read|
 |`WF`|Writable only when expansion board is off|
-|`C`|Configuration value, persisted and retained across power cycles, value copied to "runtime" counterpart on power cycle|
+|`C`|Configuration value, persisted and retained across power cycles, copied to "runtime" counterpart on power-up|
 |`CR`|Configuration value, persisted and retained across power cycles, effective immediately|
+
 
 #### System - `/sys/class/stratopimax/system/`
 
