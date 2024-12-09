@@ -2048,11 +2048,11 @@ For expansion boards that can be installed on multiple slots, devices names have
                 <code>CR</code>
             </td>
             <td>0</td>
-            <td>Unipolar: range 0 ... 20 V (default)</td>
+            <td>Unipolar (default)</td>
         </tr>
         <tr>
             <td>1</td>
-            <td>Bipolar: range -10 ... 10 V</td>
+            <td>Bipolar</td>
         </tr>
         <!-- ------------- -->
         <tr>
@@ -2096,11 +2096,11 @@ For expansion boards that can be installed on multiple slots, devices names have
                 <code>CR</code>
             </td>
             <td>0</td>
-            <td>Unipolar: range 0 ... 20 mA (default)</td>
+            <td>Unipolar (default)</td>
         </tr>
         <tr>
             <td>1</td>
-            <td>Bipolar: range -10 ... 10 mA</td>
+            <td>Bipolar</td>
         </tr>
         <!-- ------------- -->
         <tr>
