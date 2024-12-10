@@ -2530,29 +2530,6 @@ static struct DeviceAttrBean devAttrBeansAIn[] = {
             {
                 .attr =
                     {
-                        .name = "ai%d_bipolar_config",
-                        .mode = 0660,
-                    },
-                .show = devAttrI2c_show,
-                .store = devAttrI2c_store,
-            },
-        .regSpecs =
-            {
-                .reg = 1,
-                .len = 2,
-                .mask = 0x1,
-                .shift = 4,
-                .sign = false,
-            },
-        .bitMapLen = 4,
-        .bitMapStart = 1,
-    },
-
-    {
-        .devAttr =
-            {
-                .attr =
-                    {
                         .name = "at%d_enabled_config",
                         .mode = 0660,
                     },
@@ -4093,6 +4070,6 @@ static struct platform_driver stratopimax_driver = {
 MODULE_LICENSE("GPL");
 MODULE_AUTHOR("Sfera Labs - http://sferalabs.cc");
 MODULE_DESCRIPTION("Strato Pi Max driver module");
-MODULE_VERSION("1.13");
+MODULE_VERSION("1.14");
 
 module_platform_driver(stratopimax_driver);

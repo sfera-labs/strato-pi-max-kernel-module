@@ -2048,11 +2048,11 @@ For expansion boards that can be installed on multiple slots, devices names have
                 <code>CR</code>
             </td>
             <td>0</td>
-            <td>Unipolar (default)</td>
+            <td>Unipolar: range 0 ... 20 V (default)</td>
         </tr>
         <tr>
             <td>1</td>
-            <td>Bipolar</td>
+            <td>Bipolar: range -20 ... 20 V</td>
         </tr>
         <!-- ------------- -->
         <tr>
@@ -2085,22 +2085,6 @@ For expansion boards that can be installed on multiple slots, devices names have
         <tr>
             <td>1</td>
             <td>Enabled (default)</td>
-        </tr>
-        <!-- ------------- -->
-        <tr>
-            <td rowspan=2>ai<i>N</i>_bipolar_config</td>
-            <td rowspan=2>Analog current input <i>N</i> bipolar configuration</td>
-            <td rowspan=2>
-                <code>R</code>
-                <code>WF</code>
-                <code>CR</code>
-            </td>
-            <td>0</td>
-            <td>Unipolar (default)</td>
-        </tr>
-        <tr>
-            <td>1</td>
-            <td>Bipolar</td>
         </tr>
         <!-- ------------- -->
         <tr>
