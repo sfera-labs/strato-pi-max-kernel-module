@@ -1882,6 +1882,153 @@ static struct DeviceAttrBean devAttrBeansDIn[] = {
             {
                 .attr =
                     {
+                        .name = "in1_cnt",
+                        .mode = 0440,
+                    },
+                .show = devAttrI2c_show,
+                .store = NULL,
+            },
+        .regSpecs =
+            {
+                .reg = 8,
+                .len = 2,
+                .mask = 0,
+                .shift = 0,
+                .sign = false,
+            },
+    },
+
+    {
+        .devAttr =
+            {
+                .attr =
+                    {
+                        .name = "in2_cnt",
+                        .mode = 0440,
+                    },
+                .show = devAttrI2c_show,
+                .store = NULL,
+            },
+        .regSpecs =
+            {
+                .reg = 9,
+                .len = 2,
+                .mask = 0,
+                .shift = 0,
+                .sign = false,
+            },
+    },
+
+    {
+        .devAttr =
+            {
+                .attr =
+                    {
+                        .name = "in3_cnt",
+                        .mode = 0440,
+                    },
+                .show = devAttrI2c_show,
+                .store = NULL,
+            },
+        .regSpecs =
+            {
+                .reg = 10,
+                .len = 2,
+                .mask = 0,
+                .shift = 0,
+                .sign = false,
+            },
+    },
+
+    {
+        .devAttr =
+            {
+                .attr =
+                    {
+                        .name = "in4_cnt",
+                        .mode = 0440,
+                    },
+                .show = devAttrI2c_show,
+                .store = NULL,
+            },
+        .regSpecs =
+            {
+                .reg = 11,
+                .len = 2,
+                .mask = 0,
+                .shift = 0,
+                .sign = false,
+            },
+    },
+
+    {
+        .devAttr =
+            {
+                .attr =
+                    {
+                        .name = "in5_cnt",
+                        .mode = 0440,
+                    },
+                .show = devAttrI2c_show,
+                .store = NULL,
+            },
+        .regSpecs =
+            {
+                .reg = 12,
+                .len = 2,
+                .mask = 0,
+                .shift = 0,
+                .sign = false,
+            },
+    },
+
+    {
+        .devAttr =
+            {
+                .attr =
+                    {
+                        .name = "in6_cnt",
+                        .mode = 0440,
+                    },
+                .show = devAttrI2c_show,
+                .store = NULL,
+            },
+        .regSpecs =
+            {
+                .reg = 13,
+                .len = 2,
+                .mask = 0,
+                .shift = 0,
+                .sign = false,
+            },
+    },
+
+    {
+        .devAttr =
+            {
+                .attr =
+                    {
+                        .name = "in7_cnt",
+                        .mode = 0440,
+                    },
+                .show = devAttrI2c_show,
+                .store = NULL,
+            },
+        .regSpecs =
+            {
+                .reg = 14,
+                .len = 2,
+                .mask = 0,
+                .shift = 0,
+                .sign = false,
+            },
+    },
+
+    {
+        .devAttr =
+            {
+                .attr =
+                    {
                         .name = "inputs_wb",
                         .mode = 0660,
                     },
@@ -4070,6 +4217,6 @@ static struct platform_driver stratopimax_driver = {
 MODULE_LICENSE("GPL");
 MODULE_AUTHOR("Sfera Labs - http://sferalabs.cc");
 MODULE_DESCRIPTION("Strato Pi Max driver module");
-MODULE_VERSION("1.14");
+MODULE_VERSION("1.15");
 
 module_platform_driver(stratopimax_driver);

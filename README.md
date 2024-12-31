@@ -1598,7 +1598,17 @@ For expansion boards that can be installed on multiple slots, devices names have
                 <code>W</code>
             </td>
             <td>0</td>
-            <td>clear</td>
+            <td>Clear</td>
+        </tr>
+        <!-- ------------- -->
+        <tr>
+            <td>in<i>N</i>_cnt<br/>(FW ver. &ge; 3.24)</td>
+            <td>Input <i>N</i> state change counter</td>
+            <td>
+                <code>R</code>
+            </td>
+            <td>0 ... 65535</td>
+            <td>Increases every time input <i>N</i> changes state. Rolls back to 0 after 65535</td>
         </tr>
         <!-- ------------- -->
         <tr>
