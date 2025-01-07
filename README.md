@@ -36,9 +36,12 @@ Make and install:
     make
     sudo make install
     
-Compile the Device Tree and install it:
+Compile the Device Tree overlay (replace `DTS_FILE` with `stratopimax-cm4.dts` or `stratopimax-cm5.dts` depending on the used CM version):
 
-    dtc -@ -Hepapr -I dts -O dtb -o stratopimax.dtbo stratopimax.dts
+    dtc -@ -Hepapr -I dts -O dtb -o stratopimax.dtbo DTS_FILE
+
+Install the overlay:
+
     sudo cp stratopimax.dtbo /boot/overlays/
 
 This overlay, amongst the different peripherals, configures the secondary SD interface to use the `sdhost` controller, so that `sdio` is available for WiFi on CM units equipped with it.

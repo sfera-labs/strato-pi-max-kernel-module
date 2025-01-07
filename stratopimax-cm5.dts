@@ -3,7 +3,7 @@
 
 / {
     compatible = "brcm,bcm2835";
-    
+
     fragment@0 {
         target-path = "/";
         __overlay__ {
@@ -25,7 +25,7 @@
             };
         };
     };
-    
+
     fragment@1 {
         target = <&gpio>;
         __overlay__ {
@@ -36,7 +36,7 @@
             };
         };
     };
-    
+
     fragment@2 {
         target = <&i2c_arm>;
         __overlay__ {
@@ -65,25 +65,18 @@
     };
 
     fragment@3 {
-        target = <&sdhost>;
+        target = <&rp1_mmc0>;
         __overlay__ {
-            pinctrl-names = "default";
-            pinctrl-0 = <&sdhost_pins>;
-            bus-width = <4>;
-            brcm,overclock-50 = <0>;
-            brcm,pio-limit = <1>;
             status = "okay";
+            pinctrl-0 = <&rp1_sdio0_22_27>;
+            pinctrl-names = "default";
         };
     };
 
     fragment@4 {
-        target = <&gpio>;
+        target = <&rp1_sdio_clk0>;
         __overlay__ {
-            sdhost_pins: sdhost_pins {
-                brcm,pins = <22 23 24 25 26 27>;
-                brcm,function = <4 4 4 4 4 4>; /* ALT0: SD0 */
-                brcm,pull = <0 2 2 2 2 2>; /* pull up all except clk */
-            };
+            status = "okay";
         };
     };
 };
