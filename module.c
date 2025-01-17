@@ -4136,7 +4136,6 @@ static int stratopimax_init(struct platform_device *pdev) {
 
   mutex_init(&_i2c_mtx);
   i2c_add_driver(&_i2c_driver);
-  ateccAddDriver();
   gpioSetPlatformDev(pdev);
 
   for (i = 0; i < 50; i++) {
@@ -4150,6 +4149,8 @@ static int stratopimax_init(struct platform_device *pdev) {
     pr_err(LOG_TAG "RP probing failed\n");
     goto fail;
   }
+
+  ateccAddDriver();
 
   if (gpioInit(&gpioSdRoute)) {
     pr_err(LOG_TAG "error setting up GPIO %s\n", gpioSdRoute.name);
@@ -4217,6 +4218,6 @@ static struct platform_driver stratopimax_driver = {
 MODULE_LICENSE("GPL");
 MODULE_AUTHOR("Sfera Labs - http://sferalabs.cc");
 MODULE_DESCRIPTION("Strato Pi Max driver module");
-MODULE_VERSION("1.15");
+MODULE_VERSION("1.16");
 
 module_platform_driver(stratopimax_driver);
