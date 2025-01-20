@@ -2773,7 +2773,7 @@ static struct DeviceAttrBean devAttrBeansAIn[] = {
             },
         .regSpecs =
             {
-                .reg = 10,
+                .reg = 8,
                 .len = 3,
                 .mask = 0,
                 .shift = 0,
@@ -2794,7 +2794,7 @@ static struct DeviceAttrBean devAttrBeansAIn[] = {
             },
         .regSpecs =
             {
-                .reg = 11,
+                .reg = 9,
                 .len = 3,
                 .mask = 0,
                 .shift = 0,
@@ -2815,7 +2815,7 @@ static struct DeviceAttrBean devAttrBeansAIn[] = {
             },
         .regSpecs =
             {
-                .reg = 12,
+                .reg = 10,
                 .len = 3,
                 .mask = 0,
                 .shift = 0,
@@ -2836,7 +2836,7 @@ static struct DeviceAttrBean devAttrBeansAIn[] = {
             },
         .regSpecs =
             {
-                .reg = 13,
+                .reg = 11,
                 .len = 3,
                 .mask = 0,
                 .shift = 0,
@@ -2857,7 +2857,7 @@ static struct DeviceAttrBean devAttrBeansAIn[] = {
             },
         .regSpecs =
             {
-                .reg = 14,
+                .reg = 12,
                 .len = 3,
                 .mask = 0,
                 .shift = 0,
@@ -2878,7 +2878,7 @@ static struct DeviceAttrBean devAttrBeansAIn[] = {
             },
         .regSpecs =
             {
-                .reg = 15,
+                .reg = 13,
                 .len = 3,
                 .mask = 0,
                 .shift = 0,
@@ -2899,7 +2899,7 @@ static struct DeviceAttrBean devAttrBeansAIn[] = {
             },
         .regSpecs =
             {
-                .reg = 16,
+                .reg = 14,
                 .len = 3,
                 .mask = 0,
                 .shift = 0,
@@ -2920,7 +2920,7 @@ static struct DeviceAttrBean devAttrBeansAIn[] = {
             },
         .regSpecs =
             {
-                .reg = 17,
+                .reg = 15,
                 .len = 3,
                 .mask = 0,
                 .shift = 0,
@@ -2941,7 +2941,7 @@ static struct DeviceAttrBean devAttrBeansAIn[] = {
             },
         .regSpecs =
             {
-                .reg = 18,
+                .reg = 16,
                 .len = 3,
                 .mask = 0,
                 .shift = 0,
@@ -2962,7 +2962,7 @@ static struct DeviceAttrBean devAttrBeansAIn[] = {
             },
         .regSpecs =
             {
-                .reg = 19,
+                .reg = 17,
                 .len = 3,
                 .mask = 0,
                 .shift = 0,
@@ -2983,11 +2983,221 @@ static struct DeviceAttrBean devAttrBeansAIn[] = {
             },
         .regSpecs =
             {
-                .reg = 20,
+                .reg = 18,
                 .len = 2,
                 .mask = 1,
                 .shift = 0,
                 .sign = false,
+            },
+    },
+
+    {
+        .devAttr =
+            {
+                .attr =
+                    {
+                        .name = "av1_sps",
+                        .mode = 0440,
+                    },
+                .show = devAttrI2c_show,
+                .store = NULL,
+            },
+        .regSpecs =
+            {
+                .reg = 19,
+                .len = 4,
+                .mask = 0xffff,
+                .shift = 0,
+                .sign = true,
+            },
+    },
+
+    {
+        .devAttr =
+            {
+                .attr =
+                    {
+                        .name = "av2_sps",
+                        .mode = 0440,
+                    },
+                .show = devAttrI2c_show,
+                .store = NULL,
+            },
+        .regSpecs =
+            {
+                .reg = 19,
+                .len = 4,
+                .mask = 0xffff,
+                .shift = 8,
+                .sign = true,
+            },
+    },
+
+    {
+        .devAttr =
+            {
+                .attr =
+                    {
+                        .name = "av3_sps",
+                        .mode = 0440,
+                    },
+                .show = devAttrI2c_show,
+                .store = NULL,
+            },
+        .regSpecs =
+            {
+                .reg = 20,
+                .len = 4,
+                .mask = 0xffff,
+                .shift = 0,
+                .sign = true,
+            },
+    },
+
+    {
+        .devAttr =
+            {
+                .attr =
+                    {
+                        .name = "av4_sps",
+                        .mode = 0440,
+                    },
+                .show = devAttrI2c_show,
+                .store = NULL,
+            },
+        .regSpecs =
+            {
+                .reg = 20,
+                .len = 4,
+                .mask = 0xffff,
+                .shift = 8,
+                .sign = true,
+            },
+    },
+
+    {
+        .devAttr =
+            {
+                .attr =
+                    {
+                        .name = "ai1_sps",
+                        .mode = 0440,
+                    },
+                .show = devAttrI2c_show,
+                .store = NULL,
+            },
+        .regSpecs =
+            {
+                .reg = 21,
+                .len = 4,
+                .mask = 0xffff,
+                .shift = 0,
+                .sign = true,
+            },
+    },
+
+    {
+        .devAttr =
+            {
+                .attr =
+                    {
+                        .name = "ai2_sps",
+                        .mode = 0440,
+                    },
+                .show = devAttrI2c_show,
+                .store = NULL,
+            },
+        .regSpecs =
+            {
+                .reg = 21,
+                .len = 4,
+                .mask = 0xffff,
+                .shift = 8,
+                .sign = true,
+            },
+    },
+
+    {
+        .devAttr =
+            {
+                .attr =
+                    {
+                        .name = "ai3_sps",
+                        .mode = 0440,
+                    },
+                .show = devAttrI2c_show,
+                .store = NULL,
+            },
+        .regSpecs =
+            {
+                .reg = 22,
+                .len = 4,
+                .mask = 0xffff,
+                .shift = 0,
+                .sign = true,
+            },
+    },
+
+    {
+        .devAttr =
+            {
+                .attr =
+                    {
+                        .name = "ai4_sps",
+                        .mode = 0440,
+                    },
+                .show = devAttrI2c_show,
+                .store = NULL,
+            },
+        .regSpecs =
+            {
+                .reg = 22,
+                .len = 4,
+                .mask = 0xffff,
+                .shift = 8,
+                .sign = true,
+            },
+    },
+
+    {
+        .devAttr =
+            {
+                .attr =
+                    {
+                        .name = "at1_sps",
+                        .mode = 0440,
+                    },
+                .show = devAttrI2c_show,
+                .store = NULL,
+            },
+        .regSpecs =
+            {
+                .reg = 23,
+                .len = 4,
+                .mask = 0xffff,
+                .shift = 0,
+                .sign = true,
+            },
+    },
+
+    {
+        .devAttr =
+            {
+                .attr =
+                    {
+                        .name = "at2_sps",
+                        .mode = 0440,
+                    },
+                .show = devAttrI2c_show,
+                .store = NULL,
+            },
+        .regSpecs =
+            {
+                .reg = 23,
+                .len = 4,
+                .mask = 0xffff,
+                .shift = 8,
+                .sign = true,
             },
     },
 
@@ -4218,6 +4428,6 @@ static struct platform_driver stratopimax_driver = {
 MODULE_LICENSE("GPL");
 MODULE_AUTHOR("Sfera Labs - http://sferalabs.cc");
 MODULE_DESCRIPTION("Strato Pi Max driver module");
-MODULE_VERSION("1.17");
+MODULE_VERSION("1.18");
 
 module_platform_driver(stratopimax_driver);
