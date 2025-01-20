@@ -2110,7 +2110,7 @@ For expansion boards that can be installed on multiple slots, devices names have
             </td>
             <td>0</td>
             <td>
-                Filter configuration register value.<br/>
+                Filter configuration register (FILTCON<i>x</i>) value used for voltage inputs.<br/>
                 Refer to the AD4112 datasheet for details.<br/>
                 Default: 1294 (sinc5 + sinc1 filter, 100.2 SPS data rate)
             </td>
@@ -2126,7 +2126,7 @@ For expansion boards that can be installed on multiple slots, devices names have
             </td>
             <td>0</td>
             <td>
-                Filter configuration register value.<br/>
+                Filter configuration register (FILTCON<i>x</i>) value used for current inputs.<br/>
                 Refer to the AD4112 datasheet for details.<br/>
                 Default: 1294 (sinc5 + sinc1 filter, 100.2 SPS data rate)
             </td>
@@ -2228,6 +2228,26 @@ For expansion boards that can be installed on multiple slots, devices names have
         <tr>
             <td>-8388608</td>
             <td>Error</td>
+        </tr>
+        <!-- ------------- -->
+        <tr>
+            <td>av<i>N</i>_sps</td>
+            <td>Analog voltage input <i>N</i> effective SPS</td>
+            <td>
+                <code>R</code>
+            </td>
+            <td><i>V</i></td>
+            <td>Number of samples read from this channel, updated every second</td>
+        </tr>
+        <!-- ------------- -->
+        <tr>
+            <td>ai<i>N</i>_sps</td>
+            <td>Analog current input <i>N</i> effective SPS</td>
+            <td>
+                <code>R</code>
+            </td>
+            <td><i>V</i></td>
+            <td>Number of samples read from this channel, updated every second</td>
         </tr>
         <!-- ------------- -->
         <tr>

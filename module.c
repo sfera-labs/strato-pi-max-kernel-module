@@ -3159,48 +3159,6 @@ static struct DeviceAttrBean devAttrBeansAIn[] = {
             },
     },
 
-    {
-        .devAttr =
-            {
-                .attr =
-                    {
-                        .name = "at1_sps",
-                        .mode = 0440,
-                    },
-                .show = devAttrI2c_show,
-                .store = NULL,
-            },
-        .regSpecs =
-            {
-                .reg = 23,
-                .len = 4,
-                .mask = 0xffff,
-                .shift = 0,
-                .sign = true,
-            },
-    },
-
-    {
-        .devAttr =
-            {
-                .attr =
-                    {
-                        .name = "at2_sps",
-                        .mode = 0440,
-                    },
-                .show = devAttrI2c_show,
-                .store = NULL,
-            },
-        .regSpecs =
-            {
-                .reg = 23,
-                .len = 4,
-                .mask = 0xffff,
-                .shift = 8,
-                .sign = true,
-            },
-    },
-
     {},
 };
 
