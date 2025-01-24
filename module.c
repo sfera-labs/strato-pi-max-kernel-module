@@ -4318,8 +4318,6 @@ static int stratopimax_init(struct platform_device *pdev) {
     goto fail;
   }
 
-  ateccAddDriver();
-
   if (gpioInit(&gpioSdRoute)) {
     pr_err(LOG_TAG "error setting up GPIO %s\n", gpioSdRoute.name);
     goto fail;
@@ -4386,6 +4384,6 @@ static struct platform_driver stratopimax_driver = {
 MODULE_LICENSE("GPL");
 MODULE_AUTHOR("Sfera Labs - http://sferalabs.cc");
 MODULE_DESCRIPTION("Strato Pi Max driver module");
-MODULE_VERSION("1.18");
+MODULE_VERSION("1.19");
 
 module_platform_driver(stratopimax_driver);

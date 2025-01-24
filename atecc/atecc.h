@@ -5,7 +5,4 @@
 
 ssize_t devAttrAteccSerial_show(struct device *dev,
                                 struct device_attribute *attr, char *buf);
-
-void ateccAddDriver(void);
-
 #endif
