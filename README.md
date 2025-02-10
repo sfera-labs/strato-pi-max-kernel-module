@@ -1077,6 +1077,10 @@ All properties' attributes are summarized here:
             <td rowspan=4>
                 <code>R</code>
             </td>
+            <td>1</td>
+            <td>Empty slot</td>
+        </tr>
+        <tr>
             <td>2</td>
             <td>Uninterruptible Power Supply</td>
         </tr>
@@ -1091,6 +1095,14 @@ All properties' attributes are summarized here:
         <tr>
             <td>5</td>
             <td>Industrial digital I/O</td>
+        </tr>
+        <tr>
+            <td>9</td>
+            <td>Industrial analog inputs</td>
+        </tr>
+        <tr>
+            <td>11</td>
+            <td>Industrial analog outputs</td>
         </tr>
         <!-- ------------- -->
     </tbody>
