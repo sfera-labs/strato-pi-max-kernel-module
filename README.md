@@ -1072,9 +1072,9 @@ All properties' attributes are summarized here:
         </tr>
         <!-- ------------- -->
         <tr>
-            <td rowspan=4>s<i>N</i>_type</td>
-            <td rowspan=4>Slot <i>N</i> expansion board type</td>
-            <td rowspan=4>
+            <td rowspan=7>s<i>N</i>_type</td>
+            <td rowspan=7>Slot <i>N</i> expansion board type</td>
+            <td rowspan=7>
                 <code>R</code>
             </td>
             <td>1</td>
