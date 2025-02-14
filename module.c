@@ -1,7 +1,7 @@
 /*
  * stratopimax
  *
- *     Copyright (C) 2023-2024 Sfera Labs S.r.l.
+ *     Copyright (C) 2023-2025 Sfera Labs S.r.l.
  *
  *     For information, visit https://www.sferalabs.cc
  *
@@ -35,6 +35,7 @@
 #define X2_AIN 9
 #define X2_GSM 10
 #define X2_AOUT 11
+#define X2_422 12
 
 #define LOG_TAG "stratopimax: "
 
@@ -2560,6 +2561,346 @@ static struct DeviceAttrBean devAttrBeansRs485[] = {
     {},
 };
 
+static struct DeviceAttrBean devAttrBeansRs422[] = {
+    {
+        .devAttr =
+            {
+                .attr =
+                    {
+                        .name = "ch1_echo_config",
+                        .mode = 0660,
+                    },
+                .show = devAttrI2c_show,
+                .store = devAttrI2c_store,
+            },
+        .regSpecs =
+            {
+                .reg = 0,
+                .len = 2,
+                .mask = 0b1,
+                .shift = 0,
+                .sign = false,
+            },
+    },
+
+    {
+        .devAttr =
+            {
+                .attr =
+                    {
+                        .name = "ch1_slew_config",
+                        .mode = 0660,
+                    },
+                .show = devAttrI2c_show,
+                .store = devAttrI2c_store,
+            },
+        .regSpecs =
+            {
+                .reg = 0,
+                .len = 2,
+                .mask = 0b1,
+                .shift = 1,
+                .sign = false,
+            },
+    },
+
+    {
+        .devAttr =
+            {
+                .attr =
+                    {
+                        .name = "ch1_half_duplex_config",
+                        .mode = 0660,
+                    },
+                .show = devAttrI2c_show,
+                .store = devAttrI2c_store,
+            },
+        .regSpecs =
+            {
+                .reg = 0,
+                .len = 2,
+                .mask = 0b1,
+                .shift = 2,
+                .sign = false,
+            },
+    },
+
+    {
+        .devAttr =
+            {
+                .attr =
+                    {
+                        .name = "ch1_termination_config",
+                        .mode = 0660,
+                    },
+                .show = devAttrI2c_show,
+                .store = devAttrI2c_store,
+            },
+        .regSpecs =
+            {
+                .reg = 0,
+                .len = 2,
+                .mask = 0b1,
+                .shift = 3,
+                .sign = false,
+            },
+    },
+
+    {
+        .devAttr =
+            {
+                .attr =
+                    {
+                        .name = "ch2_echo_config",
+                        .mode = 0660,
+                    },
+                .show = devAttrI2c_show,
+                .store = devAttrI2c_store,
+            },
+        .regSpecs =
+            {
+                .reg = 1,
+                .len = 2,
+                .mask = 0b1,
+                .shift = 0,
+                .sign = false,
+            },
+    },
+
+    {
+        .devAttr =
+            {
+                .attr =
+                    {
+                        .name = "ch2_slew_config",
+                        .mode = 0660,
+                    },
+                .show = devAttrI2c_show,
+                .store = devAttrI2c_store,
+            },
+        .regSpecs =
+            {
+                .reg = 1,
+                .len = 2,
+                .mask = 0b1,
+                .shift = 1,
+                .sign = false,
+            },
+    },
+
+    {
+        .devAttr =
+            {
+                .attr =
+                    {
+                        .name = "ch2_half_duplex_config",
+                        .mode = 0660,
+                    },
+                .show = devAttrI2c_show,
+                .store = devAttrI2c_store,
+            },
+        .regSpecs =
+            {
+                .reg = 1,
+                .len = 2,
+                .mask = 0b1,
+                .shift = 2,
+                .sign = false,
+            },
+    },
+
+    {
+        .devAttr =
+            {
+                .attr =
+                    {
+                        .name = "ch2_termination_config",
+                        .mode = 0660,
+                    },
+                .show = devAttrI2c_show,
+                .store = devAttrI2c_store,
+            },
+        .regSpecs =
+            {
+                .reg = 1,
+                .len = 2,
+                .mask = 0b1,
+                .shift = 3,
+                .sign = false,
+            },
+    },
+
+    {
+        .devAttr =
+            {
+                .attr =
+                    {
+                        .name = "ch3_echo_config",
+                        .mode = 0660,
+                    },
+                .show = devAttrI2c_show,
+                .store = devAttrI2c_store,
+            },
+        .regSpecs =
+            {
+                .reg = 2,
+                .len = 2,
+                .mask = 0b1,
+                .shift = 0,
+                .sign = false,
+            },
+    },
+
+    {
+        .devAttr =
+            {
+                .attr =
+                    {
+                        .name = "ch3_slew_config",
+                        .mode = 0660,
+                    },
+                .show = devAttrI2c_show,
+                .store = devAttrI2c_store,
+            },
+        .regSpecs =
+            {
+                .reg = 2,
+                .len = 2,
+                .mask = 0b1,
+                .shift = 1,
+                .sign = false,
+            },
+    },
+
+    {
+        .devAttr =
+            {
+                .attr =
+                    {
+                        .name = "ch3_half_duplex_config",
+                        .mode = 0660,
+                    },
+                .show = devAttrI2c_show,
+                .store = devAttrI2c_store,
+            },
+        .regSpecs =
+            {
+                .reg = 2,
+                .len = 2,
+                .mask = 0b1,
+                .shift = 2,
+                .sign = false,
+            },
+    },
+
+    {
+        .devAttr =
+            {
+                .attr =
+                    {
+                        .name = "ch3_termination_config",
+                        .mode = 0660,
+                    },
+                .show = devAttrI2c_show,
+                .store = devAttrI2c_store,
+            },
+        .regSpecs =
+            {
+                .reg = 2,
+                .len = 2,
+                .mask = 0b1,
+                .shift = 3,
+                .sign = false,
+            },
+    },
+
+    {
+        .devAttr =
+            {
+                .attr =
+                    {
+                        .name = "ch4_echo_config",
+                        .mode = 0660,
+                    },
+                .show = devAttrI2c_show,
+                .store = devAttrI2c_store,
+            },
+        .regSpecs =
+            {
+                .reg = 3,
+                .len = 2,
+                .mask = 0b1,
+                .shift = 0,
+                .sign = false,
+            },
+    },
+
+    {
+        .devAttr =
+            {
+                .attr =
+                    {
+                        .name = "ch4_slew_config",
+                        .mode = 0660,
+                    },
+                .show = devAttrI2c_show,
+                .store = devAttrI2c_store,
+            },
+        .regSpecs =
+            {
+                .reg = 3,
+                .len = 2,
+                .mask = 0b1,
+                .shift = 1,
+                .sign = false,
+            },
+    },
+
+    {
+        .devAttr =
+            {
+                .attr =
+                    {
+                        .name = "ch4_half_duplex_config",
+                        .mode = 0660,
+                    },
+                .show = devAttrI2c_show,
+                .store = devAttrI2c_store,
+            },
+        .regSpecs =
+            {
+                .reg = 3,
+                .len = 2,
+                .mask = 0b1,
+                .shift = 2,
+                .sign = false,
+            },
+    },
+
+    {
+        .devAttr =
+            {
+                .attr =
+                    {
+                        .name = "ch4_termination_config",
+                        .mode = 0660,
+                    },
+                .show = devAttrI2c_show,
+                .store = devAttrI2c_store,
+            },
+        .regSpecs =
+            {
+                .reg = 3,
+                .len = 2,
+                .mask = 0b1,
+                .shift = 3,
+                .sign = false,
+            },
+    },
+
+    {},
+};
+
 static struct DeviceAttrBean devAttrBeansAIn[] = {
     {
         .devAttr =
@@ -3329,6 +3670,8 @@ static uint8_t devDOutExpbTypes[] = {X2_D7, 0};
 
 static uint8_t devRs485ExpbTypes[] = {X2_232_485, X2_CAN_485, 0};
 
+static uint8_t devRs422ExpbTypes[] = {X2_422, 0};
+
 static uint8_t devAInExpbTypes[] = {X2_AIN, 0};
 
 static uint8_t devAOutExpbTypes[] = {X2_AOUT, 0};
@@ -3438,6 +3781,12 @@ static struct DeviceBean devices[] = {
         .name = "rs485_s%d",
         .devAttrBeans = devAttrBeansRs485,
         .expbTypes = devRs485ExpbTypes,
+    },
+
+    {
+        .name = "rs422_s%d",
+        .devAttrBeans = devAttrBeansRs422,
+        .expbTypes = devRs422ExpbTypes,
     },
 
     {
@@ -4384,6 +4733,6 @@ static struct platform_driver stratopimax_driver = {
 MODULE_LICENSE("GPL");
 MODULE_AUTHOR("Sfera Labs - http://sferalabs.cc");
 MODULE_DESCRIPTION("Strato Pi Max driver module");
-MODULE_VERSION("1.19");
+MODULE_VERSION("1.20");
 
 module_platform_driver(stratopimax_driver);

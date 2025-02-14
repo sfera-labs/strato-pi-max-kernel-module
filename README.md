@@ -1072,9 +1072,9 @@ All properties' attributes are summarized here:
         </tr>
         <!-- ------------- -->
         <tr>
-            <td rowspan=7>s<i>N</i>_type</td>
-            <td rowspan=7>Slot <i>N</i> expansion board type</td>
-            <td rowspan=7>
+            <td rowspan=8>s<i>N</i>_type</td>
+            <td rowspan=8>Slot <i>N</i> expansion board type</td>
+            <td rowspan=8>
                 <code>R</code>
             </td>
             <td>1</td>
@@ -1103,6 +1103,10 @@ All properties' attributes are summarized here:
         <tr>
             <td>11</td>
             <td>Industrial analog outputs</td>
+        </tr>
+        <tr>
+            <td>12</td>
+            <td>Quad RS-422/RS-485</td>
         </tr>
         <!-- ------------- -->
     </tbody>
@@ -2361,6 +2365,93 @@ FW ver. &ge; 3.21
         <tr>
             <td>1</td>
             <td>Fault</td>
+        </tr>
+        <!-- ------------- -->
+    </tbody>
+</table>
+
+---
+
+### Quad RS-422/RS-485 Expansion Board
+
+FW ver. &ge; 3.29
+
+#### Digital inputs - `/sys/class/stratopimax/rs422_s<n>/`
+
+<table>
+    <thead>
+        <tr>
+            <th>File</th>
+            <th>Description</th>
+            <th><a href="#attributes">Attr</a></th>
+            <th>Value</th>
+            <th>Value description</th>
+        </tr>
+    </thead>
+    <!-- ================= -->
+    <tbody>
+        <tr>
+            <td rowspan=2>ch<i>N</i>_half_duplex_config<br/>(1 &le; <i>N</i> &le; 4)</td>
+            <td rowspan=2>Channel <i>N</i> half-duplex configuration</td>
+            <td rowspan=2>
+                <code>R</code>
+                <code>W</code>
+                <code>CR</code>
+            </td>
+            <td>0</td>
+            <td>Full-duplex (default)</td>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>Half-duplex (RS-485 mode)</td>
+        </tr>
+        <!-- ------------- -->
+        <tr>
+            <td rowspan=2>ch<i>N</i>_echo_config<br/>(1 &le; <i>N</i> &le; 4)</td>
+            <td rowspan=2>Channel <i>N</i> local echo configuration (half-duplex only)</td>
+            <td rowspan=2>
+                <code>R</code>
+                <code>W</code>
+                <code>CR</code>
+            </td>
+            <td>0</td>
+            <td>Disabled (default)</td>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>Enabled</td>
+        </tr>
+        <!-- ------------- -->
+        <tr>
+            <td rowspan=2>ch<i>N</i>_termination_config<br/>(1 &le; <i>N</i> &le; 4)</td>
+            <td rowspan=2>Channel <i>N</i> line termination resistors configuration</td>
+            <td rowspan=2>
+                <code>R</code>
+                <code>W</code>
+                <code>CR</code>
+            </td>
+            <td>0</td>
+            <td>Disabled (default)</td>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>Enabled</td>
+        </tr>
+        <!-- ------------- -->
+        <tr>
+            <td rowspan=2>ch<i>N</i>_slew_config<br/>(1 &le; <i>N</i> &le; 4)</td>
+            <td rowspan=2>Channel <i>N</i> slew configuration</td>
+            <td rowspan=2>
+                <code>R</code>
+                <code>W</code>
+                <code>CR</code>
+            </td>
+            <td>0</td>
+            <td>Disabled</td>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>Enabled (default)</td>
         </tr>
         <!-- ------------- -->
     </tbody>
