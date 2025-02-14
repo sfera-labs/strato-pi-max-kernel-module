@@ -2001,7 +2001,7 @@ For expansion boards that can be installed on multiple slots, devices names have
 
 ### RS-485 Expansion Boards
 
-#### Digital inputs - `/sys/class/stratopimax/rs485_s<n>/`
+#### RS-485 config - `/sys/class/stratopimax/rs485_s<n>/`
 
 <table>
     <thead>
@@ -2376,7 +2376,7 @@ FW ver. &ge; 3.21
 
 FW ver. &ge; 3.29
 
-#### Digital inputs - `/sys/class/stratopimax/rs422_s<n>/`
+#### Config - `/sys/class/stratopimax/rs422_s<n>/`
 
 <table>
     <thead>
