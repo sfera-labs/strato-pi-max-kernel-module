@@ -2440,7 +2440,7 @@ FW ver. &ge; 3.29
         <!-- ------------- -->
         <tr>
             <td rowspan=2>ch<i>N</i>_slew_config<br/>(1 &le; <i>N</i> &le; 4)</td>
-            <td rowspan=2>Channel <i>N</i> slew configuration</td>
+            <td rowspan=2>Channel <i>N</i> slew limit configuration</td>
             <td rowspan=2>
                 <code>R</code>
                 <code>W</code>
