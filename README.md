@@ -244,7 +244,7 @@ All properties' attributes are summarized here:
                 <code>W</code>
                 <code>CR</code>
             </td>
-            <td>1 ... 65535</td>
+            <td>0 ... 65535</td>
             <td>Value in seconds. Default: 0</td>
         </tr>
         <!-- ------------- -->
