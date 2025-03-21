@@ -238,7 +238,7 @@ All properties' attributes are summarized here:
         <!-- ------------- -->
         <tr>
             <td>up_delay_config</td>
-            <td>Power-up delay configuration</td>
+            <td>Power-up delay configuration. Defines the waiting period before powering on the compute module, ensuring main power remains stable for the specified duration before power on</td>
             <td>
                 <code>R</code>
                 <code>W</code>
