@@ -3,7 +3,7 @@
 #include <linux/kernel.h>
 #include <linux/math64.h>
 
-static void _itoa(int64_t value, char *buf, int base, uint32_t mask) {
+static char *_itoa(int64_t value, char *buf, int base, uint32_t mask) {
   char tmp[64 + 1];
   char *tp = tmp;
   uint32_t i;
@@ -13,7 +13,7 @@ static void _itoa(int64_t value, char *buf, int base, uint32_t mask) {
   char *sp;
 
   if (buf == NULL) {
-    return;
+    return NULL;
   }
 
   sign = value < 0;
@@ -41,7 +41,8 @@ static void _itoa(int64_t value, char *buf, int base, uint32_t mask) {
 
   if (sign) *sp++ = '-';
   while (tp > tmp) *sp++ = *--tp;
-  *sp = 0;
+  *sp = '\n';
+  return sp;
 }
 
 unsigned long long to_usec(struct timespec64 *t) {
@@ -63,6 +64,7 @@ char toUpper(char c) {
 
 int valToStr(char *buf, int64_t val, const char *vals, bool sign, uint8_t len,
              uint8_t base, uint32_t mask) {
+  char *end;
   if (vals == NULL) {
     if (base == 0) {
       base = 10;
@@ -75,7 +77,7 @@ int valToStr(char *buf, int64_t val, const char *vals, bool sign, uint8_t len,
             val |= 0xff00;
           }
         }
-        _itoa((int16_t)val, buf, base, mask);
+        end = _itoa((int16_t)val, buf, base, mask);
       } else {
         if (len == 3) {
           if ((val & 0x800000) == 0x800000) {
@@ -83,12 +85,12 @@ int valToStr(char *buf, int64_t val, const char *vals, bool sign, uint8_t len,
             val |= 0xff000000;
           }
         }
-        _itoa((int32_t)val, buf, base, mask);
+        end = _itoa((int32_t)val, buf, base, mask);
       }
     } else {
-      _itoa(val, buf, base, mask);
+      end = _itoa(val, buf, base, mask);
     }
-    return sprintf(buf, "%s\n", buf);
+    return end - buf + 1;
   } else {
     if (val > vals[0] - 1) {
       return -EFAULT;

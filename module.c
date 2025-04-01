@@ -4705,10 +4705,16 @@ fail:
   return -1;
 }
 
+#if LINUX_VERSION_CODE >= KERNEL_VERSION(6, 12, 0)
+static void stratopimax_exit(struct platform_device *pdev) {
+#else
 static int stratopimax_exit(struct platform_device *pdev) {
+#endif
   cleanup();
   pr_info(LOG_TAG "exit\n");
+#if LINUX_VERSION_CODE < KERNEL_VERSION(6, 12, 0)
   return 0;
+#endif
 }
 
 const struct of_device_id stratopimax_of_match[] = {
@@ -4733,6 +4739,6 @@ static struct platform_driver stratopimax_driver = {
 MODULE_LICENSE("GPL");
 MODULE_AUTHOR("Sfera Labs - http://sferalabs.cc");
 MODULE_DESCRIPTION("Strato Pi Max driver module");
-MODULE_VERSION("1.20");
+MODULE_VERSION("1.21");
 
 module_platform_driver(stratopimax_driver);
