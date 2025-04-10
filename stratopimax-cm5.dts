@@ -63,20 +63,4 @@
             };
         };
     };
-
-    fragment@3 {
-        target = <&rp1_mmc0>;
-        __overlay__ {
-            status = "okay";
-            pinctrl-0 = <&rp1_sdio0_22_27>;
-            pinctrl-names = "default";
-        };
-    };
-
-    fragment@4 {
-        target = <&rp1_sdio_clk0>;
-        __overlay__ {
-            status = "okay";
-        };
-    };
 };

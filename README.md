@@ -44,18 +44,20 @@ Install the overlay:
 
     sudo cp stratopimax.dtbo /boot/overlays/
 
-This overlay, amongst the different peripherals, configures the secondary SD interface to use the `sdhost` controller, so that `sdio` is available for WiFi on CM units equipped with it.
-
 To load the driver at boot, add to `/boot/firmware/config.txt` (`/boot/config.txt` in older versions) the following line:
 
     dtoverlay=stratopimax
 
-Optionally, to be able to use the `/sys/class/stratopimax/` files not as super user, create a new group "stratopimax" and set it as the module owner group by adding an udev rule:
+If using Strato Pi Max **XL** with **CM5** and need access to the secondary SD, add the following line to `config.txt` too:
+
+    dtoverlay=sdio-pi5
+
+Optionally, to access the `/sys/class/stratopimax/` files without superuser privileges, create a new group "stratopimax" and set it as the module owner group by adding a **udev** rule:
 
     sudo groupadd stratopimax
     sudo cp 99-stratopimax.rules /etc/udev/rules.d/
 
-and add your user to the group, e.g. for user "pi":
+and add your user to the group, e.g., for user "pi":
 
     sudo usermod -a -G stratopimax pi
 
