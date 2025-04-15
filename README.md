@@ -1,6 +1,6 @@
 # Strato Pi Max driver kernel module
 
-Raspberry Pi OS Kernel module for [Strato Pi Max](https://www.sferalabs.cc/products/strato-pi-max/).
+Raspberry Pi OS (Debian) Kernel module for [Strato Pi Max](https://www.sferalabs.cc/products/strato-pi-max/).
 
 It gives access to all Strato Pi Max functionalities and configuration options via sysfs virtual files.
 
@@ -20,10 +20,6 @@ If you are using a **32-bit** OS, add to `/boot/firmware/config.txt` (`/boot/con
 Reboot:
 
     sudo reboot
-    
-After reboot, install git and the Raspberry Pi kernel headers:
-
-    sudo apt install git raspberrypi-kernel-headers
 
 Clone this repo:
 
@@ -52,7 +48,7 @@ If using Strato Pi Max **XL** with **CM5** and need access to the secondary SD, 
 
     dtoverlay=sdio-pi5
 
-Optionally, to access the `/sys/class/stratopimax/` files without superuser privileges, create a new group "stratopimax" and set it as the module owner group by adding a **udev** rule:
+Optionally, to access the sysfs interface without superuser privileges, create a new group "stratopimax" and set it as the module owner group by adding a **udev** rule:
 
     sudo groupadd stratopimax
     sudo cp 99-stratopimax.rules /etc/udev/rules.d/
@@ -68,11 +64,11 @@ Reboot:
 
 ## Usage
 
-After loading the module, you will find all the available devices under the path `/sys/class/stratopimax/`.
+After installation, you will find all the available devices under the `/sys/class/stratopimax/` path.
 
 The following paragraphs list all the devices (directories) and properties (files) coresponding to Strato Pi Max's and its expansion boards' features. 
 
-You can write and/or read these files to configure, monitor and control your Strato Pi Max. The kernel module will take care of performing the corresponding GPIO or I2C operations.
+You can write to and/or read these files to configure, monitor and control your Strato Pi Max. The kernel module will take care of performing the corresponding GPIO or I2C operations.
 
 Properties with the `_config` suffix represent configuration parameters that are saved and retained across power cycles.    
 Configuration parameters marked with the `CR` attribute (see the <a href="#attributes">attributes table</a> below) take effect immediately when set. Conversely, parameters with the `C` attribute store the value to be applied during the next *power-up* by copying it to the corresponding "runtime" property (same name without the `_config` suffix).
