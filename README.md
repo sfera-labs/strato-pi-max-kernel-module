@@ -1228,7 +1228,7 @@ For expansion boards that can be installed on multiple slots, devices names have
         <!-- ------------- -->
         <tr>
             <td rowspan=2>down_delay_config</td>
-            <td rowspan=2>Automatic power cycle timeout configuration when main power source not available</td>
+            <td rowspan=2>Timeout configuration for automatic power cycle enabling when main power source not available</td>
             <td rowspan=2>
                 <code>R</code>
                 <code>W</code>
@@ -1377,6 +1377,8 @@ For expansion boards that can be installed on multiple slots, devices names have
 
 ### SuperCaps UPS Expansion Board
 
+FW ver. &ge; 3.31
+
 #### UPS - `/sys/class/stratopimax/ups/`
 
 <table>
@@ -1424,18 +1426,18 @@ For expansion boards that can be installed on multiple slots, devices names have
         <!-- ------------- -->
         <tr>
             <td rowspan=2>down_delay_config</td>
-            <td rowspan=2>Automatic power cycle timeout configuration when main power source not available</td>
+            <td rowspan=2>Timeout configuration for automatic power cycle enabling when running on backup power and charge low</td>
             <td rowspan=2>
                 <code>R</code>
                 <code>W</code>
                 <code>CR</code>
             </td>
-            <td>0</td>
-            <td>Disabled (default)</td>
+            <td>1 ... 65535</td>
+            <td>Value in seconds. Default: 120</td>
         </tr>
         <tr>
-            <td>1 ... 65535</td>
-            <td>Value in seconds</td>
+            <td>0</td>
+            <td>Disabled. <strong>NB</strong>: disable only for testing purposes</td>
         </tr>
         <!-- ------------- -->
         <tr>
@@ -1453,9 +1455,9 @@ For expansion boards that can be installed on multiple slots, devices names have
         </tr>
         <!-- ------------- -->
         <tr>
-            <td rowspan=6>status</td>
-            <td rowspan=6>UPS status</td>
-            <td rowspan=6>
+            <td rowspan=7>status</td>
+            <td rowspan=7>UPS status</td>
+            <td rowspan=7>
                 <code>R</code>
             </td>
             <td>0</td>
@@ -1463,7 +1465,7 @@ For expansion boards that can be installed on multiple slots, devices names have
         </tr>
         <tr>
             <td>4</td>
-            <td>Charging</td>
+            <td>Low charge, charging</td>
         </tr>
         <tr>
             <td>5</td>
@@ -1472,6 +1474,10 @@ For expansion boards that can be installed on multiple slots, devices names have
         <tr>
             <td>6</td>
             <td>Running on backup power</td>
+        </tr>
+        <tr>
+            <td>7</td>
+            <td>Running on backup power, low charge</td>
         </tr>
         <tr>
             <td>10</td>
