@@ -1,5 +1,6 @@
 #include "commons.h"
 
+#include <linux/errno.h>
 #include <linux/kernel.h>
 #include <linux/math64.h>
 
