@@ -1437,7 +1437,7 @@ FW ver. &ge; 3.31
         </tr>
         <tr>
             <td>0</td>
-            <td>Disabled. <strong>NB</strong>: disable only for testing purposes</td>
+            <td>Disabled.<br /><strong>NB</strong>: it is <strong>safe</strong> to disable <strong>only</strong> if watchdog is enabled</td>
         </tr>
         <!-- ------------- -->
         <tr>
