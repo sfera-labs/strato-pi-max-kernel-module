@@ -1,6 +1,6 @@
 # Strato Pi Max driver kernel module
 
-Raspberry Pi OS (Debian) Kernel module for [Strato Pi Max](https://www.sferalabs.cc/products/strato-pi-max/).
+Raspberry Pi OS (Debian) Kernel module for [Strato Pi Max](https://www.sferalabs.cc/product/strato-pi-max/).
 
 It gives access to all Strato Pi Max functionalities and configuration options via sysfs virtual files.
 
