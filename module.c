@@ -31,7 +31,7 @@
 #define X2_CAN_485 3
 #define X2_232_485 4
 #define X2_D7 5
-#define X2_PCAP 8
+#define X2_UPSCAP 8
 #define X2_AIN 9
 #define X2_GSM 10
 #define X2_AOUT 11
@@ -1228,27 +1228,6 @@ static struct DeviceAttrBean devAttrBeansUps[] = {
             {
                 .attr =
                     {
-                        .name = "down_delay_config",
-                        .mode = 0660,
-                    },
-                .show = devAttrI2c_show,
-                .store = devAttrI2c_store,
-            },
-        .regSpecs =
-            {
-                .reg = I2C_REG_OFST_UPS_POWER_DOWN_DELAY,
-                .len = 2,
-                .mask = 0,
-                .shift = 0,
-                .sign = false,
-            },
-    },
-
-    {
-        .devAttr =
-            {
-                .attr =
-                    {
                         .name = "backup",
                         .mode = 0440,
                     },
@@ -1430,6 +1409,27 @@ static struct DeviceAttrBean devAttrBeansUpsBattery[] = {
         .regSpecs =
             {
                 .reg = I2C_REG_OFST_UPS_VBAT_I,
+                .len = 2,
+                .mask = 0,
+                .shift = 0,
+                .sign = false,
+            },
+    },
+
+    {
+        .devAttr =
+            {
+                .attr =
+                    {
+                        .name = "down_delay_config",
+                        .mode = 0660,
+                    },
+                .show = devAttrI2c_show,
+                .store = devAttrI2c_store,
+            },
+        .regSpecs =
+            {
+                .reg = I2C_REG_OFST_UPS_POWER_DOWN_DELAY,
                 .len = 2,
                 .mask = 0,
                 .shift = 0,
@@ -3660,7 +3660,7 @@ static struct DeviceAttrBean devAttrBeansAOut[] = {
     {},
 };
 
-static uint8_t devUpsExpbTypes[] = {X2_UPS, X2_PCAP, 0};
+static uint8_t devUpsExpbTypes[] = {X2_UPS, X2_UPSCAP, 0};
 
 static uint8_t devUpsBatteryExpbTypes[] = {X2_UPS, 0};
 
@@ -4739,6 +4739,6 @@ static struct platform_driver stratopimax_driver = {
 MODULE_LICENSE("GPL");
 MODULE_AUTHOR("Sfera Labs - http://sferalabs.cc");
 MODULE_DESCRIPTION("Strato Pi Max driver module");
-MODULE_VERSION("1.23");
+MODULE_VERSION("1.24");
 
 module_platform_driver(stratopimax_driver);

@@ -1377,7 +1377,7 @@ For expansion boards that can be installed on multiple slots, devices names have
 
 ### SuperCaps UPS Expansion Board
 
-FW ver. &ge; 3.31
+FW ver. &ge; 3.37
 
 #### UPS - `/sys/class/stratopimax/ups/`
 
@@ -1422,22 +1422,6 @@ FW ver. &ge; 3.31
         <tr>
             <td>1</td>
             <td>Enabled (default)</td>
-        </tr>
-        <!-- ------------- -->
-        <tr>
-            <td rowspan=2>down_delay_config</td>
-            <td rowspan=2>Timeout configuration for automatic power cycle enabling when running on backup power and charge low</td>
-            <td rowspan=2>
-                <code>R</code>
-                <code>W</code>
-                <code>CR</code>
-            </td>
-            <td>1 ... 65535</td>
-            <td>Value in seconds. Default: 120</td>
-        </tr>
-        <tr>
-            <td>0</td>
-            <td>Disabled.<br /><strong>NB</strong>: it is <strong>safe</strong> to disable <strong>only</strong> if watchdog is enabled</td>
         </tr>
         <!-- ------------- -->
         <tr>
