@@ -1228,7 +1228,7 @@ For expansion boards that can be installed on multiple slots, devices names have
         <!-- ------------- -->
         <tr>
             <td rowspan=2>down_delay_config</td>
-            <td rowspan=2>Timeout configuration for automatic power cycle enabling when main power source not available</td>
+            <td rowspan=2>Timeout configuration for automatic power cycle enabling upon main power failure</td>
             <td rowspan=2>
                 <code>R</code>
                 <code>W</code>
@@ -1449,11 +1449,11 @@ FW ver. &ge; 3.37
         </tr>
         <tr>
             <td>4</td>
-            <td>Low charge, charging</td>
+            <td>Charging / Not ready</td>
         </tr>
         <tr>
             <td>5</td>
-            <td>Charged</td>
+            <td>Charged / Ready</td>
         </tr>
         <tr>
             <td>6</td>
@@ -1461,7 +1461,7 @@ FW ver. &ge; 3.37
         </tr>
         <tr>
             <td>7</td>
-            <td>Running on backup power, low charge</td>
+            <td>Running on backup power, below ready threshold</td>
         </tr>
         <tr>
             <td>10</td>
