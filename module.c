@@ -3660,6 +3660,136 @@ static struct DeviceAttrBean devAttrBeansAOut[] = {
     {},
 };
 
+static struct DeviceAttrBean devAttrBeansLte[] = {
+    {
+        .devAttr =
+            {
+                .attr =
+                    {
+                        .name = "enabled",
+                        .mode = 0660,
+                    },
+                .show = devAttrI2c_show,
+                .store = devAttrI2c_store,
+            },
+        .regSpecs =
+            {
+                .reg = 0,
+                .len = 2,
+                .mask = 0b1,
+                .shift = 0,
+                .sign = false,
+            },
+    },
+
+    {
+        .devAttr =
+            {
+                .attr =
+                    {
+                        .name = "rf_enabled",
+                        .mode = 0660,
+                    },
+                .show = devAttrI2c_show,
+                .store = devAttrI2c_store,
+            },
+        .regSpecs =
+            {
+                .reg = 0,
+                .len = 2,
+                .mask = 0b1,
+                .shift = 1,
+                .sign = false,
+            },
+    },
+
+    {
+        .devAttr =
+            {
+                .attr =
+                    {
+                        .name = "gps_enabled",
+                        .mode = 0660,
+                    },
+                .show = devAttrI2c_show,
+                .store = devAttrI2c_store,
+            },
+        .regSpecs =
+            {
+                .reg = 0,
+                .len = 2,
+                .mask = 0b1,
+                .shift = 2,
+                .sign = false,
+            },
+    },
+
+    {
+        .devAttr =
+            {
+                .attr =
+                    {
+                        .name = "reset",
+                        .mode = 0660,
+                    },
+                .show = devAttrI2c_show,
+                .store = devAttrI2c_store,
+            },
+        .regSpecs =
+            {
+                .reg = 0,
+                .len = 2,
+                .mask = 0b1,
+                .shift = 3,
+                .sign = false,
+            },
+    },
+
+    {
+        .devAttr =
+            {
+                .attr =
+                    {
+                        .name = "gpio5",
+                        .mode = 0660,
+                    },
+                .show = devAttrI2c_show,
+                .store = devAttrI2c_store,
+            },
+        .regSpecs =
+            {
+                .reg = 0,
+                .len = 2,
+                .mask = 0b1,
+                .shift = 4,
+                .sign = false,
+            },
+    },
+
+    {
+        .devAttr =
+            {
+                .attr =
+                    {
+                        .name = "gpio6",
+                        .mode = 0440,
+                    },
+                .show = devAttrI2c_show,
+                .store = NULL,
+            },
+        .regSpecs =
+            {
+                .reg = 0,
+                .len = 2,
+                .mask = 0b1,
+                .shift = 5,
+                .sign = false,
+            },
+    },
+
+    {},
+};
+
 static uint8_t devUpsExpbTypes[] = {X2_UPS, X2_UPSCAP, 0};
 
 static uint8_t devUpsBatteryExpbTypes[] = {X2_UPS, 0};
@@ -3675,6 +3805,8 @@ static uint8_t devRs422ExpbTypes[] = {X2_422, 0};
 static uint8_t devAInExpbTypes[] = {X2_AIN, 0};
 
 static uint8_t devAOutExpbTypes[] = {X2_AOUT, 0};
+
+static uint8_t devLteExpbTypes[] = {X2_GSM, 0};
 
 static struct DeviceBean devices[] = {
     {
@@ -3799,6 +3931,12 @@ static struct DeviceBean devices[] = {
         .name = "analog_out_s%d",
         .devAttrBeans = devAttrBeansAOut,
         .expbTypes = devAOutExpbTypes,
+    },
+
+    {
+        .name = "lte_s%d",
+        .devAttrBeans = devAttrBeansLte,
+        .expbTypes = devLteExpbTypes,
     },
 
     {},
@@ -4739,6 +4877,6 @@ static struct platform_driver stratopimax_driver = {
 MODULE_LICENSE("GPL");
 MODULE_AUTHOR("Sfera Labs - http://sferalabs.cc");
 MODULE_DESCRIPTION("Strato Pi Max driver module");
-MODULE_VERSION("1.24");
+MODULE_VERSION("1.25");
 
 module_platform_driver(stratopimax_driver);

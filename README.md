@@ -2448,3 +2448,116 @@ FW ver. &ge; 3.29
         <!-- ------------- -->
     </tbody>
 </table>
+
+---
+
+### M.2 LTE Module Expansion Boards
+
+FW ver. &ge; 3.40
+
+#### Module control - `/sys/class/stratopimax/lte_s<n>/`
+
+<table>
+    <thead>
+        <tr>
+            <th>File</th>
+            <th>Description</th>
+            <th><a href="#attributes">Attr</a></th>
+            <th>Value</th>
+            <th>Value description</th>
+        </tr>
+    </thead>
+    <!-- ================= -->
+    <tbody>
+        <tr>
+            <td rowspan=2>enabled</td>
+            <td rowspan=2>Module power control</td>
+            <td rowspan=2>
+                <code>R</code>
+                <code>W</code>
+            </td>
+            <td>0</td>
+            <td>Off</td>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>On (default)</td>
+        </tr>
+        <!-- ------------- -->
+        <tr>
+            <td rowspan=2>rf_enabled</td>
+            <td rowspan=2>RF control</td>
+            <td rowspan=2>
+                <code>R</code>
+                <code>W</code>
+            </td>
+            <td>0</td>
+            <td>Disabled (airplane mode)</td>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>Enabled (default)</td>
+        </tr>
+        <!-- ------------- -->
+        <tr>
+            <td rowspan=2>gps_enabled</td>
+            <td rowspan=2>GPS control</td>
+            <td rowspan=2>
+                <code>R</code>
+                <code>W</code>
+            </td>
+            <td>0</td>
+            <td>Disabled</td>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>Enabled (default)</td>
+        </tr>
+        <!-- ------------- -->
+        <tr>
+            <td rowspan=2>reset</td>
+            <td rowspan=2>Module reset control</td>
+            <td rowspan=2>
+                <code>R</code>
+                <code>W</code>
+            </td>
+            <td>0</td>
+            <td>Disabled (default)</td>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>Enabled</td>
+        </tr>
+        <!-- ------------- -->
+        <tr>
+            <td rowspan=2>gpio5</td>
+            <td rowspan=2>GPIO 5 output control</td>
+            <td rowspan=2>
+                <code>R</code>
+                <code>W</code>
+            </td>
+            <td>0</td>
+            <td>Low (default)</td>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>High</td>
+        </tr>
+        <!-- ------------- -->
+        <tr>
+            <td rowspan=2>gpio6</td>
+            <td rowspan=2>GPIO 6 input state</td>
+            <td rowspan=2>
+                <code>R</code>
+            </td>
+            <td>0</td>
+            <td>Low</td>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>High</td>
+        </tr>
+        <!-- ------------- -->
+    </tbody>
+</table>
+
