@@ -1243,7 +1243,7 @@ For expansion boards that can be installed on multiple slots, devices names have
         </tr>
         <!-- ------------- -->
         <tr>
-            <td rowspan=2>battery</td>
+            <td rowspan=2>backup</td>
             <td rowspan=2>Power source state</td>
             <td rowspan=2>
                 <code>R</code>
@@ -1253,7 +1253,7 @@ For expansion boards that can be installed on multiple slots, devices names have
         </tr>
         <tr>
             <td>1</td>
-            <td>Running on battery</td>
+            <td>Running on backup battery</td>
         </tr>
         <!-- ------------- -->
         <tr>
