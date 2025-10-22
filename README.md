@@ -138,23 +138,27 @@ All properties' attributes are summarized here:
         <!-- ------------- -->
         <tr>
             <td>sys_errs</td>
-            <td>System errors flags</td>
+            <td>
+                System errors flags<br/><br/>
+                These flags are set as soon as an error occurs and are reset only upon reading.<br/>
+                Upon error operations are repeated, therefore these flags only represent an issue if persistent.
+            </td>
             <td>
                 <code>RC</code>
             </td>
             <td><i>MLKJxHGFxDCBA</i></td>
             <td>
                 Bitmap (0/1) sequence.<br/>
-                <i>A</i>: system setup failure<br/>
-                <i>B</i>: RP2040 failure<br/>
+                <i>A</i>: system setup error<br/>
+                <i>B</i>: RP2040 error<br/>
                 <i>C</i>: RP2040 reset occurred<br/>
                 <i>D</i>: configuration loading/saving error<br/>
-                <i>F</i>: RP2040 I2C master failure<br/>
-                <i>G</i>: RP2040 I2C slave failure<br/>
-                <i>H</i>: RP2040 SPI failure<br/>
+                <i>F</i>: RP2040 I2C master communication error<br/>
+                <i>G</i>: RP2040 I2C slave communication error<br/>
+                <i>H</i>: RP2040 SPI communication error<br/>
                 <i>J</i>: USB ports fault<br/>
-                <i>K</i>: I/O expanders fault (see ioexp_errs)<br/>
-                <i>L</i>: accelerometer fault<br/>
+                <i>K</i>: I/O expanders communication error (see ioexp_errs)<br/>
+                <i>L</i>: accelerometer communication error<br/>
                 <i>M</i>: UPS fault<br/>
                 <i>x</i>: reserved<br/>
             </td>
@@ -162,20 +166,24 @@ All properties' attributes are summarized here:
         <!-- ------------- -->
         <tr>
             <td>ioexp_errs</td>
-            <td>I/O expanders errors flags</td>
+            <td>
+                I/O expanders communication errors flags<br/><br/>
+                These flags are set as soon as an error occurs and are reset only upon reading.<br/>
+                Upon error operations are repeated, therefore these flags only represent an issue if persistent.
+            </td>
             <td>
                 <code>RC</code>
             </td>
             <td><i>GFEDCBA</i></td>
             <td>
                 Bitmap (0/1) sequence.<br/>
-                <i>A</i>: I/O expander BU17 fault<br/>
-                <i>B</i>: I/O expander BU21 fault<br/>
-                <i>C</i>: I/O expander BU22 fault<br/>
-                <i>D</i>: I/O expander on expansion board in slot 1 fault<br/>
-                <i>E</i>: I/O expander on expansion board in slot 2 fault<br/>
-                <i>F</i>: I/O expander on expansion board in slot 3 fault<br/>
-                <i>G</i>: I/O expander on expansion board in slot 4 fault<br/>
+                <i>A</i>: I/O expander BU17<br/>
+                <i>B</i>: I/O expander BU21<br/>
+                <i>C</i>: I/O expander BU22<br/>
+                <i>D</i>: I/O expander on expansion board in slot 1<br/>
+                <i>E</i>: I/O expander on expansion board in slot 2<br/>
+                <i>F</i>: I/O expander on expansion board in slot 3<br/>
+                <i>G</i>: I/O expander on expansion board in slot 4<br/>
             </td>
         </tr>
         <!-- ------------- -->
