@@ -141,7 +141,7 @@ All properties' attributes are summarized here:
             <td>
                 System errors flags<br/><br/>
                 These flags are set as soon as an error occurs and are reset only upon reading.<br/>
-                Upon error operations are repeated, therefore these flags only represent an issue if persistent.
+                Upon error, operations are repeated, therefore these flags only represent an issue if persistent.
             </td>
             <td>
                 <code>RC</code>
@@ -169,7 +169,7 @@ All properties' attributes are summarized here:
             <td>
                 I/O expanders communication errors flags<br/><br/>
                 These flags are set as soon as an error occurs and are reset only upon reading.<br/>
-                Upon error operations are repeated, therefore these flags only represent an issue if persistent.
+                Upon error, operations are repeated, therefore these flags only represent an issue if persistent.
             </td>
             <td>
                 <code>RC</code>
