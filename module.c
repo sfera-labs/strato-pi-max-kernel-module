@@ -4002,7 +4002,7 @@ static int64_t _i2c_read_no_lock(uint8_t reg, uint8_t len) {
   char buf[5];  // max 4 bytes data + 1 byte crc
   uint8_t i;
   uint8_t crc;
-#ifdef DEBUG_I2C
+#if DEBUG_I2C
   uint8_t j;
 #endif
 
@@ -4018,7 +4018,7 @@ static int64_t _i2c_read_no_lock(uint8_t reg, uint8_t len) {
       if (crc == buf[len]) {
         break;
       } else {
-#ifdef DEBUG_I2C
+#if DEBUG_I2C
         pr_notice(LOG_TAG "i2c read error: reg=%d\n", reg);
         for (j = 0; j < len; j++) {
           pr_notice(LOG_TAG "data[%d]=0x%x\n", j, buf[j]);
@@ -4031,7 +4031,7 @@ static int64_t _i2c_read_no_lock(uint8_t reg, uint8_t len) {
   }
 
   if (res != len + 1) {
-#ifdef DEBUG_I2C
+#if DEBUG_I2C
     pr_notice(LOG_TAG "i2c read error: %lld\n", res);
 #endif
     return -EIO;
