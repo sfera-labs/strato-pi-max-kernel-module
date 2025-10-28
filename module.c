@@ -1605,6 +1605,132 @@ static struct DeviceAttrBean devAttrBeansLed[] = {
             {
                 .attr =
                     {
+                        .name = "red_sys_pwr_up_config",
+                        .mode = 0660,
+                    },
+                .show = devAttrI2c_show,
+                .store = devAttrI2c_store,
+            },
+        .regSpecs =
+            {
+                .reg = I2C_REG_LED_RED_CFG,
+                .len = 2,
+                .mask = 0b1,
+                .shift = 0,
+                .sign = false,
+            },
+    },
+
+    {
+        .devAttr =
+            {
+                .attr =
+                    {
+                        .name = "red_sys_pwr_down_config",
+                        .mode = 0660,
+                    },
+                .show = devAttrI2c_show,
+                .store = devAttrI2c_store,
+            },
+        .regSpecs =
+            {
+                .reg = I2C_REG_LED_RED_CFG,
+                .len = 2,
+                .mask = 0b1,
+                .shift = 1,
+                .sign = false,
+            },
+    },
+
+    {
+        .devAttr =
+            {
+                .attr =
+                    {
+                        .name = "red_sys_pwr_off_config",
+                        .mode = 0660,
+                    },
+                .show = devAttrI2c_show,
+                .store = devAttrI2c_store,
+            },
+        .regSpecs =
+            {
+                .reg = I2C_REG_LED_RED_CFG,
+                .len = 2,
+                .mask = 0b1,
+                .shift = 2,
+                .sign = false,
+            },
+    },
+
+    {
+        .devAttr =
+            {
+                .attr =
+                    {
+                        .name = "red_sys_wd_en_config",
+                        .mode = 0660,
+                    },
+                .show = devAttrI2c_show,
+                .store = devAttrI2c_store,
+            },
+        .regSpecs =
+            {
+                .reg = I2C_REG_LED_RED_CFG,
+                .len = 2,
+                .mask = 0b1,
+                .shift = 3,
+                .sign = false,
+            },
+    },
+
+    {
+        .devAttr =
+            {
+                .attr =
+                    {
+                        .name = "red_sys_wd_exp_config",
+                        .mode = 0660,
+                    },
+                .show = devAttrI2c_show,
+                .store = devAttrI2c_store,
+            },
+        .regSpecs =
+            {
+                .reg = I2C_REG_LED_RED_CFG,
+                .len = 2,
+                .mask = 0b1,
+                .shift = 4,
+                .sign = false,
+            },
+    },
+
+    {
+        .devAttr =
+            {
+                .attr =
+                    {
+                        .name = "red_user_priority",
+                        .mode = 0660,
+                    },
+                .show = devAttrI2c_show,
+                .store = devAttrI2c_store,
+            },
+        .regSpecs =
+            {
+                .reg = I2C_REG_LED_RED_CFG,
+                .len = 2,
+                .mask = 0b1,
+                .shift = 15,
+                .sign = false,
+            },
+    },
+
+    {
+        .devAttr =
+            {
+                .attr =
+                    {
                         .name = "green",
                         .mode = 0220,
                     },
@@ -1617,6 +1743,132 @@ static struct DeviceAttrBean devAttrBeansLed[] = {
                 .len = 2,
                 .mask = 0,
                 .shift = 0,
+                .sign = false,
+            },
+    },
+
+    {
+        .devAttr =
+            {
+                .attr =
+                    {
+                        .name = "green_sys_pwr_up_config",
+                        .mode = 0660,
+                    },
+                .show = devAttrI2c_show,
+                .store = devAttrI2c_store,
+            },
+        .regSpecs =
+            {
+                .reg = I2C_REG_LED_GREEN_CFG,
+                .len = 2,
+                .mask = 0b1,
+                .shift = 0,
+                .sign = false,
+            },
+    },
+
+    {
+        .devAttr =
+            {
+                .attr =
+                    {
+                        .name = "green_sys_pwr_down_config",
+                        .mode = 0660,
+                    },
+                .show = devAttrI2c_show,
+                .store = devAttrI2c_store,
+            },
+        .regSpecs =
+            {
+                .reg = I2C_REG_LED_GREEN_CFG,
+                .len = 2,
+                .mask = 0b1,
+                .shift = 1,
+                .sign = false,
+            },
+    },
+
+    {
+        .devAttr =
+            {
+                .attr =
+                    {
+                        .name = "green_sys_pwr_off_config",
+                        .mode = 0660,
+                    },
+                .show = devAttrI2c_show,
+                .store = devAttrI2c_store,
+            },
+        .regSpecs =
+            {
+                .reg = I2C_REG_LED_GREEN_CFG,
+                .len = 2,
+                .mask = 0b1,
+                .shift = 2,
+                .sign = false,
+            },
+    },
+
+    {
+        .devAttr =
+            {
+                .attr =
+                    {
+                        .name = "green_sys_wd_en_config",
+                        .mode = 0660,
+                    },
+                .show = devAttrI2c_show,
+                .store = devAttrI2c_store,
+            },
+        .regSpecs =
+            {
+                .reg = I2C_REG_LED_GREEN_CFG,
+                .len = 2,
+                .mask = 0b1,
+                .shift = 3,
+                .sign = false,
+            },
+    },
+
+    {
+        .devAttr =
+            {
+                .attr =
+                    {
+                        .name = "green_sys_wd_exp_config",
+                        .mode = 0660,
+                    },
+                .show = devAttrI2c_show,
+                .store = devAttrI2c_store,
+            },
+        .regSpecs =
+            {
+                .reg = I2C_REG_LED_GREEN_CFG,
+                .len = 2,
+                .mask = 0b1,
+                .shift = 4,
+                .sign = false,
+            },
+    },
+
+    {
+        .devAttr =
+            {
+                .attr =
+                    {
+                        .name = "green_user_priority",
+                        .mode = 0660,
+                    },
+                .show = devAttrI2c_show,
+                .store = devAttrI2c_store,
+            },
+        .regSpecs =
+            {
+                .reg = I2C_REG_LED_GREEN_CFG,
+                .len = 2,
+                .mask = 0b1,
+                .shift = 15,
                 .sign = false,
             },
     },
@@ -4877,6 +5129,6 @@ static struct platform_driver stratopimax_driver = {
 MODULE_LICENSE("GPL");
 MODULE_AUTHOR("Sfera Labs - http://sferalabs.cc");
 MODULE_DESCRIPTION("Strato Pi Max driver module");
-MODULE_VERSION("1.25");
+MODULE_VERSION("1.26");
 
 module_platform_driver(stratopimax_driver);

@@ -1,7 +1,7 @@
 /*
   rp2_i2c.h
 
-    Copyright (C) 2023-2024 Sfera Labs S.r.l. - All rights reserved.
+    Copyright (C) 2023-2025 Sfera Labs S.r.l. - All rights reserved.
 
     For information, see:
     http://www.sferalabs.cc/
@@ -26,10 +26,12 @@
 #define I2C_REG_LED_RED_T_ON 22
 #define I2C_REG_LED_RED_T_OFF (I2C_REG_LED_RED_T_ON + 1)
 #define I2C_REG_LED_RED_REPS (I2C_REG_LED_RED_T_ON + 2)
+#define I2C_REG_LED_RED_CFG (I2C_REG_LED_RED_T_ON + 3)
 
 #define I2C_REG_LED_GREEN_T_ON 26
 #define I2C_REG_LED_GREEN_T_OFF (I2C_REG_LED_GREEN_T_ON + 1)
 #define I2C_REG_LED_GREEN_REPS (I2C_REG_LED_GREEN_T_ON + 2)
+#define I2C_REG_LED_GREEN_CFG (I2C_REG_LED_GREEN_T_ON + 3)
 
 #define I2C_REG_EXPB_EN 31
 #define I2C_REG_EXPB_TYPE_S1 (I2C_REG_EXPB_EN + 1)
@@ -72,9 +74,6 @@
 #define I2C_REG_ACCEL_X 68
 #define I2C_REG_ACCEL_Y (I2C_REG_ACCEL_X + 1)
 #define I2C_REG_ACCEL_Z (I2C_REG_ACCEL_X + 2)
-
-#define I2C_REG_ATE_ADC_CH2 89
-#define I2C_REG_ATE_ADC_CH3 90
 
 #define I2C_REG_EXPB_START 100
 #define I2C_REG_EXPB_SIZE 25

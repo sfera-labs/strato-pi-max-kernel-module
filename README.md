@@ -583,6 +583,92 @@ All properties' attributes are summarized here:
         </tr>
         <!-- ------------- -->
         <tr>
+            <td rowspan=2>red_sys_pwr_up_config<br/>(FW ver. &ge; 3.42)</td>
+            <td rowspan=2>Power up delay states blink sequences configuration for red LED</td>
+            <td rowspan=2>
+                <code>CR</code>
+            </td>
+            <td>0</td>
+            <td>Don't show</td>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>Show (default)</td>
+        </tr>
+        <!-- ------------- -->
+        <tr>
+            <td rowspan=2>red_sys_pwr_down_config<br/>(FW ver. &ge; 3.42)</td>
+            <td rowspan=2>Power cycle down delay state blink sequence configuration for red LED</td>
+            <td rowspan=2>
+                <code>CR</code>
+            </td>
+            <td>0</td>
+            <td>Don't show</td>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>Show (default)</td>
+        </tr>
+        <!-- ------------- -->
+        <tr>
+            <td rowspan=2>red_sys_pwr_off_config<br/>(FW ver. &ge; 3.42)</td>
+            <td rowspan=2>Power cycle off state blink sequence configuration for red LED</td>
+            <td rowspan=2>
+                <code>CR</code>
+            </td>
+            <td>0</td>
+            <td>Don't show</td>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>Show (default)</td>
+        </tr>
+        <!-- ------------- -->
+        <tr>
+            <td rowspan=2>red_sys_wd_en_config<br/>(FW ver. &ge; 3.42)</td>
+            <td rowspan=2>Watchdog enabled state blink sequence configuration for red LED</td>
+            <td rowspan=2>
+                <code>CR</code>
+            </td>
+            <td>0</td>
+            <td>Don't show (default)</td>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>Show</td>
+        </tr>
+        <!-- ------------- -->
+        <tr>
+            <td rowspan=2>red_sys_wd_exp_config<br/>(FW ver. &ge; 3.42)</td>
+            <td rowspan=2>Watchdog timeout expired state blink sequence configuration for red LED</td>
+            <td rowspan=2>
+                <code>CR</code>
+            </td>
+            <td>0</td>
+            <td>Don't show</td>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>Show (default)</td>
+        </tr>
+        <!-- ------------- -->
+        <tr>
+            <td rowspan=2>red_user_priority<br/>(FW ver. &ge; 3.42)</td>
+            <td rowspan=2>User commands priority configuration for red LED</td>
+            <td rowspan=2>
+                <code>CR</code>
+            </td>
+            <td>0</td>
+            <td>Blink sequences of enabled system states will override any user
+command</td>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>After a user command (write to <code>red</code>), system blink sequences
+won't be shown until this is reset to 0 (default)</td>
+        </tr>
+        <!-- ------------- -->
+        <tr>
             <td rowspan=4>green</td>
             <td rowspan=4>Green LED control</td>
             <td rowspan=4>
@@ -602,6 +688,92 @@ All properties' attributes are summarized here:
         <tr>
             <td><i>T_ON</i> <i>T_OFF</i> <i>REPS</i></td>
             <td>Blink <i>REPS</i> times <i>T_ON</i> milliseconds on, <i>T_OFF</i> milliseconds off</td>
+        </tr>
+        <!-- ------------- -->
+        <tr>
+            <td rowspan=2>green_sys_pwr_up_config<br/>(FW ver. &ge; 3.42)</td>
+            <td rowspan=2>Power up delay states blink sequences configuration for green LED</td>
+            <td rowspan=2>
+                <code>CR</code>
+            </td>
+            <td>0</td>
+            <td>Don't show (default)</td>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>Show</td>
+        </tr>
+        <!-- ------------- -->
+        <tr>
+            <td rowspan=2>green_sys_pwr_down_config<br/>(FW ver. &ge; 3.42)</td>
+            <td rowspan=2>Power cycle down delay state blink sequence configuration for green LED</td>
+            <td rowspan=2>
+                <code>CR</code>
+            </td>
+            <td>0</td>
+            <td>Don't show (default)</td>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>Show</td>
+        </tr>
+        <!-- ------------- -->
+        <tr>
+            <td rowspan=2>green_sys_pwr_off_config<br/>(FW ver. &ge; 3.42)</td>
+            <td rowspan=2>Power cycle off state blink sequence configuration for green LED</td>
+            <td rowspan=2>
+                <code>CR</code>
+            </td>
+            <td>0</td>
+            <td>Don't show (default)</td>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>Show</td>
+        </tr>
+        <!-- ------------- -->
+        <tr>
+            <td rowspan=2>green_sys_wd_en_config<br/>(FW ver. &ge; 3.42)</td>
+            <td rowspan=2>Watchdog enabled state blink sequence configuration for green LED</td>
+            <td rowspan=2>
+                <code>CR</code>
+            </td>
+            <td>0</td>
+            <td>Don't show (default)</td>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>Show</td>
+        </tr>
+        <!-- ------------- -->
+        <tr>
+            <td rowspan=2>green_sys_wd_exp_config<br/>(FW ver. &ge; 3.42)</td>
+            <td rowspan=2>Watchdog timeout expired state blink sequence configuration for green LED</td>
+            <td rowspan=2>
+                <code>CR</code>
+            </td>
+            <td>0</td>
+            <td>Don't show (default)</td>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>Show</td>
+        </tr>
+        <!-- ------------- -->
+        <tr>
+            <td rowspan=2>green_user_priority<br/>(FW ver. &ge; 3.42)</td>
+            <td rowspan=2>User commands priority configuration for green LED</td>
+            <td rowspan=2>
+                <code>CR</code>
+            </td>
+            <td>0</td>
+            <td>Blink sequences of enabled system states will override any user
+command</td>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>After a user command (write to <code>green</code>), system blink sequences
+won't be shown until this is reset to 0 (default)</td>
         </tr>
         <!-- ------------- -->
     </tbody>
