@@ -3316,6 +3316,27 @@ static struct DeviceAttrBean devAttrBeansAIn[] = {
             {
                 .attr =
                     {
+                        .name = "at_interval_config",
+                        .mode = 0660,
+                    },
+                .show = devAttrI2c_show,
+                .store = devAttrI2c_store,
+            },
+        .regSpecs =
+            {
+                .reg = 2,
+                .len = 2,
+                .mask = 0xff,
+                .shift = 8,
+                .sign = false,
+            },
+    },
+
+    {
+        .devAttr =
+            {
+                .attr =
+                    {
                         .name = "av_filter_config",
                         .mode = 0660,
                     },
@@ -3348,6 +3369,48 @@ static struct DeviceAttrBean devAttrBeansAIn[] = {
                 .reg = 4,
                 .len = 2,
                 .mask = 0,
+                .shift = 0,
+                .sign = false,
+            },
+    },
+
+    {
+        .devAttr =
+            {
+                .attr =
+                    {
+                        .name = "at_filter_config",
+                        .mode = 0660,
+                    },
+                .show = devAttrI2c_show,
+                .store = devAttrI2c_store,
+            },
+        .regSpecs =
+            {
+                .reg = 5,
+                .len = 2,
+                .mask = 0,
+                .shift = 0,
+                .sign = false,
+            },
+    },
+
+    {
+        .devAttr =
+            {
+                .attr =
+                    {
+                        .name = "mode_config",
+                        .mode = 0660,
+                    },
+                .show = devAttrI2c_show,
+                .store = devAttrI2c_store,
+            },
+        .regSpecs =
+            {
+                .reg = 6,
+                .len = 2,
+                .mask = 0b1,
                 .shift = 0,
                 .sign = false,
             },
@@ -5129,6 +5192,6 @@ static struct platform_driver stratopimax_driver = {
 MODULE_LICENSE("GPL");
 MODULE_AUTHOR("Sfera Labs - http://sferalabs.cc");
 MODULE_DESCRIPTION("Strato Pi Max driver module");
-MODULE_VERSION("1.26");
+MODULE_VERSION("1.27");
 
 module_platform_driver(stratopimax_driver);
