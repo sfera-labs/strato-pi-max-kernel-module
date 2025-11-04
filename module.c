@@ -3421,6 +3421,27 @@ static struct DeviceAttrBean devAttrBeansAIn[] = {
             {
                 .attr =
                     {
+                        .name = "usb_stream",
+                        .mode = 0660,
+                    },
+                .show = devAttrI2c_show,
+                .store = devAttrI2c_store,
+            },
+        .regSpecs =
+            {
+                .reg = 6,
+                .len = 2,
+                .mask = 0b1,
+                .shift = 2,
+                .sign = false,
+            },
+    },
+
+    {
+        .devAttr =
+            {
+                .attr =
+                    {
                         .name = "av1",
                         .mode = 0440,
                     },
@@ -5192,6 +5213,6 @@ static struct platform_driver stratopimax_driver = {
 MODULE_LICENSE("GPL");
 MODULE_AUTHOR("Sfera Labs - http://sferalabs.cc");
 MODULE_DESCRIPTION("Strato Pi Max driver module");
-MODULE_VERSION("1.27");
+MODULE_VERSION("1.28");
 
 module_platform_driver(stratopimax_driver);
