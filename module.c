@@ -3421,7 +3421,7 @@ static struct DeviceAttrBean devAttrBeansAIn[] = {
             {
                 .attr =
                     {
-                        .name = "usb_stream",
+                        .name = "usb_stream_config",
                         .mode = 0660,
                     },
                 .show = devAttrI2c_show,
