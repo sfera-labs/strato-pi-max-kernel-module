@@ -1254,9 +1254,9 @@ won't be shown until this is reset to 0 (default)</td>
         </tr>
         <!-- ------------- -->
         <tr>
-            <td rowspan=8>s<i>N</i>_type</td>
-            <td rowspan=8>Slot <i>N</i> expansion board type</td>
-            <td rowspan=8>
+            <td rowspan=11>s<i>N</i>_type</td>
+            <td rowspan=11>Slot <i>N</i> expansion board type</td>
+            <td rowspan=11>
                 <code>R</code>
             </td>
             <td>1</td>
