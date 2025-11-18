@@ -1264,7 +1264,7 @@ won't be shown until this is reset to 0 (default)</td>
         </tr>
         <tr>
             <td>2</td>
-            <td>Uninterruptible Power Supply</td>
+            <td>UPS</td>
         </tr>
         <tr>
             <td>3</td>
@@ -1279,8 +1279,20 @@ won't be shown until this is reset to 0 (default)</td>
             <td>Industrial digital I/O</td>
         </tr>
         <tr>
+            <td>7</td>
+            <td>Development and prototyping</td>
+        </tr>
+        <tr>
+            <td>8</td>
+            <td>SuperCaps UPS</td>
+        </tr>
+        <tr>
             <td>9</td>
             <td>Industrial analog inputs</td>
+        </tr>
+        <tr>
+            <td>10</td>
+            <td>M.2 LTE module</td>
         </tr>
         <tr>
             <td>11</td>
@@ -1425,6 +1437,20 @@ For expansion boards that can be installed on multiple slots, devices names have
         <tr>
             <td rowspan=2>backup</td>
             <td rowspan=2>Power source state</td>
+            <td rowspan=2>
+                <code>R</code>
+            </td>
+            <td>0</td>
+            <td>Running on main power</td>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>Running on backup battery</td>
+        </tr>
+        <!-- ------------- -->
+        <tr>
+            <td rowspan=2>battery</td>
+            <td rowspan=2>DEPRECATED: use "backup" instead</td>
             <td rowspan=2>
                 <code>R</code>
             </td>
@@ -2210,7 +2236,7 @@ FW ver. &ge; 3.37
 
 ### Analog Inputs Expansion Board
 
-FW ver. &ge; 3.26
+FW ver. &ge; 3.44
 
 #### Analog inputs - `/sys/class/stratopimax/analog_in_s<n>/`
 
@@ -2291,38 +2317,6 @@ FW ver. &ge; 3.26
         </tr>
         <!-- ------------- -->
         <tr>
-            <td>av_filter_config</td>
-            <td>Analog voltage inputs filter configuration</td>
-            <td>
-                <code>R</code>
-                <code>WF</code>
-                <code>CR</code>
-            </td>
-            <td>0</td>
-            <td>
-                Filter configuration register (FILTCON<i>x</i>) value used for voltage inputs.<br/>
-                Refer to the AD4112 datasheet for details.<br/>
-                Default: 1294 (sinc5 + sinc1 filter, 100.2 SPS data rate)
-            </td>
-        </tr>
-        <!-- ------------- -->
-        <tr>
-            <td>ai_filter_config</td>
-            <td>Analog current inputs filter configuration</td>
-            <td>
-                <code>R</code>
-                <code>WF</code>
-                <code>CR</code>
-            </td>
-            <td>0</td>
-            <td>
-                Filter configuration register (FILTCON<i>x</i>) value used for current inputs.<br/>
-                Refer to the AD4112 datasheet for details.<br/>
-                Default: 1294 (sinc5 + sinc1 filter, 100.2 SPS data rate)
-            </td>
-        </tr>
-        <!-- ------------- -->
-        <tr>
             <td rowspan=2>at<i>N</i>_enabled_config</td>
             <td rowspan=2>Temperature probe input <i>N</i> enabled configuration</td>
             <td rowspan=2>
@@ -2339,6 +2333,66 @@ FW ver. &ge; 3.26
         </tr>
         <!-- ------------- -->
         <tr>
+            <td>av_filter_config</td>
+            <td>Analog voltage inputs filter and data rate configuration</td>
+            <td>
+                <code>R</code>
+                <code>WF</code>
+                <code>CR</code>
+            </td>
+            <td>0</td>
+            <td>
+                Filter configuration register (FILTCON<i>x</i>) value used for voltage inputs.<br/>
+                Refer to the AD4112 datasheet for details.<br/>
+                Default: 1294 (sinc5 + sinc1 filter, 100.2 SPS data rate)
+            </td>
+        </tr>
+        <!-- ------------- -->
+        <tr>
+            <td>ai_filter_config</td>
+            <td>Analog current inputs filter and data rate configuration</td>
+            <td>
+                <code>R</code>
+                <code>WF</code>
+                <code>CR</code>
+            </td>
+            <td>0</td>
+            <td>
+                Filter configuration register (FILTCON<i>x</i>) value used for current inputs.<br/>
+                Refer to the AD4112 datasheet for details.<br/>
+                Default: 1294 (sinc5 + sinc1 filter, 100.2 SPS data rate)
+            </td>
+        </tr>
+        <!-- ------------- -->
+        <tr>
+            <td>at_filter_config</td>
+            <td>Temperature probe inputs filter and data rate configuration</td>
+            <td>
+                <code>R</code>
+                <code>WF</code>
+                <code>CR</code>
+            </td>
+            <td>0</td>
+            <td>
+                Filter configuration register (FILTCON<i>x</i>) value used for Pt100/Pt1000 inputs.<br/>
+                Refer to the AD4112 datasheet for details.<br/>
+                Default: 1294 (sinc5 + sinc1 filter, 100.2 SPS data rate)
+            </td>
+        </tr>
+        <!-- ------------- -->
+        <tr>
+            <td>at_interval_config</td>
+            <td>Time interval between AT1/AT2 sampling configuraiton</td>
+            <td>
+                <code>R</code>
+                <code>WF</code>
+                <code>CR</code>
+            </td>
+            <td><i>V</i></td>
+            <td>Value in seconds. Default: 3</td>
+        </tr>
+        <!-- ------------- -->
+        <tr>
             <td rowspan=2>at<i>N</i>_pt1000_config</td>
             <td rowspan=2>Temperature probe <i>N</i> type configuration</td>
             <td rowspan=2>
@@ -2352,6 +2406,38 @@ FW ver. &ge; 3.26
         <tr>
             <td>1</td>
             <td>Pt1000</td>
+        </tr>
+        <!-- ------------- -->
+        <tr>
+            <td rowspan=2>usb_stream_config</td>
+            <td rowspan=2>USB data stream configuration. Refer to the user guide for details</td>
+            <td rowspan=2>
+                <code>R</code>
+                <code>WF</code>
+                <code>CR</code>
+            </td>
+            <td>0</td>
+            <td>Disabled (default)</td>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>Enabled</td>
+        </tr>
+        <!-- ------------- -->
+        <tr>
+            <td rowspan=2>mode_config</td>
+            <td rowspan=2>ADC polling mode configuration. Refer to the user guide for details</td>
+            <td rowspan=2>
+                <code>R</code>
+                <code>WF</code>
+                <code>CR</code>
+            </td>
+            <td>0</td>
+            <td>Standard (default)</td>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>Fast polling: to be used <strong>only</strong> for configurations with a data rate greater than 9500</td>
         </tr>
         <!-- ------------- -->
         <tr>
