@@ -1,7 +1,7 @@
 /*
  * stratopimax
  *
- *     Copyright (C) 2023-2025 Sfera Labs S.r.l.
+ *     Copyright (C) 2023-2026 Sfera Labs S.r.l.
  *
  *     For information, visit https://www.sferalabs.cc
  *
@@ -1710,7 +1710,7 @@ static struct DeviceAttrBean devAttrBeansLed[] = {
             {
                 .attr =
                     {
-                        .name = "red_user_priority",
+                        .name = "red_user_priority_config",
                         .mode = 0660,
                     },
                 .show = devAttrI2c_show,
@@ -1857,7 +1857,7 @@ static struct DeviceAttrBean devAttrBeansLed[] = {
             {
                 .attr =
                     {
-                        .name = "green_user_priority",
+                        .name = "green_user_priority_config",
                         .mode = 0660,
                     },
                 .show = devAttrI2c_show,
@@ -5213,6 +5213,6 @@ static struct platform_driver stratopimax_driver = {
 MODULE_LICENSE("GPL");
 MODULE_AUTHOR("Sfera Labs - http://sferalabs.cc");
 MODULE_DESCRIPTION("Strato Pi Max driver module");
-MODULE_VERSION("1.28");
+MODULE_VERSION("1.29");
 
 module_platform_driver(stratopimax_driver);

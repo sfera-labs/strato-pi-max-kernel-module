@@ -653,7 +653,7 @@ All properties' attributes are summarized here:
         </tr>
         <!-- ------------- -->
         <tr>
-            <td rowspan=2>red_user_priority<br/>(FW ver. &ge; 3.42)</td>
+            <td rowspan=2>red_user_priority_config<br/>(FW ver. &ge; 3.42)</td>
             <td rowspan=2>User commands priority configuration for red LED</td>
             <td rowspan=2>
                 <code>CR</code>
@@ -761,7 +761,7 @@ won't be shown until this is reset to 0 (default)</td>
         </tr>
         <!-- ------------- -->
         <tr>
-            <td rowspan=2>green_user_priority<br/>(FW ver. &ge; 3.42)</td>
+            <td rowspan=2>green_user_priority_config<br/>(FW ver. &ge; 3.42)</td>
             <td rowspan=2>User commands priority configuration for green LED</td>
             <td rowspan=2>
                 <code>CR</code>
