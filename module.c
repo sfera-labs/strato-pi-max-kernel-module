@@ -4579,7 +4579,8 @@ static ssize_t devAttrI2c_store(struct device *dev,
   }
 
   res = _i2c_write_segment(reg, specs->len, specs->mask, specs->shift,
-                           (uint32_t)res, attr->show != NULL);
+                           (uint32_t)res,
+                           attr->store != NULL && attr->show != NULL);
 
   if (res < 0) {
     return res;
