@@ -4460,7 +4460,8 @@ static int64_t _i2c_read_segment(uint8_t reg, uint8_t len, uint32_t mask,
 static int64_t _i2c_write_segment(uint8_t reg, uint8_t len, uint32_t mask,
                                   uint8_t shift, uint32_t val, bool readBack) {
   int64_t res = 0;
-  uint8_t i, j;
+  uint8_t i, j, b;
+  bool ok;
 
   if (!_i2c_lock()) {
     return -EBUSY;
@@ -4483,12 +4484,23 @@ static int64_t _i2c_write_segment(uint8_t reg, uint8_t len, uint32_t mask,
             if (mask != 0) {
               res &= mask;
             }
-            if (res == val) {
+            ok = true;
+            for (b = 0; b < len; b++) {
+              if (((val >> (b * 8)) & 0xff) != ((res >> (b * 8)) & 0xff)) {
+                ok = false;
+                break;
+              }
+            }
+            if (ok) {
               res = len;
               break;
             }
             res = -EPERM;
           }
+#if DEBUG_I2C
+            pr_notice(LOG_TAG "i2c write error: reg=%d len=%d w=0x%x r=0x%x\n",
+                      reg, len, val, (uint32_t)res);
+#endif
         }
         if (res >= 0) {
           break;
@@ -5214,6 +5226,6 @@ static struct platform_driver stratopimax_driver = {
 MODULE_LICENSE("GPL");
 MODULE_AUTHOR("Sfera Labs - http://sferalabs.cc");
 MODULE_DESCRIPTION("Strato Pi Max driver module");
-MODULE_VERSION("1.29");
+MODULE_VERSION("1.30");
 
 module_platform_driver(stratopimax_driver);
