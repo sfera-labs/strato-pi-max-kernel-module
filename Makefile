@@ -1,16 +1,6 @@
-obj-m += stratopimax.o
+MODULE_MAIN_OBJ := module.o
+COMMON_MODULES := utils gpio atecc
+MODULE_EXTRA_OBJS :=
+UDEV_RULES := 99-stratopimax.rules
 
-stratopimax-objs := module.o
-stratopimax-objs += commons/commons.o
-stratopimax-objs += gpio/gpio.o
-stratopimax-objs += atecc/atecc.o
-
-all:
-	make -C /lib/modules/$(shell uname -r)/build/ M=$(PWD) modules
-
-clean:
-	make -C /lib/modules/$(shell uname -r)/build/ M=$(PWD) clean
-
-install:
-	sudo install -m 644 -c stratopimax.ko /lib/modules/$(shell uname -r)
-	sudo depmod
+include commons/scripts/kmod-common.mk
