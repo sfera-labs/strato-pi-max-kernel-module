@@ -20,9 +20,9 @@
 #include <linux/of.h>
 #include <linux/version.h>
 
-#include "atecc/atecc.h"
-#include "commons/commons.h"
-#include "gpio/gpio.h"
+#include "commons/atecc/atecc.h"
+#include "commons/gpio/gpio.h"
+#include "commons/utils/utils.h"
 #include "rp2_i2c.h"
 
 #define DEBUG_I2C 0
