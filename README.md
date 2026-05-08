@@ -4,6 +4,9 @@ Raspberry Pi OS (Debian) Kernel module for [Strato Pi Max](https://www.sferalabs
 
 It gives access to all Strato Pi Max functionalities and configuration options via sysfs virtual files.
 
+[![Build tests [stable oldstable]](https://github.com/sfera-labs/strato-pi-max-kernel-module/actions/workflows/build-apt.yml/badge.svg)](https://github.com/sfera-labs/strato-pi-max-kernel-module/actions/workflows/build-apt.yml)
+[![Build tests [firmware]](https://github.com/sfera-labs/strato-pi-max-kernel-module/actions/workflows/build-fw.yml/badge.svg)](https://github.com/sfera-labs/strato-pi-max-kernel-module/actions/workflows/build-fw.yml)
+
 ## Compile and Install
 
 *For installation on Ubuntu [read this](https://github.com/sfera-labs/knowledge-base/blob/main/raspberrypi/kernel-modules-ubuntu.md).*
