@@ -1252,13 +1252,13 @@ won't be shown until this is reset to 0 (default)</td>
     <tbody>
         <tr>
             <td rowspan=2>s<i>N</i>_enabled</td>
-            <td rowspan=2>Slot <i>N</i> enabling</td>
+            <td rowspan=2>Slot <i>N</i> power control</td>
             <td rowspan=2>
                 <code>R</code>
                 <code>W</code>
             </td>
             <td>0</td>
-            <td>Disabled</td>
+            <td>Disabled (power off)</td>
         </tr>
         <tr>
             <td>1</td>
@@ -1267,14 +1267,14 @@ won't be shown until this is reset to 0 (default)</td>
         <!-- ------------- -->
         <tr>
             <td rowspan=2>s<i>N</i>_enabled_config</td>
-            <td rowspan=2>Slot <i>N</i> enabling configuration</td>
+            <td rowspan=2>Slot <i>N</i> power control configuration</td>
             <td rowspan=2>
                 <code>R</code>
                 <code>W</code>
                 <code>C</code>
             </td>
             <td>0</td>
-            <td>Disabled</td>
+            <td>Disabled (power off)</td>
         </tr>
         <tr>
             <td>1</td>
