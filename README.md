@@ -7,7 +7,7 @@ It gives access to all Strato Pi Max functionalities and configuration options v
 [![Build tests [stable oldstable]](https://github.com/sfera-labs/strato-pi-max-kernel-module/actions/workflows/build-apt.yml/badge.svg)](https://github.com/sfera-labs/strato-pi-max-kernel-module/actions/workflows/build-apt.yml)
 [![Build tests [firmware]](https://github.com/sfera-labs/strato-pi-max-kernel-module/actions/workflows/build-fw.yml/badge.svg)](https://github.com/sfera-labs/strato-pi-max-kernel-module/actions/workflows/build-fw.yml)
 
-## Compile and Install
+## Installation
 
 *For installation on Ubuntu [read this](https://github.com/sfera-labs/knowledge-base/blob/main/raspberrypi/kernel-modules-ubuntu.md).*
 
