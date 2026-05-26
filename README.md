@@ -52,7 +52,11 @@ Register, build and install with DKMS:
     sudo dkms build -m stratopimax -v $(cat VERSION)
     sudo dkms install -m stratopimax -v $(cat VERSION)
 
-### Advanced installation mode: manual make install (running kernel only)
+### Alternative installation mode: manual install for running kernel only
+
+<details>
+
+<summary>Show</summary>
 
 Use this only if you specifically want to install for the current running kernel version only.
 
@@ -71,6 +75,8 @@ Then compile and install:
     sudo make install
 
 Manual mode does not provide automatic rebuild on kernel upgrades.
+
+</details>
 
 ### Enable overlay at boot
 
