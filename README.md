@@ -104,7 +104,7 @@ Reboot:
 
 After installation, you will find all the available devices under the `/sys/class/stratopimax/` path.
 
-The following paragraphs list all the devices (directories) and properties (files) coresponding to Strato Pi Max's and its expansion boards' features. 
+The following paragraphs list all the devices (directories) and properties (files) corresponding to Strato Pi Max and its expansion boards' features.
 
 You can write to and/or read these files to configure, monitor and control your Strato Pi Max. The kernel module will take care of performing the corresponding GPIO or I2C operations.
 
@@ -326,7 +326,7 @@ All properties' attributes are summarized here:
         <!-- ------------- -->
         <tr>
             <td rowspan=2>pcie_switch_config</td>
-            <td rowspan=2>PCIE on/off toggle configuration on power cycle</td>
+            <td rowspan=2>PCIe on/off toggle configuration on power cycle</td>
             <td rowspan=2>
                 <code>R</code>
                 <code>W</code>
@@ -445,7 +445,7 @@ All properties' attributes are summarized here:
         <!-- ------------- -->
         <tr>
             <td rowspan=3>pcie_switch_config</td>
-            <td rowspan=3>PCIE on/off toggle configuration on watchdog reset</td>
+            <td rowspan=3>PCIe on/off toggle configuration on watchdog reset</td>
             <td rowspan=3>
                 <code>R</code>
                 <code>W</code>
@@ -559,7 +559,7 @@ All properties' attributes are summarized here:
         </tr>
         <tr>
             <td><i>T_ON</i> <i>T_OFF</i></td>
-            <td>Continuos beep <i>T_ON</i> milliseconds on, <i>T_OFF</i> milliseconds off</td>
+            <td>Continuous beep <i>T_ON</i> milliseconds on, <i>T_OFF</i> milliseconds off</td>
         </tr>
         <tr>
             <td><i>T_ON</i> <i>T_OFF</i> <i>REPS</i></td>
@@ -609,7 +609,7 @@ All properties' attributes are summarized here:
         </tr>
         <tr>
             <td><i>T_ON</i> <i>T_OFF</i></td>
-            <td>Continuos blink <i>T_ON</i> milliseconds on, <i>T_OFF</i> milliseconds off</td>
+            <td>Continuous blink <i>T_ON</i> milliseconds on, <i>T_OFF</i> milliseconds off</td>
         </tr>
         <tr>
             <td><i>T_ON</i> <i>T_OFF</i> <i>REPS</i></td>
@@ -717,7 +717,7 @@ won't be shown until this is reset to 0 (default)</td>
         </tr>
         <tr>
             <td><i>T_ON</i> <i>T_OFF</i></td>
-            <td>Continuos blink <i>T_ON</i> milliseconds on, <i>T_OFF</i> milliseconds off</td>
+            <td>Continuous blink <i>T_ON</i> milliseconds on, <i>T_OFF</i> milliseconds off</td>
         </tr>
         <tr>
             <td><i>T_ON</i> <i>T_OFF</i> <i>REPS</i></td>
@@ -1030,7 +1030,7 @@ won't be shown until this is reset to 0 (default)</td>
     </tbody>
 </table>
 
-#### PCIE interface - `/sys/class/stratopimax/pcie/`
+#### PCIe interface - `/sys/class/stratopimax/pcie/`
 
 <table>
     <thead>
@@ -1046,7 +1046,7 @@ won't be shown until this is reset to 0 (default)</td>
     <tbody>
         <tr>
             <td rowspan=2>enabled</td>
-            <td rowspan=2>PCIE enabling</td>
+            <td rowspan=2>PCIe enabling</td>
             <td rowspan=2>
                 <code>R</code>
                 <code>W</code>
@@ -1061,7 +1061,7 @@ won't be shown until this is reset to 0 (default)</td>
         <!-- ------------- -->
         <tr>
             <td rowspan=2>enabled_config</td>
-            <td rowspan=2>PCIE enabling configuration</td>
+            <td rowspan=2>PCIe enabling configuration</td>
             <td rowspan=2>
                 <code>R</code>
                 <code>W</code>
@@ -2105,7 +2105,7 @@ FW ver. &ge; 3.37
                 <code>W</code>
             </td>
             <td>0</td>
-            <td>clear</td>
+            <td>Clear</td>
         </tr>
         <!-- ------------- -->
         <tr>
@@ -2127,7 +2127,7 @@ FW ver. &ge; 3.37
         </tr>
         <!-- ------------- -->
         <tr>
-            <td rowspan=2>outputs_ol</td>
+            <td rowspan=2>outputs_ov</td>
             <td rowspan=2>Outputs over-voltage combined</td>
             <td>
                 <code>R</code>
@@ -2140,7 +2140,7 @@ FW ver. &ge; 3.37
                 <code>W</code>
             </td>
             <td>0</td>
-            <td>clear</td>
+            <td>Clear</td>
         </tr>
         <!-- ------------- -->
         <tr>
@@ -2175,7 +2175,7 @@ FW ver. &ge; 3.37
                 <code>W</code>
             </td>
             <td>0</td>
-            <td>clear</td>
+            <td>Clear</td>
         </tr>
         <!-- ------------- -->
         <tr>
@@ -2416,7 +2416,7 @@ FW ver. &ge; 3.44
         <!-- ------------- -->
         <tr>
             <td>at_interval_config</td>
-            <td>Time interval between AT1/AT2 sampling configuraiton</td>
+            <td>Time interval between AT1/AT2 sampling configuration</td>
             <td>
                 <code>R</code>
                 <code>WF</code>
@@ -2600,7 +2600,7 @@ FW ver. &ge; 3.21
     <tbody>
         <tr>
             <td rowspan=2>ao<i>N</i>_mode_config</td>
-            <td rowspan=2>Analog ouput <i>N</i> mode configuration</td>
+            <td rowspan=2>Analog output <i>N</i> mode configuration</td>
             <td rowspan=2>
                 <code>R</code>
                 <code>WF</code>
@@ -2633,7 +2633,7 @@ FW ver. &ge; 3.21
         </tr>
         <!-- ------------- -->
         <tr>
-            <td>ao<i>N_errs</td>
+            <td>ao<i>N</i>_errs</td>
             <td>Analog output <i>N</i> error flags</td>
             <td>
                 <code>R</code>
