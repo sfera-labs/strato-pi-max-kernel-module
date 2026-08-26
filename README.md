@@ -2845,7 +2845,7 @@ FW ver. &ge; 3.40
         </tr>
         <!-- ------------- -->
         <tr>
-            <td rowspan=2>gpio6</td>
+            <td rowspan=2>gpio6<br/>(FW ver. &ge; 3.47)</td>
             <td rowspan=2>GPIO 6 input state</td>
             <td rowspan=2>
                 <code>R</code>
