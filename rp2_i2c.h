@@ -1,7 +1,8 @@
+// SPDX-License-Identifier: GPL-2.0-only
 /*
   rp2_i2c.h
 
-    Copyright (C) 2023-2025 Sfera Labs S.r.l. - All rights reserved.
+    Copyright (C) 2023-2026 Sfera Labs S.r.l. - All rights reserved.
 
     For information, see:
     http://www.sferalabs.cc/
