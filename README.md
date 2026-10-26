@@ -1,6 +1,6 @@
 # Strato Pi Max driver kernel module
 
-Raspberry Pi OS (Debian) Kernel module for [Strato Pi Max](https://www.sferalabs.cc/strato-pi-max/).
+Debian-based Linux kernel module for [Strato Pi Max](https://www.sferalabs.cc/strato-pi-max/).
 
 It gives access to all Strato Pi Max functionalities and configuration options via sysfs virtual files.
 
@@ -9,96 +9,40 @@ It gives access to all Strato Pi Max functionalities and configuration options v
 
 ## Installation
 
-*For installation on Ubuntu [read this](https://github.com/sfera-labs/knowledge-base/blob/main/raspberrypi/kernel-modules-ubuntu.md).*
+For source-based installation, see this [installation guide](https://github.com/sfera-labs/sl-kmod-commons/blob/main/INSTALLATION.md).
 
-Make sure your system is updated:
+If the Sfera Labs APT repository is not configured yet, [add the repository and install its keyring](https://github.com/sfera-labs/apt#install).
+
+Install the package:
 
     sudo apt update
-    sudo apt upgrade
+    sudo apt install stratopimax-dkms
 
-If you are using a **32-bit** OS, add to `/boot/firmware/config.txt` (`/boot/config.txt` in older versions) the following line: [[why?](https://github.com/raspberrypi/firmware/issues/1795)]
+The package registers the module with DKMS, which builds it for kernels with matching headers and rebuilds it when new kernel headers are installed. It also installs the device-tree overlays and udev rules.
 
-    arm_64bit=0
+Select the overlay for your Compute Module by adding this to `/boot/firmware/config.txt`:
 
-Reboot:
+    [cm4]
+    dtoverlay=stratopimax-cm4
 
-    sudo reboot
+    [cm5]
+    dtoverlay=stratopimax-cm5
 
-After reboot, install required tools:
+    [all]
 
-    sudo apt install git device-tree-compiler dkms linux-headers-$(uname -r)
+If `config.txt` already contains `dtoverlay=stratopimax`, remove that line.
 
-Clone this repo:
+For Strato Pi Max XL with CM5, add `dtoverlay=sdio-pi5` under the `[cm5]` section to enable the secondary SD interface.
 
-    git clone --depth 1 https://github.com/sfera-labs/strato-pi-max-kernel-module.git
-    
-    cd strato-pi-max-kernel-module
+On legacy 32-bit Raspberry Pi OS versions that support this option, `arm_64bit=0` may be used when required by the platform. Add it to the same `config.txt` file. [[why?](https://github.com/raspberrypi/firmware/issues/1795)]
 
-### Recommended installation mode: DKMS
+The install process creates the `stratopimax` group and places `99-stratopimax.rules`, which sets it as the owner group for sysfs entries. To access the sysfs interface without superuser privileges, add your user to the group, e.g. for user "pi":
 
-This is the recommended mode. It automatically rebuilds and reinstalls the module when new kernel versions are installed.
-
-Set the CM target platform (4 or 5) by writing `stratopimax-cm4` or `stratopimax-cm5` in a file named `DTS_NAME`:
-
-    echo stratopimax-cm4 > DTS_NAME
-
-or
-
-    echo stratopimax-cm5 > DTS_NAME
-
-Register, build and install with DKMS:
-
-    sudo dkms add .
-    sudo dkms build -m $(cat MODULE_NAME) -v $(cat VERSION)
-    sudo dkms install -m $(cat MODULE_NAME) -v $(cat VERSION)
-
-### Alternative installation mode: manual install for running kernel only
-
-<details>
-
-<summary>Show</summary>
-
-Use this only if you specifically want to install for the current running kernel version only.
-
-Set the CM target platform (4 or 5) by writing `stratopimax-cm4` or `stratopimax-cm5` in a file named `DTS_NAME`:
-
-    echo stratopimax-cm4 > DTS_NAME
-
-or
-
-    echo stratopimax-cm5 > DTS_NAME
-
-Then compile and install:
-
-    make clean
-    make
-    sudo make install
-
-Manual mode does not provide automatic rebuild on kernel upgrades.
-
-</details>
-
-### Enable overlay at boot
-
-Add to `/boot/firmware/config.txt` the following line:
-
-    dtoverlay=stratopimax
-
-If using Strato Pi Max **XL** with **CM5** and need access to the secondary SD, add the following line to `config.txt` too:
-
-    dtoverlay=sdio-pi5
-
-### Optional non-root access to `/sys/class/stratopimax`
-
-The install process places `99-stratopimax.rules`, which sets owner group `stratopimax` for sysfs entries. To access the sysfs interface without superuser privileges, create the group and add your user, e.g. for user "pi":
-
-    sudo groupadd stratopimax
     sudo usermod -a -G stratopimax pi
 
-Reboot:
+Finally, reboot to apply the configuration:
 
     sudo reboot
-
 
 ## Usage
 
