@@ -5112,6 +5112,13 @@ static void cleanup(void) {
 
     class_destroy(_pDeviceClass);
   }
+
+  for (ei = 0; ei < 4; ei++) {
+    _expbs[ei].data = NULL;
+  }
+  for (di = 0; devices[di].name != NULL; di++) {
+    devices[di].device = NULL;
+  }
 }
 
 static int stratopimax_init(struct platform_device *pdev) {
@@ -5119,6 +5126,10 @@ static int stratopimax_init(struct platform_device *pdev) {
   int i, di, ti, ei;
 
   pr_info(LOG_TAG "init\n");
+
+  for (ei = 0; ei < 4; ei++) {
+    _expbs[ei].data = NULL;
+  }
 
 #if LINUX_VERSION_CODE >= KERNEL_VERSION(6, 5, 0)
   _pDeviceClass = class_create("stratopimax");
